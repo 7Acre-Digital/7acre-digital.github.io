@@ -1,11 +1,11 @@
 {
-  "name": "Groundwork Digital",
+  "name": "7Acre Digital",
   "palette": {
-    "moss": "#5B8C3A",
-    "forest": "#1E4D32",
-    "clay": "#B5794A",
-    "ink": "#16241C",
-    "sand": "#F4EFE6"
+    "moss": "#4E7D3A",
+    "forest": "#23452F",
+    "clay": "#A8592F",
+    "ink": "#1B2420",
+    "sand": "#F5EFE4"
   },
   "logo_for_light_bg": "assets/logo.svg",
   "logo_for_dark_bg": "assets/logo-on-dark.svg",

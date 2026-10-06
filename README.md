@@ -1,6 +1,6 @@
-# Groundwork Digital
+# 7Acre Digital
 
-Static one-page site for Groundwork Digital (Dallas-Fort Worth, TX), served by GitHub Pages from `main` / root.
+Static one-page site for 7Acre Digital (Dallas-Fort Worth, TX), served by GitHub Pages from `main` / root.
 
 ## Contact email
 Edit `assets/config.js` line 2 (`const CONTACT_EMAIL = "..."`). It fills every email link and the quote form.

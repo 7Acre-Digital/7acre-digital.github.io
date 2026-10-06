@@ -19,7 +19,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
 b = json.load(open("brand.json"))
 cur_file = "assets/.brand-current"
-old = open(cur_file).read().strip() if os.path.exists(cur_file) else "Groundwork Digital"
+old = open(cur_file).read().strip() if os.path.exists(cur_file) else b["name"].strip()
 new = b["name"].strip()
 
 def esc(t): return t.replace("&", "&amp;")

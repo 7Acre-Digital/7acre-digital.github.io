@@ -1,10 +1,10 @@
 /* ===== BRAND PALETTE: the only place colors are defined. To rebrand, change these 5 hex values. ===== */
 :root{
-  --moss:#5B8C3A;   /* primary accent */
-  --forest:#1E4D32; /* primary dark (buttons, headings) */
-  --clay:#B5794A;   /* secondary accent */
-  --ink:#16241C;    /* text + footer background */
-  --sand:#F4EFE6;   /* page background */
+  --moss:#4E7D3A;   /* primary accent */
+  --forest:#23452F; /* primary dark (buttons, headings) */
+  --clay:#A8592F;   /* secondary accent */
+  --ink:#1B2420;    /* text + footer background */
+  --sand:#F5EFE4;   /* page background */
   /* derived (no need to edit) */
   --white:#fff;--line:color-mix(in srgb,var(--sand) 92%,var(--ink));--muted:color-mix(in srgb,var(--ink) 75%,var(--sand));
   --radius:14px;--max:1100px}
