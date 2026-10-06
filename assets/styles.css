@@ -107,4 +107,5 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--fairway);border-
   .grid-2,.grid-3,.grid-4,.form-row{grid-template-columns:1fr}
   section{padding:56px 0}.hero{padding:56px 0}
   .table-wrap{overflow-x:auto}
+  th,td{padding:9px 8px;font-size:.84rem}td.p{white-space:normal}td:first-child,th:first-child{padding-left:12px}
 }
