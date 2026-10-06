@@ -1,0 +1,15 @@
+{
+  "name": "Groundwork Digital",
+  "palette": {
+    "moss": "#5B8C3A",
+    "forest": "#1E4D32",
+    "clay": "#B5794A",
+    "ink": "#16241C",
+    "sand": "#F4EFE6"
+  },
+  "logo_for_light_bg": "assets/logo.svg",
+  "logo_for_dark_bg": "assets/logo-on-dark.svg",
+  "favicon_svg": "assets/favicon.svg",
+  "favicon_png_32": "assets/favicon-32.png",
+  "icon_png_512": "assets/icon-512.png"
+}
