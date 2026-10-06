@@ -3,7 +3,7 @@
 Static one-page site for 7Acre Digital (Dallas-Fort Worth, TX), served by GitHub Pages from `main` / root.
 
 ## Contact email
-Edit `assets/config.js` line 2 (`const CONTACT_EMAIL = "..."`). It fills every email link and the quote form.
+Currently dennis@7acredigital.com. To change it, edit `assets/config.js` line 2 (`const CONTACT_EMAIL = "..."`), which fills every email link and the quote form, and also update the two static `mailto:` fallbacks in `index.html` (contact section + footer) so the address stays visible without JavaScript.
 
 ## Rebrand (name, logo, palette)
 1. Edit `brand.json`: `name`, the `palette` hex values (keys match the `--<key>` CSS variables), `roles` (theme color + og-image background), and the logo/favicon file paths.
