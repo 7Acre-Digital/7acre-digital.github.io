@@ -1,11 +1,17 @@
 {
   "name": "7Acre Digital",
+  "logo_name": "Estate Italic (batch 3 #3)",
   "palette": {
-    "moss": "#4E7D3A",
-    "forest": "#23452F",
-    "clay": "#A8592F",
-    "ink": "#1B2420",
-    "sand": "#F5EFE4"
+    "green": "#1F4532",
+    "fairway": "#285640",
+    "gold": "#C9A24A",
+    "gold-light": "#D8B566",
+    "ink": "#0F1F18",
+    "cream": "#F4EEDF"
+  },
+  "roles": {
+    "theme_color": "green",
+    "og_background": "cream"
   },
   "logo_for_light_bg": "assets/logo.svg",
   "logo_for_dark_bg": "assets/logo-on-dark.svg",
