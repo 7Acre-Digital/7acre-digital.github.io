@@ -204,7 +204,7 @@
     <h2>Privacy Policy</h2>
     <p class="small">Effective October 6, 2026.</p>
     <ul>
-      <li><strong>What I collect:</strong> only what you choose to send through the quote request form or by email: typically your name, business name, email, phone number, and message.</li>
+      <li><strong>What I collect:</strong> only what you choose to send through the quote request form or by email: typically your name, business name, email, phone number, and message. Quote requests are delivered to my inbox by a form-delivery service (FormSubmit).</li>
       <li><strong>How it's used:</strong> only to respond to your inquiry and, if you become a client, to provide the services you signed up for. I don't sell, rent, or share your information for marketing.</li>
       <li><strong>Payments:</strong> payments are processed by Stripe. 7Acre Digital never sees or stores your full card number.</li>
       <li><strong>Cookies:</strong> this site doesn't use advertising or analytics cookies. The web host may keep standard server logs (like IP address and browser type) for security and reliability.</li>
@@ -245,6 +245,7 @@
       </select>
       <label for="message">Tell me about your business</label>
       <textarea id="message" name="message" rows="4" placeholder="Services you offer, the area you serve, whether you have a website or domain today..."></textarea>
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <p style="margin-top:18px"><button class="btn" type="submit">Send quote request</button></p>
       <p id="form-note" role="status"></p>
       <p class="small">Your details are used only to respond to your request. See the <a href="#privacy">Privacy Policy</a>.</p>
@@ -278,6 +279,6 @@
 </footer>
 
 <script src="assets/config.js"></script>
-<script src="assets/site.js"></script>
+<script src="assets/site.js?v=2"></script>
 </body>
 </html>
