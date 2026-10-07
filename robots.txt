@@ -1,0 +1,2 @@
+User-agent: *
+Disallow: /tracker-th6c3woq/
