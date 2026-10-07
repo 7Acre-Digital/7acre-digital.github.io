@@ -42,7 +42,7 @@
       };
       if (btn) { btn.disabled = true; btn.textContent = "Sending..."; }
       if (note) note.textContent = "";
-      fetch("https://formsubmit.co/ajax/" + email, {
+      fetch("https://formsubmit.co/ajax/6d80de3864eddea1491cde210a8dc243", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify(payload)
