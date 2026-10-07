@@ -1,6 +1,6 @@
 # 7Acre Digital
 
-Static one-page site for 7Acre Digital (Dallas-Fort Worth, TX), served by GitHub Pages from `main` / root.
+Static one-page site for 7Acre Digital (based in Dallas-Fort Worth, TX · serving clients nationwide), served by GitHub Pages from `main` / root.
 
 ## Contact email
 Currently dennis@7acredigital.com. To change it, edit `assets/config.js` line 2 (`const CONTACT_EMAIL = "..."`), which fills every email link and the quote form, and also update the two static `mailto:` fallbacks in `index.html` (contact section + footer) so the address stays visible without JavaScript.
