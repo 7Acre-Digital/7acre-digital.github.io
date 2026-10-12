@@ -11,6 +11,7 @@ Source of truth for seven//acre (7Acre Digital): the marketing site, the brand f
 | [`site/`](site/) | The live seven//acre homepage, plus the internal CRM app (`crm/`) and call tracker (`assets/` holds the tracker's logo files) | https://7acredigital.com (GitHub Pages, deployed by [`.github/workflows/pages.yml`](.github/workflows/pages.yml)) |
 | [`brand/`](brand/) | Logo files from Figma (icon, responsive wordmark), colours, type | — |
 | [`templates/`](templates/) | Client site templates, one folder each | `<business>.7acredigital.com` |
+| [`workers/`](workers/) | Cloudflare Workers, e.g. the sign-up form backend (`api.7acredigital.com`) | Deployed with `npx wrangler deploy` |
 | [`pipeline/`](pipeline/) | Scripts: find leads, build sites from a list or from Fibery | Run locally with Node 20+ |
 
 ## How a client site gets built
