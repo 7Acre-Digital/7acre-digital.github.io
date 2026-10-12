@@ -11,7 +11,7 @@ seven//acre logo files, exported from Figma.
 
 ## Type
 
-**Inter** for body text ([Google Fonts](https://fonts.google.com/specimen/Inter)). The wordmark is outlined artwork, so it needs no font.
+**Inter Tight** for body text ([Google Fonts](https://fonts.google.com/specimen/Inter+Tight)). The wordmark is outlined artwork, so it needs no font.
 
 ## Icon: `icon/`
 
