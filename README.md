@@ -9,11 +9,10 @@ Source of truth for seven//acre (7Acre Digital): the marketing site, the brand f
 | Folder | What's in it | Where it shows up |
 |---|---|---|
 | [`site/`](site/) | The live marketing site, plus the internal CRM app (`crm/`) and call tracker | https://7acredigital.com (GitHub Pages, deployed by [`.github/workflows/pages.yml`](.github/workflows/pages.yml)) |
-| [`brand/`](brand/) | Logo files (icon, responsive wordmark), Figma exports, fonts | — |
-| [`design/`](design/) | Work in progress, e.g. the new seven//acre homepage | Not deployed |
+| [`brand/`](brand/) | Logo files from Figma (icon, responsive wordmark), colours, type | — |
+| [`design/`](design/) | The new seven//acre homepage, in progress | Not deployed |
 | [`templates/`](templates/) | Client site templates, one folder each | `<business>.7acredigital.com` |
 | [`pipeline/`](pipeline/) | Scripts: find leads, build sites from a list or from Fibery | Run locally with Node 20+ |
-| [`archive/`](archive/) | Retired tools kept for reference | — |
 
 ## How a client site gets built
 
