@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <title>Seven Acre Digital mark</title>
+  <rect width="240" height="240" fill="#F2F2F2"/>
+  <defs>
+    <clipPath id="cap" clipPathUnits="userSpaceOnUse"><rect x="-20" y="0" width="140" height="60"/></clipPath>
+  </defs>
+  <!-- 7A monogram: the bar off the apex turns the A's left leg into a 7 -->
+  <g transform="translate(46 76) scale(1.75)">
+    <g fill="none" stroke="#0E0E0E" stroke-width="12" stroke-linejoin="miter" clip-path="url(#cap)">
+      <path d="M0,70 L42,-8 L84,70 M-2,6 H42"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,605 @@
+<title>Seven Acre Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: full-bleed 8-column grid, 16px gutter and gap, dark fixed chrome on a cool off-white ground.
+   One deliberate light world (no dark theme): every colour below is set explicitly. */
+:root{
+  color-scheme:light;
+  --nd-100:#ffffff;--nd-200:#f2f2f4;--nd-300:#ececec;--nd-400:#eaeaee;--nd-500:#e2e2e7;
+  --nd-600:#aaaaaa;--nd-650:#a4aaaa;--nd-700:#737d7d;--nd-800:#494d4d;--nd-900:#2d2f2f;
+  --nd-1000:#1e1e1e;--nd-1100:#121212;
+  --display:"Inter Tight","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --g:16px;
+  --t-hero:clamp(3.25rem,10.6vw,11.5rem);
+  --t-xl:clamp(2rem,3.4vw,3rem);
+  --t-l:clamp(1.5rem,2.5vw,2.25rem);
+  --t-m:1.8rem;
+  --ease:cubic-bezier(.215,.61,.355,1);
+  --ease-io:cubic-bezier(.87,0,.13,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--nd-200);color:var(--nd-900);font-family:var(--display);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,p{margin:0}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:1px solid var(--nd-1000);outline-offset:3px}
+.mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.025em;font-weight:400}
+.m8{font-size:9px;line-height:1.4}.m10{font-size:10px;line-height:1.5}.m11{font-size:11px;line-height:1.5}.m12{font-size:12px;line-height:1.5}
+.c7{color:var(--nd-700)}.c8{color:var(--nd-800)}.c6{color:var(--nd-600)}
+.wrap{padding-inline:var(--g)}
+.g8{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:var(--g)}
+.bleed{margin-inline:calc(var(--g) * -1);padding-inline:var(--g)}
+.hl{background:var(--nd-1000);color:var(--nd-400);padding:0 .1em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+
+/* ---------- fixed chrome ---------- */
+.sitebar{position:fixed;z-index:50;left:var(--g);right:var(--g);top:calc(env(safe-area-inset-top,0px) + var(--g));height:28px;border-radius:4px;background:var(--nd-1000);display:flex;align-items:center;padding:0 var(--g);pointer-events:none}
+.sitebar>div{flex:1;display:flex;gap:8px;align-items:center;white-space:nowrap;min-width:0}
+.sitebar>div:nth-child(2){justify-content:center;gap:16px}
+.sitebar>div:nth-child(3){justify-content:flex-end}
+.sitebar span{color:var(--nd-300)}.sitebar span.k{color:var(--nd-700)}
+.book{position:fixed;z-index:40;right:var(--g);top:calc(env(safe-area-inset-top,0px) + 56px);display:flex;align-items:center;gap:14px;background:var(--nd-1000);border-radius:4px;padding:4px 4px 4px 10px;color:var(--nd-300);transition:background .3s var(--ease)}
+.book:hover{background:var(--nd-1100)}
+.book i{display:grid;place-items:center;width:32px;height:32px;border-radius:2px;background:var(--nd-800);transition:background .3s var(--ease)}
+.book:hover i{background:var(--nd-700)}
+.corner{position:fixed;z-index:50;left:var(--g);right:var(--g);bottom:calc(env(safe-area-inset-bottom,0px) + 12px);display:flex;justify-content:space-between;align-items:flex-end;mix-blend-mode:difference;pointer-events:none;color:var(--nd-300)}
+.corner a,.corner button{pointer-events:auto}
+.corner svg{display:block;width:48px;height:auto}
+.menu-btn{font-weight:500;font-size:1.5rem;line-height:1;letter-spacing:-.02em;text-transform:uppercase;color:var(--nd-300);overflow:hidden;height:1.5rem}
+.menu-btn span{display:block;transition:transform .5s var(--ease)}
+.menu-btn:hover span{transform:translateY(-100%)}
+.menu-btn span::after{content:attr(data-alt);display:block}
+
+/* ---------- menu drawer ---------- */
+.menu{position:fixed;z-index:60;right:var(--g);bottom:var(--g);width:min(25rem,calc(100% - 2 * var(--g)));background:var(--nd-1100);border-radius:4px;padding:var(--g);color:var(--nd-300);display:flex;flex-direction:column;gap:56px;
+  clip-path:inset(100% 0 0 0 round 4px);visibility:hidden;transition:clip-path .7s var(--ease-io),visibility 0s linear .7s}
+.menu.open{clip-path:inset(0 0 0 0 round 4px);visibility:visible;transition:clip-path .7s var(--ease-io),visibility 0s}
+.menu-top{display:flex;justify-content:space-between;align-items:flex-start}
+.menu-top{align-items:flex-end}
+.menu-top .icon{width:48px;height:auto;display:block}
+.menu-top .wm{width:min(11rem,45%);height:auto;display:block;fill:var(--nd-300)}
+.menu-top .wm .sl{fill:var(--nd-700)}
+.menu ol{list-style:none;margin:0;padding:0}
+.menu li a{display:flex;align-items:baseline;gap:14px;padding:7px 0;border-top:1px solid var(--nd-900)}
+.menu li:last-child a{border-bottom:1px solid var(--nd-900)}
+.menu li a b{font-weight:500;font-size:var(--t-m);line-height:1;letter-spacing:-.025em;text-transform:uppercase;color:var(--nd-700);transition:color .25s var(--ease)}
+.menu li a:hover b,.menu li a:focus-visible b{color:var(--nd-300)}
+.menu-info{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px var(--g);border-top:1px solid var(--nd-900);padding-top:12px}
+.menu-info span{display:block}
+.menu-close{width:28px;height:28px;display:grid;place-items:center;color:var(--nd-300);align-self:flex-end}
+
+/* ---------- hero ---------- */
+.hero{padding-top:calc(env(safe-area-inset-top,0px) + 120px);padding-bottom:128px;display:flex;flex-direction:column;gap:40px}
+.meta-row>div span{display:block}
+.meta-row>div:last-child{text-align:right}
+.hero h1{font-size:var(--t-hero);font-weight:700;line-height:.82;letter-spacing:-.055em;text-transform:uppercase;color:var(--nd-1000);margin-left:-.04em}
+.hero h1 .line{display:block;overflow:hidden;padding-bottom:.04em}
+.hero h1 .line>span{display:block;animation:rise 1.05s var(--ease) both}
+.hero h1 .line:nth-child(2)>span{animation-delay:.08s;color:var(--nd-650)}
+@keyframes rise{from{transform:translateY(102%)}to{transform:none}}
+.lotwrap{grid-column:1 / span 5;position:relative;aspect-ratio:16/10;max-width:100%;border-radius:2px;overflow:hidden;background:var(--nd-400)}
+.lotwrap canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.readout{position:absolute;inset:0;pointer-events:none;padding:12px;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr auto}
+.readout .tl{grid-column:1;grid-row:1}.readout .tr{grid-column:2;grid-row:1;text-align:right}
+.readout .bl{grid-column:1;grid-row:3;align-self:end}.readout .br{grid-column:2;grid-row:3;text-align:right;align-self:end}
+.chip{display:inline-block;background:var(--nd-1000);color:var(--nd-300);padding:3px 6px;border-radius:2px}
+.chip.lt{background:var(--nd-100);color:var(--nd-900)}
+.hero-copy{grid-column:6 / span 3;display:flex;flex-direction:column;justify-content:space-between;gap:32px;min-width:0}
+.hero-copy p.lead{font-size:var(--t-l);font-weight:500;line-height:1.02;letter-spacing:-.03em;color:var(--nd-800);text-wrap:balance}
+.facts{border-top:1px solid var(--nd-500)}
+.facts div{display:grid;grid-template-columns:7rem 1fr;gap:var(--g);padding:8px 0;border-bottom:1px solid var(--nd-500)}
+.cta{display:inline-flex;align-items:center;justify-content:space-between;gap:18px;background:var(--nd-1000);color:var(--nd-300);border-radius:4px;padding:12px 14px;transition:background .3s var(--ease)}
+.cta:hover{background:var(--nd-1100)}
+.cta svg{transition:transform .4s var(--ease)}
+.cta:hover svg{transform:translateX(4px)}
+
+/* ---------- statement ---------- */
+.statement{padding-bottom:128px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+.flow{position:sticky;top:96px;align-self:start;width:75%;margin-left:25%;aspect-ratio:4/5;max-width:100%;background:var(--nd-400);border-radius:2px}
+.flow svg{width:100%;height:100%;display:block}
+.statement-text{display:flex;flex-direction:column;gap:32px;width:75%;min-width:0}
+.statement-text p{font-size:var(--t-xl);font-weight:500;line-height:1;letter-spacing:-.025em;color:var(--nd-800)}
+
+/* ---------- services ---------- */
+.services{padding-bottom:128px}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:12px}
+.svc{border-top:1px solid var(--nd-500)}
+.svc:last-child{border-bottom:1px solid var(--nd-500)}
+.svc-head{width:100%;display:flex;justify-content:space-between;align-items:flex-start;padding:16px 0;text-align:left}
+.svc-head h3{font-size:var(--t-xl);font-weight:700;line-height:1;letter-spacing:-.025em;text-transform:uppercase;color:var(--nd-900)}
+.svc-head .code{font-size:var(--t-xl);font-weight:400;line-height:1;letter-spacing:-.025em;color:var(--nd-650);transition:color .3s var(--ease)}
+.svc-head:hover .code,.svc.open .code{color:var(--nd-900)}
+.svc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .7s var(--ease)}
+.svc.open .svc-body{grid-template-rows:1fr}
+.svc-inner{overflow:hidden;min-height:0}
+.svc-grid{padding-bottom:32px;align-items:start}
+.svc-desc{grid-column:1 / span 2;display:flex;flex-direction:column;gap:14px;min-width:0}
+.svc-desc ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--nd-500)}
+.svc-desc li{padding:6px 0;border-bottom:1px solid var(--nd-500)}
+.work{grid-column:3 / span 6;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--g)}
+.work figure{margin:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+.svc-note{grid-column:3 / span 6;font-size:var(--t-l);font-weight:500;line-height:1.02;letter-spacing:-.03em;color:var(--nd-800);max-width:26ch}
+
+/* mini site thumbnails: each demo build keeps its own look */
+.site{aspect-ratio:4/5;max-width:100%;border-radius:2px;overflow:hidden;display:flex;flex-direction:column;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;transition:transform .6s var(--ease)}
+.work figure:hover .site{transform:translateY(-4px)}
+.site nav{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;font-size:8px;font-weight:700}
+.site nav em{font-style:normal;padding:3px 7px;font-size:7px}
+.site .shot{flex:1;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:12px 10px;gap:7px}
+.site .shot b{font-size:clamp(13px,1.35vw,19px);line-height:1.02;letter-spacing:-.02em}
+.site .shot small{font-size:7px;line-height:1.35;max-width:24ch;opacity:.85}
+.site .addr{display:flex;align-items:center;justify-content:space-between;font-size:7px;padding:3px 3px 3px 8px}
+.site .addr i{font-style:normal;padding:4px 7px;font-weight:700}
+.site .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:8px 10px}
+.site .tiles span{height:22px}
+.s-modern{background:#13291a;color:#fff}
+.s-modern nav em{background:#c8ef7e;color:#13291a;border-radius:99px}
+.s-modern .shot{background:repeating-linear-gradient(170deg,#2e4a2b 0 14px,#3b5c36 14px 28px)}
+.s-modern .addr{background:#fff;color:#5d655b;border-radius:99px}
+.s-modern .addr i{background:#c8ef7e;color:#13291a;border-radius:99px}
+.s-modern .tiles span{background:#1f3b26;border-radius:5px}
+.s-classy{background:#faf7f1;color:#1d2a22}
+.s-classy nav{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:9px;letter-spacing:.04em}
+.s-classy nav em{border:1px solid #c9a96a;color:#8a6d3b;border-radius:2px;text-transform:uppercase;letter-spacing:.14em}
+.s-classy .shot{background:linear-gradient(#1d2a22cc,#1d2a2266),repeating-linear-gradient(95deg,#43573f 0 10px,#4f6649 10px 20px);color:#faf7f1}
+.s-classy .shot b{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-style:italic;letter-spacing:0}
+.s-classy .addr{background:#fffdf9;color:#6b6a60;border-radius:2px}
+.s-classy .addr i{background:#c9a96a;color:#1d2a22;border-radius:1px;letter-spacing:.1em}
+.s-classy .tiles span{background:#f2ede3;border-radius:2px}
+.s-simple{background:#fff;color:#111827}
+.s-simple nav em{background:#14532d;color:#fff;border-radius:6px}
+.s-simple .shot{background:#f4f6f4;color:#111827}
+.s-simple .shot b{font-weight:800;letter-spacing:-.04em}
+.s-simple .addr{background:#fff;border:1px solid #e5e7eb;color:#4b5563;border-radius:8px}
+.s-simple .addr i{background:#22c55e;color:#052e16;border-radius:6px}
+.s-simple .tiles span{background:#e5e7eb;border-radius:4px}
+
+/* ---------- process ---------- */
+.process{padding-bottom:128px}
+.track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 3 * var(--g)) / 4);gap:var(--g);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.track::-webkit-scrollbar{display:none}
+.step{scroll-snap-align:start;background:var(--nd-400);border-radius:4px;padding:var(--g);display:flex;flex-direction:column;justify-content:space-between;min-height:clamp(300px,44svh,420px);gap:40px;min-width:0}
+.step-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.step-top .val{border:1px solid var(--nd-600);border-radius:4px;padding:5px 8px;color:var(--nd-800);text-align:right}
+.step h3{font-size:var(--t-l);font-weight:700;line-height:1;letter-spacing:-.03em;text-transform:uppercase;color:var(--nd-1000);margin-bottom:10px}
+.step p{max-width:36ch;font-size:10px}
+.track-nav{display:flex;gap:6px;margin-top:12px}
+.track-nav button{width:28px;height:28px;display:grid;place-items:center;border-radius:2px;color:var(--nd-800);transition:background .25s var(--ease)}
+.track-nav button:hover{background:var(--nd-400)}
+
+/* ---------- pricing ---------- */
+.pricing{padding-bottom:128px;align-items:start}
+.pricing h2{grid-column:1 / span 2;font-size:var(--t-xl);font-weight:700;line-height:1;letter-spacing:-.025em;text-transform:uppercase;color:var(--nd-900);position:sticky;top:96px}
+.table{grid-column:3 / span 6;min-width:0}
+.tr{display:grid;grid-template-columns:1.3fr 1.6fr 1fr .9fr;gap:var(--g);align-items:center;padding:12px 8px;margin-inline:-8px;border-bottom:1px solid rgba(226,226,231,.7);border-radius:2px;transition:background .15s}
+.tr:not(.th):hover{background:rgba(234,234,238,.6)}
+.tr .name{font-size:15px;font-weight:600;letter-spacing:-.01em;color:var(--nd-900)}
+.tr .price{text-align:right;font-variant-numeric:tabular-nums;font-size:15px;font-weight:600;color:var(--nd-1000)}
+.th{padding-block:6px}
+.th span:last-child{text-align:right}
+.fine{margin-top:14px}
+
+/* ---------- enquire ---------- */
+.enquire{background:var(--nd-400);padding-block:128px;align-items:end}
+.enquire h2{grid-column:1 / span 5;font-size:clamp(3rem,7.4vw,7.25rem);font-weight:700;line-height:.84;letter-spacing:-.05em;text-transform:uppercase;color:var(--nd-1000);text-wrap:balance}
+.form{grid-column:6 / span 3;background:var(--nd-100);border-radius:4px;padding:var(--g);display:flex;flex-direction:column;gap:18px;min-width:0}
+.field{display:flex;flex-direction:column;gap:4px}
+.field input,.field select{width:100%;border:0;border-bottom:1px solid var(--nd-500);background:transparent;padding:6px 0 8px;font-size:15px;font-weight:500;color:var(--nd-1000);border-radius:0;outline:none;transition:border-color .2s}
+.field input::placeholder{color:var(--nd-600)}
+.field input:focus,.field select:focus{border-color:var(--nd-1100)}
+.form .cta{width:100%}
+.sent{display:none;border:1px solid var(--nd-500);border-radius:2px;padding:10px}
+.form.done .sent{display:block}
+
+/* ---------- footer ---------- */
+footer{padding-top:72px;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 72px);container-type:inline-size}
+.foot-cols{padding-bottom:48px}
+.foot-cols>div{grid-column:span 2;display:flex;flex-direction:column;gap:4px}
+.foot-cols a{color:var(--nd-800);transition:color .2s}
+.foot-cols a:hover{color:var(--nd-1100)}
+/* outlined wordmark from brand/wordmark: SEVEN//ACRE desktop, SEVN//ACRE tablet, SVN//ACRE mobile */
+.wordmark svg{display:block;width:100%;height:auto;fill:var(--nd-1000)}
+.wordmark .sl{fill:var(--nd-650)}
+.wordmark .wm-t,.wordmark .wm-m{display:none}
+@media (max-width:1023px){.wordmark .wm-d{display:none}.wordmark .wm-t{display:block}}
+@media (max-width:767px){.wordmark .wm-t{display:none}.wordmark .wm-m{display:block}}
+.wordmark i{font-style:normal;color:var(--nd-650);letter-spacing:-.1em;margin-right:.04em}
+.foot-base{display:flex;justify-content:space-between;gap:var(--g);margin-top:14px;flex-wrap:wrap}
+
+/* ---------- responsive ---------- */
+@media (max-width:1023px){
+  .g8{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .lotwrap{grid-column:1 / -1}
+  .hero-copy{grid-column:1 / -1}
+  .meta-row>div:nth-child(n+3){display:none}
+  .svc-desc{grid-column:1 / -1}
+  .work,.svc-note{grid-column:1 / -1}
+  .track{grid-auto-columns:calc((100% - var(--g)) / 2)}
+  .pricing h2,.table{grid-column:1 / -1;position:static}
+  .enquire h2,.form{grid-column:1 / -1}
+  .foot-cols>div{grid-column:span 2}
+}
+@media (max-width:767px){
+  .g8{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sitebar>div:first-child span.k,.sitebar>div:nth-child(3) span.k{display:none}
+  .sitebar>div:nth-child(2){justify-content:center}
+  .book{top:auto;right:auto;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px)}
+  .meta-row>div:nth-child(2){text-align:right}
+  .statement{grid-template-columns:1fr}
+  .flow{position:relative;top:0;width:100%;margin:0;aspect-ratio:5/4}
+  .statement-text{width:100%}
+  .work{grid-template-columns:1fr 1fr}
+  .work figure:nth-child(3){display:none}
+  .track{grid-auto-columns:calc(100% - 2rem)}
+  .tr{grid-template-columns:1fr auto}
+  .tr .inc,.tr .term{grid-column:1 / -1}
+  .tr .inc{order:3}.tr .term{order:4}
+  .th{display:none}
+  .foot-cols>div{grid-column:span 1}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i7a" viewBox="0 0 122 120"><path d="M35.3068 47.3903C33.8403 43.2813 35.7125 40.0267 40.0753 40.0244L57.5865 40.0152L65.9864 40.016C66.729 40.0158 67.7462 39.9964 68.7127 40.0006C69.6131 40.0045 70.2058 41.0275 69.8143 41.8383C69.1245 43.2544 68.4678 44.686 67.8448 46.1322C67.5545 46.7985 67.3019 47.4893 66.9983 48.1462L58.1554 67.4406C57.123 69.7265 56.0223 72.0021 55.0728 74.3204C54.6993 75.2322 54.2996 76.1669 53.8323 77.0348C53.6728 77.3589 53.4599 77.855 53.2339 78.3561C52.7621 79.4022 51.7515 79.9744 50.6039 79.9757L47.5781 79.9772C47.0173 79.9772 44.8585 79.9981 42.8281 79.987C40.3714 79.9736 39.4187 78.4037 40.4575 76.1773L42.6914 71.3648L48.4631 58.7C49.465 56.5098 50.2741 54.2554 51.3873 52.1011C51.9835 50.9477 51.0243 49.5058 49.726 49.5049L41.921 49.4993L38.374 49.4948C37.1673 49.4928 35.9622 48.745 35.4294 47.6624C35.3722 47.5461 35.3287 47.4518 35.3068 47.3903Z"/><path d="M60.2294 42.1759C60.8463 40.8604 61.9846 39.9976 63.4374 40.0126C63.4666 40.0129 63.4958 40.0132 63.5249 40.0135C66.2064 40.0435 68.9017 39.9989 71.5901 40C73.6895 40.0009 75.4857 41.1533 76.4229 43.0319C77.589 45.3671 78.5511 47.8579 79.6266 50.2144L89.9478 72.6745C90.2435 73.3341 90.835 74.8035 91.1039 75.4599C92.2267 78.2094 91.2251 80.0019 88.2552 79.9882C85.6774 79.9763 82.8836 79.9256 82.2072 79.977C80.4547 80.1098 78.9752 78.9477 78.2878 77.3301C78.1908 77.1018 78.0918 76.8761 77.9888 76.6553L72.844 65.5617C72.4436 64.676 72.152 63.7346 71.7183 62.8548C71.1864 61.7754 70.7211 60.663 70.1845 59.5845C69.8056 58.8454 69.4243 58.0101 69.0538 57.1696C68.702 56.3711 67.3902 56.3702 67.0957 57.1915C66.5149 58.8109 65.7289 60.2572 65.0292 61.8083L59.7721 73.4372C59.3432 74.3722 58.9031 75.2843 58.4931 76.2294C57.4972 78.5254 55.1701 80.016 52.6676 79.9876C51.4364 79.9736 50.2085 79.9545 49.0855 79.9682C47.9536 79.9821 46.1639 80.0176 44.6787 79.9836C43.8715 79.965 43.3565 79.1001 43.6961 78.3676L45.1196 75.3057L48.9987 66.7248C49.3065 66.0331 49.6339 65.3405 49.9549 64.6533C53.4424 57.1867 56.7303 49.6387 60.2294 42.1759Z"/></symbol></svg>
+
+<!-- ============ fixed chrome ============ -->
+<div class="sitebar mono m8" aria-hidden="true">
+  <div><span class="k">SEVEN ACRE©</span><span>WEB + AUTOMATION STUDIO</span></div>
+  <div><span id="clock-date">08 OCT 26</span><span id="clock-time">00:00:00</span></div>
+  <div><span class="k">NEXT AVAILABILITY:</span><span id="avail">—</span></div>
+</div>
+
+<a class="book mono m10" href="#enquire">
+  BOOK A CALL
+  <i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#ececec" stroke-width="1"><rect x="1.5" y="2.5" width="9" height="8"/><path d="M1.5 5h9M4 1v3M8 1v3"/></svg></i>
+</a>
+
+<div class="corner">
+  <a href="#top" aria-label="Seven Acre Digital, back to top">
+    <svg viewBox="0 0 122 120" aria-hidden="true"><rect width="122" height="120" fill="currentColor"/><use href="#i7a" fill="#000"/></svg>
+  </a>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span data-alt="MENU">MENU</span></button>
+</div>
+
+<nav class="menu" id="menu" aria-label="Site menu" inert>
+  <div class="menu-top">
+    <svg class="icon" viewBox="0 0 122 120" aria-hidden="true"><rect width="122" height="120" fill="#ebebeb"/><use href="#i7a" fill="#121212"/></svg>
+    <svg class="wm" viewBox="0 0 466 54" role="img" aria-label="Seven Acre"><path d="M22.968 53.64C16.008 53.64 10.464 52.152 6.336 49.176C2.256 46.152 0.144 41.832 0 36.216H12.816C13.344 41.112 16.704 43.56 22.896 43.56C25.2 43.56 27.144 43.128 28.728 42.264C30.36 41.352 31.176 39.984 31.176 38.16C31.176 36.912 30.672 35.88 29.664 35.064C28.656 34.2 27.624 33.6 26.568 33.264C25.56 32.928 23.616 32.4 20.736 31.68C20.592 31.632 20.496 31.608 20.448 31.608C20.4 31.56 20.328 31.536 20.232 31.536C20.136 31.488 20.04 31.464 19.944 31.464C17.736 30.936 15.912 30.48 14.472 30.096C13.08 29.664 11.472 29.04 9.648 28.224C7.872 27.36 6.456 26.424 5.4 25.416C4.344 24.408 3.432 23.088 2.664 21.456C1.944 19.776 1.584 17.904 1.584 15.84C1.584 10.56 3.456 6.6 7.2 3.96C10.992 1.32 15.936 0 22.032 0C27.888 0 32.664 1.344 36.36 4.032C40.104 6.72 42.096 10.656 42.336 15.84H29.88C29.64 13.872 28.8 12.36 27.36 11.304C25.92 10.2 24 9.648 21.6 9.648C19.392 9.648 17.592 10.104 16.2 11.016C14.856 11.88 14.184 13.032 14.184 14.472C14.184 16.104 15 17.304 16.632 18.072C18.264 18.792 21.336 19.656 25.848 20.664C28.68 21.336 31.008 22.008 32.832 22.68C34.656 23.304 36.504 24.216 38.376 25.416C40.296 26.616 41.712 28.176 42.624 30.096C43.584 31.968 44.064 34.224 44.064 36.864C44.064 42.096 42.072 46.2 38.088 49.176C34.152 52.152 29.112 53.64 22.968 53.64Z"/><path d="M49.2761 52.416V0.936001H88.3001V11.448H62.0201V20.664H84.5561V30.6H62.0201V41.616H88.7321V52.416H49.2761Z"/><path d="M107.807 52.416L90.8151 0.936001H104.063L112.127 27.936L114.503 37.008H114.647C115.511 33.504 116.303 30.48 117.023 27.936L125.015 0.936001H137.903L120.983 52.416H107.807Z"/><path d="M141.385 52.416V0.936001H180.41V11.448H154.13V20.664H176.665V30.6H154.13V41.616H180.842V52.416H141.385Z"/><path d="M186.596 52.416V0.936001H199.412L214.676 26.784L218.204 33.336H218.348C218.252 29.208 218.204 26.544 218.204 25.344V0.936001H230.66V52.416H217.844L202.724 26.928L199.052 20.016H198.908C199.004 24.432 199.052 27.24 199.052 28.44V52.416H186.596Z"/><path class="sl" d="M234 52L253.455 0H263.656L244.201 52H234Z"/><path class="sl" d="M256.344 52L275.799 0H286L266.545 52H256.344Z"/><path d="M278 52.8403L296.417 1.01476H309.46L327.949 52.8403H314.62L311.61 43.4899H293.694L290.756 52.8403H278ZM296.632 34.2846H308.672L304.802 21.745L302.795 14.4242H302.652C301.84 17.5168 301.147 19.957 300.574 21.745L296.632 34.2846Z"/><path d="M351.551 54C344.098 54 338.007 51.4872 333.277 46.4617C328.595 41.3879 326.254 34.9369 326.254 27.1087C326.254 19.2805 328.571 12.8054 333.205 7.68322C337.839 2.56107 343.931 0 351.479 0C357.308 0 362.181 1.52215 366.098 4.56644C370.542 7.94899 373.098 12.7087 373.766 18.8456H361.082C360.748 16.4779 359.72 14.5208 358.001 12.9745C356.281 11.4282 354.083 10.655 351.408 10.655C347.394 10.655 344.337 12.1772 342.235 15.2215C340.18 18.2174 339.153 22.1799 339.153 27.1087C339.153 31.9409 340.276 35.8792 342.521 38.9235C344.767 41.9678 347.753 43.4899 351.479 43.4899C354.25 43.4899 356.519 42.6926 358.287 41.098C360.103 39.5034 361.154 37.4255 361.44 34.8644H374.125C373.742 40.0832 371.688 44.5047 367.962 48.1289C363.949 52.043 358.478 54 351.551 54Z"/><path d="M378.65 52.8403V1.01476H403.159C408.414 1.01476 412.714 2.34362 416.058 5.00134C419.402 7.61074 421.075 11.2591 421.075 15.9463C421.075 22.2282 418.113 26.4081 412.188 28.4859V28.7034C416.488 30.153 418.972 33.3181 419.641 38.1987C419.928 39.8899 420.119 41.9919 420.215 44.5047C420.358 46.9691 420.525 48.8295 420.716 50.0859C420.907 51.294 421.266 51.9946 421.791 52.1879V52.8403H409.465C409.083 52.5987 408.772 51.898 408.534 50.7383C408.342 49.5785 408.175 47.9356 408.032 45.8094C407.889 43.6832 407.721 42.0161 407.53 40.8081C406.861 35.8792 404.019 33.4148 399.002 33.4148H391.334V52.8403H378.65ZM391.334 23.9195H400.866C403.35 23.9195 405.237 23.3638 406.527 22.2523C407.817 21.1409 408.462 19.5946 408.462 17.6134C408.462 15.6805 407.841 14.1342 406.599 12.9745C405.357 11.7664 403.541 11.1624 401.152 11.1624H391.334V23.9195Z"/><path d="M426.729 52.8403V1.01476H465.57V11.5973H439.413V20.8752H461.844V30.8779H439.413V41.9678H466V52.8403H426.729Z"/></svg>
+  </div>
+  <ol>
+    <li><a href="#top"><span class="mono m11 c7">01</span><b>Index</b></a></li>
+    <li><a href="#services"><span class="mono m11 c7">02</span><b>Services</b></a></li>
+    <li><a href="#process"><span class="mono m11 c7">03</span><b>Process</b></a></li>
+    <li><a href="#pricing"><span class="mono m11 c7">04</span><b>Pricing</b></a></li>
+    <li><a href="#enquire"><span class="mono m11 c7">05</span><b>Enquire</b></a></li>
+  </ol>
+  <div class="menu-info mono m8">
+    <div><span class="c7">Studio</span><span>Seven Acre</span></div>
+    <div><span class="c7">Discipline</span><span>Web + automation</span></div>
+    <div><span class="c7">Built for</span><span>Lawn &amp; landscape</span></div>
+    <div><span class="c7">Next availability</span><span id="avail2">—</span></div>
+    <div><span class="c7">Builds</span><span>Booking-ready</span></div>
+    <button class="menu-close" id="menuClose" aria-label="Close menu"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.2"><path d="M1 1l10 10M11 1L1 11"/></svg></button>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+
+  <!-- ============ hero ============ -->
+  <section class="hero">
+    <div class="g8 meta-row mono m8">
+      <div style="grid-column:span 2"><span class="c7">Studio</span><span>Seven Acre Digital</span></div>
+      <div style="grid-column:span 2"><span class="c7">Discipline</span><span>Websites, booking, automation</span></div>
+      <div style="grid-column:span 2"><span class="c7">Built for</span><span>Lawn care &amp; landscaping crews</span></div>
+      <div style="grid-column:span 2"><span class="c7">Index</span><span>SA/000</span></div>
+    </div>
+
+    <h1><span class="line"><span>Websites that</span></span><span class="line"><span>book the job.</span></span></h1>
+
+    <div class="g8">
+      <div class="lotwrap" id="lotwrap">
+        <canvas id="lot" aria-label="Aerial plan of a sample lawn being mowed in stripes, with lot size and price readouts" role="img"></canvas>
+        <div class="readout mono m8">
+          <div class="tl"><span class="chip">SAMPLE LOT</span></div>
+          <div class="tr"><span class="chip lt" id="mowed">MOWED 0%</span></div>
+          <div class="bl"><span class="chip">8,200 SQFT · 0.19 AC</span></div>
+          <div class="br"><span class="chip">WEEKLY · $35/VISIT</span></div>
+        </div>
+      </div>
+      <div class="hero-copy">
+        <p class="lead">We build sites for lawn care and landscaping companies that quote, book and confirm the job while you're out on the mower.</p>
+        <div class="facts mono m10">
+          <div><span class="c7">Quote</span><span>Instant price from the lot size</span></div>
+          <div><span class="c7">Book</span><span>Plan and start date, online</span></div>
+          <div><span class="c7">Confirm</span><span>Text + email, sent automatically</span></div>
+        </div>
+        <a class="cta mono m12" href="#enquire">START AN ENQUIRY
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h13M9 1l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ statement ============ -->
+  <section class="statement" aria-label="Why it matters">
+    <div class="flow" aria-hidden="true">
+      <svg viewBox="0 0 400 500" font-family="Geist Mono, ui-monospace, monospace" font-size="9" letter-spacing=".3">
+        <line x1="200" y1="0" x2="200" y2="500" stroke="#494d4d" stroke-width="1"/>
+        <g fill="#eaeaee" stroke="#494d4d">
+          <rect x="194" y="60" width="12" height="12"/>
+          <rect x="194" y="150" width="12" height="12"/>
+          <rect x="194" y="240" width="12" height="12"/>
+          <rect x="194" y="330" width="12" height="12"/>
+        </g>
+        <rect x="194" y="420" width="12" height="12" fill="#1e1e1e"/>
+        <path d="M200 246H90V336M200 246H310V336" fill="none" stroke="#aaaaaa"/>
+        <g fill="#eaeaee" stroke="#aaaaaa"><rect x="84" y="330" width="12" height="12"/><rect x="304" y="330" width="12" height="12"/></g>
+        <g fill="#1e1e1e"><rect x="214" y="58" width="62" height="16" rx="2"/><rect x="214" y="148" width="92" height="16" rx="2"/><rect x="214" y="238" width="44" height="16" rx="2"/><rect x="214" y="418" width="78" height="16" rx="2"/></g>
+        <g fill="#ececec"><text x="221" y="69">ADDRESS</text><text x="221" y="159">INSTANT PRICE</text><text x="221" y="249">PLAN</text><text x="221" y="429">CONFIRMED</text></g>
+        <g fill="#737d7d"><text x="104" y="360">WEEKLY</text><text x="254" y="360">MONTHLY</text><text x="216" y="340">START DATE</text><text x="12" y="20">FLOW/01</text><text x="320" y="20">00:00:42</text></g>
+      </svg>
+    </div>
+    <div class="statement-text">
+      <p><span class="hl">Most crews lose work between the call they missed and the quote they never sent.</span></p>
+      <p>A homeowner finds you at 9pm. They want a price, a day and a confirmation. If your site can't give them all three, they call the next name on the list.</p>
+      <p>Our sites do it on the spot. Enter an address, get a price from the lot size, pick a plan and a start date, and get a text back in seconds.</p>
+    </div>
+  </section>
+
+  <!-- ============ services ============ -->
+  <section class="services" id="services" aria-label="Services">
+    <div class="sec-head mono m10 c7"><span>Services</span><span>04 disciplines</span></div>
+
+    <div class="svc open">
+      <button class="svc-head" aria-expanded="true" aria-controls="sv1"><h3>Websites</h3><span class="code">SV/001</span></button>
+      <div class="svc-body" id="sv1"><div class="svc-inner"><div class="g8 svc-grid">
+        <div class="svc-desc">
+          <p class="mono m10 c8">Fast, mobile-first sites built around one job: getting the homeowner to book. Your reviews, your service area and your real photos, on your own domain.</p>
+          <ul class="mono m10"><li>Instant pricing</li><li>Service area pages</li><li>Google reviews</li><li>Your own domain</li></ul>
+        </div>
+        <div class="work">
+          <figure>
+            <div class="site s-modern"><nav>Green Ridge<em>Call now</em></nav>
+              <div class="shot"><b>Lawn care, done right.</b><small>Mowing, trimming and cleanups. Enter your address for an instant price.</small><span class="addr">Your address<i>Get price</i></span></div>
+              <div class="tiles"><span></span><span></span><span></span></div></div>
+            <figcaption class="mono m8 c7">Green Ridge Lawn Care — Demo build</figcaption>
+          </figure>
+          <figure>
+            <div class="site s-classy"><nav>OAKLINE<em>Book</em></nav>
+              <div class="shot"><b>Landscapes, kept beautifully.</b><small>Design, planting and weekly care for established homes.</small><span class="addr">Property address<i>PRICE</i></span></div>
+              <div class="tiles"><span></span><span></span><span></span></div></div>
+            <figcaption class="mono m8 c7">Oakline Landscaping — Demo build</figcaption>
+          </figure>
+          <figure>
+            <div class="site s-simple"><nav>Two Brothers<em>Book a mow</em></nav>
+              <div class="shot"><b>Weekly mowing from $35.</b><small>Book online in two minutes. No contracts.</small><span class="addr">Enter address<i>Go</i></span></div>
+              <div class="tiles"><span></span><span></span><span></span></div></div>
+            <figcaption class="mono m8 c7">Two Brothers Lawn Service — Demo build</figcaption>
+          </figure>
+        </div>
+      </div></div></div>
+    </div>
+
+    <div class="svc">
+      <button class="svc-head" aria-expanded="false" aria-controls="sv2"><h3>Online booking</h3><span class="code">SV/002</span></button>
+      <div class="svc-body" id="sv2" inert><div class="svc-inner"><div class="g8 svc-grid">
+        <div class="svc-desc">
+          <p class="mono m10 c8">Customers book themselves in. The price comes from the lot, the plan and start date come from your calendar.</p>
+          <ul class="mono m10"><li>Lot-size pricing</li><li>Weekly, bi-weekly, monthly</li><li>Per-acre pricing for big lots</li><li>Booking alerts to your phone</li></ul>
+        </div>
+        <p class="svc-note">No back-and-forth over text to agree a price. The customer sees it, picks a day and they're on your schedule.</p>
+      </div></div></div>
+    </div>
+
+    <div class="svc">
+      <button class="svc-head" aria-expanded="false" aria-controls="sv3"><h3>Automation</h3><span class="code">SV/003</span></button>
+      <div class="svc-body" id="sv3" inert><div class="svc-inner"><div class="g8 svc-grid">
+        <div class="svc-desc">
+          <p class="mono m10 c8">The admin that eats your evenings, handled. Messages go out on time whether you're on a job or off for the weekend.</p>
+          <ul class="mono m10"><li>Confirmation texts + emails</li><li>Day-before reminders</li><li>Invoices</li><li>Payment reminders</li></ul>
+        </div>
+        <p class="svc-note">Every booking gets a confirmation and a reminder. Every finished job gets an invoice. You stop chasing.</p>
+      </div></div></div>
+    </div>
+
+    <div class="svc">
+      <button class="svc-head" aria-expanded="false" aria-controls="sv4"><h3>Lead tracking</h3><span class="code">SV/004</span></button>
+      <div class="svc-body" id="sv4" inert><div class="svc-inner"><div class="g8 svc-grid">
+        <div class="svc-desc">
+          <p class="mono m10 c8">See who looked at a price and didn't book, and get a ping when someone is ready to buy.</p>
+          <ul class="mono m10"><li>Visit and quote tracking</li><li>Hot-lead alerts</li><li>Booking history</li></ul>
+        </div>
+        <p class="svc-note">Know which homeowners checked a price this week, so you call the right people first.</p>
+      </div></div></div>
+    </div>
+  </section>
+
+  <!-- ============ process ============ -->
+  <section class="process" id="process" aria-label="How a booking works">
+    <div class="sec-head mono m10 c7"><span>How a booking works</span><span>05 steps · about 2 min</span></div>
+    <div class="track" id="track">
+      <article class="step"><div class="step-top mono m10"><span class="c7">STEP/01</span><span class="val">4512 W BAY AVE</span></div>
+        <div><h3>Address</h3><p class="mono c8">The homeowner types their address. No call, no form to wait on.</p></div></article>
+      <article class="step"><div class="step-top mono m10"><span class="c7">STEP/02</span><span class="val">8,200 SQFT → $35</span></div>
+        <div><h3>Instant price</h3><p class="mono c8">We measure the lot and show a price per visit straight away.</p></div></article>
+      <article class="step"><div class="step-top mono m10"><span class="c7">STEP/03</span><span class="val">WEEKLY · BI-WEEKLY · MONTHLY</span></div>
+        <div><h3>Plan</h3><p class="mono c8">They choose how often. Larger lots price by the acre.</p></div></article>
+      <article class="step"><div class="step-top mono m10"><span class="c7">STEP/04</span><span class="val">FRI 09 OCT</span></div>
+        <div><h3>Start date</h3><p class="mono c8">They pick the first visit from the days you have open.</p></div></article>
+      <article class="step"><div class="step-top mono m10"><span class="c7">STEP/05</span><span class="val">SMS ✓ EMAIL ✓</span></div>
+        <div><h3>Confirmed</h3><p class="mono c8">A text and an email confirm the booking. You get an alert with the job details.</p></div></article>
+    </div>
+    <div class="track-nav">
+      <button id="prev" aria-label="Previous step"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M7 1L3 5l4 4"/></svg></button>
+      <button id="next" aria-label="Next step"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 1l4 4-4 4"/></svg></button>
+    </div>
+  </section>
+
+  <!-- ============ pricing ============ -->
+  <section class="g8 pricing" id="pricing" aria-label="Pricing">
+    <h2>Pricing</h2>
+    <div class="table">
+      <div class="tr th mono m8 c6"><span>Item</span><span>Includes</span><span>Terms</span><span>Price</span></div>
+      <div class="tr"><span class="name">Website build</span><span class="inc mono m10 c8">Site, booking flow, domain setup</span><span class="term mono m10 c7">One payment</span><span class="price">$499</span></div>
+      <div class="tr"><span class="name">Website build, split</span><span class="inc mono m10 c8">The same build, paid in two parts</span><span class="term mono m10 c7">2 payments</span><span class="price">2 × $299</span></div>
+      <div class="tr"><span class="name">Business automation</span><span class="inc mono m10 c8">Texts, emails, reminders, invoices</span><span class="term mono m10 c7">Setup + monthly</span><span class="price">$97 + $29/mo</span></div>
+      <p class="fine mono m8 c7">Prices in USD. Automation can be added to any build.</p>
+    </div>
+  </section>
+
+  <!-- ============ enquire ============ -->
+  <section class="g8 enquire bleed" id="enquire" aria-label="Enquire">
+    <h2>Start a build</h2>
+    <form class="form" id="form">
+      <div class="mono m8 c7">ENQUIRY/NEW</div>
+      <label class="field"><span class="mono m8 c7">Business name</span><input id="f-biz" name="biz" placeholder="Green Ridge Lawn Care" required></label>
+      <label class="field"><span class="mono m8 c7">Your name</span><input id="f-name" name="name" placeholder="Marcus Reed" autocomplete="name" required></label>
+      <label class="field"><span class="mono m8 c7">Mobile</span><input id="f-phone" name="phone" type="tel" placeholder="(813) 555-0100" autocomplete="tel" required></label>
+      <label class="field"><span class="mono m8 c7">What you do</span>
+        <select id="f-trade" name="trade"><option>Lawn care</option><option>Landscaping</option><option>Tree service</option><option>Pressure washing</option><option>Something else</option></select></label>
+      <button class="cta mono m12" type="submit">SEND ENQUIRY
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h13M9 1l4 4-4 4"/></svg></button>
+      <p class="sent mono m10 c8" role="status">Mockup only: this form isn't connected yet, so nothing was sent.</p>
+    </form>
+  </section>
+
+  <!-- ============ footer ============ -->
+  <footer>
+    <div class="g8 foot-cols mono m10">
+      <div><span class="c7">Studio</span><span>Seven Acre Digital</span><span class="c8">Web + automation for service businesses</span></div>
+      <div><span class="c7">Services</span><a href="#services">Websites</a><a href="#services">Online booking</a><a href="#services">Automation</a></div>
+      <div><span class="c7">Index</span><a href="#process">Process</a><a href="#pricing">Pricing</a><a href="#enquire">Enquire</a></div>
+      <div><span class="c7">Next availability</span><span id="avail3">—</span></div>
+    </div>
+    <div class="wordmark">
+      <svg class="wm-d" viewBox="0 0 466 54" role="img" aria-label="Seven Acre"><path d="M22.968 53.64C16.008 53.64 10.464 52.152 6.336 49.176C2.256 46.152 0.144 41.832 0 36.216H12.816C13.344 41.112 16.704 43.56 22.896 43.56C25.2 43.56 27.144 43.128 28.728 42.264C30.36 41.352 31.176 39.984 31.176 38.16C31.176 36.912 30.672 35.88 29.664 35.064C28.656 34.2 27.624 33.6 26.568 33.264C25.56 32.928 23.616 32.4 20.736 31.68C20.592 31.632 20.496 31.608 20.448 31.608C20.4 31.56 20.328 31.536 20.232 31.536C20.136 31.488 20.04 31.464 19.944 31.464C17.736 30.936 15.912 30.48 14.472 30.096C13.08 29.664 11.472 29.04 9.648 28.224C7.872 27.36 6.456 26.424 5.4 25.416C4.344 24.408 3.432 23.088 2.664 21.456C1.944 19.776 1.584 17.904 1.584 15.84C1.584 10.56 3.456 6.6 7.2 3.96C10.992 1.32 15.936 0 22.032 0C27.888 0 32.664 1.344 36.36 4.032C40.104 6.72 42.096 10.656 42.336 15.84H29.88C29.64 13.872 28.8 12.36 27.36 11.304C25.92 10.2 24 9.648 21.6 9.648C19.392 9.648 17.592 10.104 16.2 11.016C14.856 11.88 14.184 13.032 14.184 14.472C14.184 16.104 15 17.304 16.632 18.072C18.264 18.792 21.336 19.656 25.848 20.664C28.68 21.336 31.008 22.008 32.832 22.68C34.656 23.304 36.504 24.216 38.376 25.416C40.296 26.616 41.712 28.176 42.624 30.096C43.584 31.968 44.064 34.224 44.064 36.864C44.064 42.096 42.072 46.2 38.088 49.176C34.152 52.152 29.112 53.64 22.968 53.64Z"/><path d="M49.2761 52.416V0.936001H88.3001V11.448H62.0201V20.664H84.5561V30.6H62.0201V41.616H88.7321V52.416H49.2761Z"/><path d="M107.807 52.416L90.8151 0.936001H104.063L112.127 27.936L114.503 37.008H114.647C115.511 33.504 116.303 30.48 117.023 27.936L125.015 0.936001H137.903L120.983 52.416H107.807Z"/><path d="M141.385 52.416V0.936001H180.41V11.448H154.13V20.664H176.665V30.6H154.13V41.616H180.842V52.416H141.385Z"/><path d="M186.596 52.416V0.936001H199.412L214.676 26.784L218.204 33.336H218.348C218.252 29.208 218.204 26.544 218.204 25.344V0.936001H230.66V52.416H217.844L202.724 26.928L199.052 20.016H198.908C199.004 24.432 199.052 27.24 199.052 28.44V52.416H186.596Z"/><path class="sl" d="M234 52L253.455 0H263.656L244.201 52H234Z"/><path class="sl" d="M256.344 52L275.799 0H286L266.545 52H256.344Z"/><path d="M278 52.8403L296.417 1.01476H309.46L327.949 52.8403H314.62L311.61 43.4899H293.694L290.756 52.8403H278ZM296.632 34.2846H308.672L304.802 21.745L302.795 14.4242H302.652C301.84 17.5168 301.147 19.957 300.574 21.745L296.632 34.2846Z"/><path d="M351.551 54C344.098 54 338.007 51.4872 333.277 46.4617C328.595 41.3879 326.254 34.9369 326.254 27.1087C326.254 19.2805 328.571 12.8054 333.205 7.68322C337.839 2.56107 343.931 0 351.479 0C357.308 0 362.181 1.52215 366.098 4.56644C370.542 7.94899 373.098 12.7087 373.766 18.8456H361.082C360.748 16.4779 359.72 14.5208 358.001 12.9745C356.281 11.4282 354.083 10.655 351.408 10.655C347.394 10.655 344.337 12.1772 342.235 15.2215C340.18 18.2174 339.153 22.1799 339.153 27.1087C339.153 31.9409 340.276 35.8792 342.521 38.9235C344.767 41.9678 347.753 43.4899 351.479 43.4899C354.25 43.4899 356.519 42.6926 358.287 41.098C360.103 39.5034 361.154 37.4255 361.44 34.8644H374.125C373.742 40.0832 371.688 44.5047 367.962 48.1289C363.949 52.043 358.478 54 351.551 54Z"/><path d="M378.65 52.8403V1.01476H403.159C408.414 1.01476 412.714 2.34362 416.058 5.00134C419.402 7.61074 421.075 11.2591 421.075 15.9463C421.075 22.2282 418.113 26.4081 412.188 28.4859V28.7034C416.488 30.153 418.972 33.3181 419.641 38.1987C419.928 39.8899 420.119 41.9919 420.215 44.5047C420.358 46.9691 420.525 48.8295 420.716 50.0859C420.907 51.294 421.266 51.9946 421.791 52.1879V52.8403H409.465C409.083 52.5987 408.772 51.898 408.534 50.7383C408.342 49.5785 408.175 47.9356 408.032 45.8094C407.889 43.6832 407.721 42.0161 407.53 40.8081C406.861 35.8792 404.019 33.4148 399.002 33.4148H391.334V52.8403H378.65ZM391.334 23.9195H400.866C403.35 23.9195 405.237 23.3638 406.527 22.2523C407.817 21.1409 408.462 19.5946 408.462 17.6134C408.462 15.6805 407.841 14.1342 406.599 12.9745C405.357 11.7664 403.541 11.1624 401.152 11.1624H391.334V23.9195Z"/><path d="M426.729 52.8403V1.01476H465.57V11.5973H439.413V20.8752H461.844V30.8779H439.413V41.9678H466V52.8403H426.729Z"/></svg>
+      <svg class="wm-t" viewBox="0 0 420.79 54" role="img" aria-label="Seven Acre"><path d="M22.968 53.64C16.008 53.64 10.464 52.152 6.336 49.176C2.256 46.152 0.144 41.832 0 36.216H12.816C13.344 41.112 16.704 43.56 22.896 43.56C25.2 43.56 27.144 43.128 28.728 42.264C30.36 41.352 31.176 39.984 31.176 38.16C31.176 36.912 30.672 35.88 29.664 35.064C28.656 34.2 27.624 33.6 26.568 33.264C25.56 32.928 23.616 32.4 20.736 31.68C20.592 31.632 20.496 31.608 20.448 31.608C20.4 31.56 20.328 31.536 20.232 31.536C20.136 31.488 20.04 31.464 19.944 31.464C17.736 30.936 15.912 30.48 14.472 30.096C13.08 29.664 11.472 29.04 9.648 28.224C7.872 27.36 6.456 26.424 5.4 25.416C4.344 24.408 3.432 23.088 2.664 21.456C1.944 19.776 1.584 17.904 1.584 15.84C1.584 10.56 3.456 6.6 7.2 3.96C10.992 1.32 15.936 0 22.032 0C27.888 0 32.664 1.344 36.36 4.032C40.104 6.72 42.096 10.656 42.336 15.84H29.88C29.64 13.872 28.8 12.36 27.36 11.304C25.92 10.2 24 9.648 21.6 9.648C19.392 9.648 17.592 10.104 16.2 11.016C14.856 11.88 14.184 13.032 14.184 14.472C14.184 16.104 15 17.304 16.632 18.072C18.264 18.792 21.336 19.656 25.848 20.664C28.68 21.336 31.008 22.008 32.832 22.68C34.656 23.304 36.504 24.216 38.376 25.416C40.296 26.616 41.712 28.176 42.624 30.096C43.584 31.968 44.064 34.224 44.064 36.864C44.064 42.096 42.072 46.2 38.088 49.176C34.152 52.152 29.112 53.64 22.968 53.64Z"/><path d="M49.2761 52.416V0.936001H88.3001V11.448H62.0201V20.664H84.5561V30.6H62.0201V41.616H88.7321V52.416H49.2761Z"/><path d="M107.807 52.416L90.8151 0.936001H104.063L112.127 27.936L114.503 37.008H114.647C115.511 33.504 116.303 30.48 117.023 27.936L125.015 0.936001H137.903L120.983 52.416H107.807Z"/><path d="M186.596 52.416V0.936001H199.412L214.676 26.784L218.204 33.336H218.348C218.252 29.208 218.204 26.544 218.204 25.344V0.936001H230.66V52.416H217.844L202.724 26.928L199.052 20.016H198.908C199.004 24.432 199.052 27.24 199.052 28.44V52.416H186.596Z" transform="translate(-45.21 0)"/><path class="sl" d="M234 52L253.455 0H263.656L244.201 52H234Z" transform="translate(-45.21 0)"/><path class="sl" d="M256.344 52L275.799 0H286L266.545 52H256.344Z" transform="translate(-45.21 0)"/><path d="M278 52.8403L296.417 1.01476H309.46L327.949 52.8403H314.62L311.61 43.4899H293.694L290.756 52.8403H278ZM296.632 34.2846H308.672L304.802 21.745L302.795 14.4242H302.652C301.84 17.5168 301.147 19.957 300.574 21.745L296.632 34.2846Z" transform="translate(-45.21 0)"/><path d="M351.551 54C344.098 54 338.007 51.4872 333.277 46.4617C328.595 41.3879 326.254 34.9369 326.254 27.1087C326.254 19.2805 328.571 12.8054 333.205 7.68322C337.839 2.56107 343.931 0 351.479 0C357.308 0 362.181 1.52215 366.098 4.56644C370.542 7.94899 373.098 12.7087 373.766 18.8456H361.082C360.748 16.4779 359.72 14.5208 358.001 12.9745C356.281 11.4282 354.083 10.655 351.408 10.655C347.394 10.655 344.337 12.1772 342.235 15.2215C340.18 18.2174 339.153 22.1799 339.153 27.1087C339.153 31.9409 340.276 35.8792 342.521 38.9235C344.767 41.9678 347.753 43.4899 351.479 43.4899C354.25 43.4899 356.519 42.6926 358.287 41.098C360.103 39.5034 361.154 37.4255 361.44 34.8644H374.125C373.742 40.0832 371.688 44.5047 367.962 48.1289C363.949 52.043 358.478 54 351.551 54Z" transform="translate(-45.21 0)"/><path d="M378.65 52.8403V1.01476H403.159C408.414 1.01476 412.714 2.34362 416.058 5.00134C419.402 7.61074 421.075 11.2591 421.075 15.9463C421.075 22.2282 418.113 26.4081 412.188 28.4859V28.7034C416.488 30.153 418.972 33.3181 419.641 38.1987C419.928 39.8899 420.119 41.9919 420.215 44.5047C420.358 46.9691 420.525 48.8295 420.716 50.0859C420.907 51.294 421.266 51.9946 421.791 52.1879V52.8403H409.465C409.083 52.5987 408.772 51.898 408.534 50.7383C408.342 49.5785 408.175 47.9356 408.032 45.8094C407.889 43.6832 407.721 42.0161 407.53 40.8081C406.861 35.8792 404.019 33.4148 399.002 33.4148H391.334V52.8403H378.65ZM391.334 23.9195H400.866C403.35 23.9195 405.237 23.3638 406.527 22.2523C407.817 21.1409 408.462 19.5946 408.462 17.6134C408.462 15.6805 407.841 14.1342 406.599 12.9745C405.357 11.7664 403.541 11.1624 401.152 11.1624H391.334V23.9195Z" transform="translate(-45.21 0)"/><path d="M426.729 52.8403V1.01476H465.57V11.5973H439.413V20.8752H461.844V30.8779H439.413V41.9678H466V52.8403H426.729Z" transform="translate(-45.21 0)"/></svg>
+      <svg class="wm-m" viewBox="0 0 377.3 54" role="img" aria-label="Seven Acre"><path d="M22.968 53.64C16.008 53.64 10.464 52.152 6.336 49.176C2.256 46.152 0.144 41.832 0 36.216H12.816C13.344 41.112 16.704 43.56 22.896 43.56C25.2 43.56 27.144 43.128 28.728 42.264C30.36 41.352 31.176 39.984 31.176 38.16C31.176 36.912 30.672 35.88 29.664 35.064C28.656 34.2 27.624 33.6 26.568 33.264C25.56 32.928 23.616 32.4 20.736 31.68C20.592 31.632 20.496 31.608 20.448 31.608C20.4 31.56 20.328 31.536 20.232 31.536C20.136 31.488 20.04 31.464 19.944 31.464C17.736 30.936 15.912 30.48 14.472 30.096C13.08 29.664 11.472 29.04 9.648 28.224C7.872 27.36 6.456 26.424 5.4 25.416C4.344 24.408 3.432 23.088 2.664 21.456C1.944 19.776 1.584 17.904 1.584 15.84C1.584 10.56 3.456 6.6 7.2 3.96C10.992 1.32 15.936 0 22.032 0C27.888 0 32.664 1.344 36.36 4.032C40.104 6.72 42.096 10.656 42.336 15.84H29.88C29.64 13.872 28.8 12.36 27.36 11.304C25.92 10.2 24 9.648 21.6 9.648C19.392 9.648 17.592 10.104 16.2 11.016C14.856 11.88 14.184 13.032 14.184 14.472C14.184 16.104 15 17.304 16.632 18.072C18.264 18.792 21.336 19.656 25.848 20.664C28.68 21.336 31.008 22.008 32.832 22.68C34.656 23.304 36.504 24.216 38.376 25.416C40.296 26.616 41.712 28.176 42.624 30.096C43.584 31.968 44.064 34.224 44.064 36.864C44.064 42.096 42.072 46.2 38.088 49.176C34.152 52.152 29.112 53.64 22.968 53.64Z"/><path d="M107.807 52.416L90.8151 0.936001H104.063L112.127 27.936L114.503 37.008H114.647C115.511 33.504 116.303 30.48 117.023 27.936L125.015 0.936001H137.903L120.983 52.416H107.807Z" transform="translate(-43.5 0)"/><path d="M186.596 52.416V0.936001H199.412L214.676 26.784L218.204 33.336H218.348C218.252 29.208 218.204 26.544 218.204 25.344V0.936001H230.66V52.416H217.844L202.724 26.928L199.052 20.016H198.908C199.004 24.432 199.052 27.24 199.052 28.44V52.416H186.596Z" transform="translate(-88.7 0)"/><path class="sl" d="M234 52L253.455 0H263.656L244.201 52H234Z" transform="translate(-88.7 0)"/><path class="sl" d="M256.344 52L275.799 0H286L266.545 52H256.344Z" transform="translate(-88.7 0)"/><path d="M278 52.8403L296.417 1.01476H309.46L327.949 52.8403H314.62L311.61 43.4899H293.694L290.756 52.8403H278ZM296.632 34.2846H308.672L304.802 21.745L302.795 14.4242H302.652C301.84 17.5168 301.147 19.957 300.574 21.745L296.632 34.2846Z" transform="translate(-88.7 0)"/><path d="M351.551 54C344.098 54 338.007 51.4872 333.277 46.4617C328.595 41.3879 326.254 34.9369 326.254 27.1087C326.254 19.2805 328.571 12.8054 333.205 7.68322C337.839 2.56107 343.931 0 351.479 0C357.308 0 362.181 1.52215 366.098 4.56644C370.542 7.94899 373.098 12.7087 373.766 18.8456H361.082C360.748 16.4779 359.72 14.5208 358.001 12.9745C356.281 11.4282 354.083 10.655 351.408 10.655C347.394 10.655 344.337 12.1772 342.235 15.2215C340.18 18.2174 339.153 22.1799 339.153 27.1087C339.153 31.9409 340.276 35.8792 342.521 38.9235C344.767 41.9678 347.753 43.4899 351.479 43.4899C354.25 43.4899 356.519 42.6926 358.287 41.098C360.103 39.5034 361.154 37.4255 361.44 34.8644H374.125C373.742 40.0832 371.688 44.5047 367.962 48.1289C363.949 52.043 358.478 54 351.551 54Z" transform="translate(-88.7 0)"/><path d="M378.65 52.8403V1.01476H403.159C408.414 1.01476 412.714 2.34362 416.058 5.00134C419.402 7.61074 421.075 11.2591 421.075 15.9463C421.075 22.2282 418.113 26.4081 412.188 28.4859V28.7034C416.488 30.153 418.972 33.3181 419.641 38.1987C419.928 39.8899 420.119 41.9919 420.215 44.5047C420.358 46.9691 420.525 48.8295 420.716 50.0859C420.907 51.294 421.266 51.9946 421.791 52.1879V52.8403H409.465C409.083 52.5987 408.772 51.898 408.534 50.7383C408.342 49.5785 408.175 47.9356 408.032 45.8094C407.889 43.6832 407.721 42.0161 407.53 40.8081C406.861 35.8792 404.019 33.4148 399.002 33.4148H391.334V52.8403H378.65ZM391.334 23.9195H400.866C403.35 23.9195 405.237 23.3638 406.527 22.2523C407.817 21.1409 408.462 19.5946 408.462 17.6134C408.462 15.6805 407.841 14.1342 406.599 12.9745C405.357 11.7664 403.541 11.1624 401.152 11.1624H391.334V23.9195Z" transform="translate(-88.7 0)"/><path d="M426.729 52.8403V1.01476H465.57V11.5973H439.413V20.8752H461.844V30.8779H439.413V41.9678H466V52.8403H426.729Z" transform="translate(-88.7 0)"/></svg>
+    </div>
+    <div class="foot-base mono m8 c7"><span>© 2026 Seven Acre Digital</span><span>Digital</span></div>
+  </footer>
+</main>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const MON = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  const p2 = n => String(n).padStart(2,'0');
+
+  // status bar clock + next availability (10 days out, skipping weekends)
+  const avail = new Date(); avail.setDate(avail.getDate() + 10);
+  while (avail.getDay() === 0 || avail.getDay() === 6) avail.setDate(avail.getDate() + 1);
+  const availTxt = `${p2(avail.getDate())} ${MON[avail.getMonth()]} ${avail.getFullYear()}`;
+  ['avail','avail2','avail3'].forEach(id => document.getElementById(id).textContent = availTxt);
+  const cd = document.getElementById('clock-date'), ct = document.getElementById('clock-time');
+  const tick = () => { const d = new Date();
+    cd.textContent = `${p2(d.getDate())} ${MON[d.getMonth()]} ${String(d.getFullYear()).slice(2)}`;
+    ct.textContent = `${p2(d.getHours())}:${p2(d.getMinutes())}:${p2(d.getSeconds())}`; };
+  tick(); setInterval(tick, 1000);
+
+  // menu drawer
+  const menu = document.getElementById('menu'), btn = document.getElementById('menuBtn');
+  const setMenu = open => { menu.classList.toggle('open', open); menu.inert = !open;
+    btn.setAttribute('aria-expanded', open);
+    if (open) menu.querySelector('a').focus({preventScroll:true}); };
+  btn.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+  document.getElementById('menuClose').addEventListener('click', () => { setMenu(false); btn.focus(); });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('open')) { setMenu(false); btn.focus(); } });
+
+  // services accordion
+  document.querySelectorAll('.svc-head').forEach(h => h.addEventListener('click', () => {
+    const row = h.parentElement, open = !row.classList.contains('open');
+    row.classList.toggle('open', open); h.setAttribute('aria-expanded', open);
+    document.getElementById(h.getAttribute('aria-controls')).inert = !open;
+  }));
+
+  // process track arrows
+  const track = document.getElementById('track');
+  const step = () => track.querySelector('.step').getBoundingClientRect().width + 16;
+  document.getElementById('prev').onclick = () => track.scrollBy({left:-step(), behavior: reduce ? 'auto' : 'smooth'});
+  document.getElementById('next').onclick = () => track.scrollBy({left: step(), behavior: reduce ? 'auto' : 'smooth'});
+
+  // enquiry form (mockup)
+  const form = document.getElementById('form');
+  form.addEventListener('submit', e => { e.preventDefault(); form.classList.add('done'); });
+
+  // hero: aerial lot being mowed in stripes
+  const cv = document.getElementById('lot'), ctx = cv.getContext('2d'), out = document.getElementById('mowed');
+  const BANDS = 12, MOW = 14000, HOLD = 2600;
+  let W = 0, H = 0, start = performance.now(), visible = true, raf = 0;
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const specks = Array.from({length: 520}, () => [rnd(), rnd(), rnd()]);
+
+  function size() {
+    const r = cv.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+    W = r.width; H = r.height; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function draw(p) {
+    ctx.clearRect(0, 0, W, H);
+    const lx = W * .2, lw = W * .6, ly = H * .1, lh = H * .68;
+    const walkY = ly + lh + H * .03, roadY = walkY + H * .035;
+    // neighbouring lots, sidewalk, road
+    ctx.fillStyle = '#e2e2e7'; ctx.fillRect(0, ly, lx - 10, lh); ctx.fillRect(lx + lw + 10, ly, W, lh);
+    ctx.fillStyle = '#d6d7dc'; ctx.fillRect(W * .04, ly + lh * .22, lx - 10 - W * .08, lh * .34); ctx.fillRect(lx + lw + 10 + W * .04, ly + lh * .2, W - (lx + lw + 10) - W * .08, lh * .36);
+    ctx.fillStyle = '#dcdde1'; ctx.fillRect(0, walkY, W, roadY - walkY);
+    ctx.fillStyle = '#c9cace'; ctx.fillRect(0, roadY, W, H - roadY);
+    ctx.strokeStyle = '#f2f2f4'; ctx.lineWidth = 2; ctx.setLineDash([18, 14]);
+    ctx.beginPath(); ctx.moveTo(0, roadY + (H - roadY) / 2); ctx.lineTo(W, roadY + (H - roadY) / 2); ctx.stroke();
+    // lawn bands
+    const bh = lh / BANDS, done = p * BANDS;
+    for (let i = 0; i < BANDS; i++) {
+      const y = ly + i * bh, f = Math.max(0, Math.min(1, done - i)), ltr = i % 2 === 0;
+      ctx.fillStyle = '#4f6847'; ctx.fillRect(lx, y, lw, bh + .5);
+      if (f > 0) { ctx.fillStyle = ltr ? '#83a074' : '#6c8962';
+        ltr ? ctx.fillRect(lx, y, lw * f, bh + .5) : ctx.fillRect(lx + lw * (1 - f), y, lw * f, bh + .5); }
+    }
+    // uncut grass speckle
+    for (const [sx, sy, s] of specks) {
+      const i = Math.min(BANDS - 1, Math.floor(sy * BANDS)), f = Math.max(0, Math.min(1, done - i)), ltr = i % 2 === 0;
+      if (f > 0 && (ltr ? sx < f : sx > 1 - f)) continue;
+      ctx.fillStyle = s > .5 ? '#5d7853' : '#425a3c'; ctx.fillRect(lx + sx * lw, ly + sy * lh, 1.6, 1.6);
+    }
+    // driveway + house
+    const hx = lx + lw * .38, hw = lw * .36, hy = ly + lh * .16, hh = lh * .38;
+    ctx.fillStyle = '#c4c6cb'; ctx.fillRect(hx + hw * .7, hy + hh, hw * .3, walkY - (hy + hh));
+    ctx.fillStyle = '#2d2f2f'; ctx.fillRect(hx, hy, hw, hh);
+    ctx.strokeStyle = '#494d4d'; ctx.lineWidth = 1; ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(hx + 6, hy + hh / 2); ctx.lineTo(hx + hw - 6, hy + hh / 2); ctx.stroke();
+    // mower at the cutting edge
+    if (p > 0 && p < 1) {
+      const i = Math.floor(done), f = done - i, ltr = i % 2 === 0;
+      const mx = ltr ? lx + lw * f : lx + lw * (1 - f), my = ly + i * bh + bh / 2, s = Math.max(6, bh * .55);
+      ctx.fillStyle = '#121212'; ctx.fillRect(mx - s / 2, my - s / 2, s, s);
+    }
+    // property line + dimensions
+    ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.lineWidth = 1; ctx.setLineDash([5, 4]);
+    ctx.strokeRect(lx + .5, ly + .5, lw - 1, lh - 1); ctx.setLineDash([]);
+    ctx.fillStyle = '#494d4d'; ctx.font = '9px "Geist Mono", ui-monospace, monospace'; ctx.textAlign = 'center';
+    ctx.fillText('82 FT', lx + lw / 2, ly - 6);
+    ctx.save(); ctx.translate(lx + lw + 8 + 9, ly + lh / 2); ctx.rotate(Math.PI / 2); ctx.fillText('100 FT', 0, 0); ctx.restore();
+    // corner crosshairs
+    ctx.strokeStyle = '#737d7d';
+    [[10, H - 10], [W - 10, ly]].forEach(([x, y]) => { ctx.beginPath(); ctx.moveTo(x - 4, y); ctx.lineTo(x + 4, y); ctx.moveTo(x, y - 4); ctx.lineTo(x, y + 4); ctx.stroke(); });
+    out.textContent = `MOWED ${Math.round(p * 100)}%`;
+  }
+  function frame(now) {
+    const t = (now - start) % (MOW + HOLD);
+    draw(Math.min(1, t / MOW));
+    raf = visible ? requestAnimationFrame(frame) : 0;
+  }
+  size();
+  if (reduce) draw(1); else raf = requestAnimationFrame(frame);
+  new ResizeObserver(() => { size(); if (reduce) draw(1); }).observe(cv);
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting;
+    if (visible && !reduce && !raf) raf = requestAnimationFrame(frame); }).observe(cv);
+  document.fonts && document.fonts.ready.then(() => reduce && draw(1));
+})();
+</script>

@@ -1,0 +1,1040 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>seven//acre Homepage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: Swiss 12-column grid, 24px gutters (16px on phones), on a cool off-white ground.
+   Violet appears in three places only: the hero gradient, the customer pillar band, and the final CTA. Everything else is ink and hairlines.
+   One deliberate light world: every colour below is set explicitly. */
+:root{
+  color-scheme:light;
+  --paper:#f5f4f8;
+  --card:#ffffff;
+  --sunk:#ecebf1;
+  --ink:#0f0e13;
+  --body:#3a3844;
+  --muted:#6f6b7b;
+  --faint:#a6a3b0;
+  --line:rgba(15,14,19,.11);
+  --violet:#6a4bff;
+  --violet-deep:#4426d9;
+  --lilac:#e4d9ff;
+  --orchid:#c47dff;
+  --night:#121019;
+  --sans:"Neue Haas Grotesk Display Pro","Neue Haas Grotesk Display","Neue Haas Grotesk","Inter Tight","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --g:24px;
+  --ease:cubic-bezier(.23,1,.32,1);        /* strong ease-out: entries, presses */
+  --ease-io:cubic-bezier(.77,0,.175,1);    /* on-screen movement */
+  --t-hero:clamp(3rem,8.4vw,9rem);
+  --t-xl:clamp(2.25rem,5vw,4.75rem);
+  --t-l:clamp(1.6rem,2.8vw,2.6rem);
+  --t-m:clamp(1.15rem,1.5vw,1.4rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--body);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,p,figure{margin:0}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px}
+.cap{font-family:var(--mono);font-size:11px;line-height:1.4;text-transform:uppercase;letter-spacing:.04em;font-weight:400}
+.mut{color:var(--muted)}
+.wrap{padding-inline:var(--g)}
+.g12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g)}
+.sec{padding-block:128px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:40px}
+.h2{font-size:var(--t-xl);font-weight:500;line-height:.95;letter-spacing:-.045em;color:var(--ink);text-wrap:balance}
+.h2 em{font-style:normal;color:var(--violet)}
+.wm{display:block;width:100%;height:auto}
+.wm-t,.wm-m{display:none}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:14px;border-radius:999px;padding:13px 20px;font-size:14px;font-weight:500;letter-spacing:-.005em;-webkit-tap-highlight-color:transparent;transition:transform 160ms var(--ease),background-color 200ms ease,box-shadow 200ms ease}
+.btn svg{transition:transform 250ms var(--ease)}
+.btn:active{transform:scale(.97)}
+.btn.vio{background:var(--violet);color:#fff}
+.btn.ink{background:var(--ink);color:var(--paper)}
+.btn.ghost{color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover svg{transform:translateX(3px)}
+  .btn.vio:hover{background:var(--violet-deep)}
+  .btn.ink:hover{background:#000}
+  .btn.ghost:hover{box-shadow:inset 0 0 0 1px var(--ink)}
+}
+
+/* ---------- header ---------- */
+.top{position:fixed;z-index:50;inset:calc(env(safe-area-inset-top,0px) + 12px) 12px auto 12px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 8px 8px 14px;border-radius:999px;background:rgba(245,244,248,.72);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);box-shadow:inset 0 0 0 1px var(--line)}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);--slash:var(--violet)}
+.brand .ic{width:26px;height:auto;display:block}
+.brand .wm{width:132px}
+.nav{display:flex;gap:26px}
+.nav a{font-size:13px;font-weight:500;color:var(--body);transition:color 150ms ease}
+@media (hover:hover) and (pointer:fine){.nav a:hover{color:var(--violet)}}
+.top .btn{padding:9px 16px;font-size:13px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding-top:132px;padding-bottom:var(--g);min-height:min(100svh,980px);display:flex;flex-direction:column;justify-content:space-between;gap:48px;
+  background:linear-gradient(180deg,var(--paper) 0%,var(--paper) 30%,#efe8ff 56%,#dcc6ff 80%,var(--orchid) 100%)}
+.meta{row-gap:6px}
+.meta>div{grid-column:span 3;display:flex;flex-direction:column;gap:2px}
+.hero h1{font-size:var(--t-hero);font-weight:500;line-height:.88;letter-spacing:-.055em;color:var(--ink);margin-left:-.04em}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.hero h1 .ln>span{display:block;animation:rise 900ms var(--ease) both}
+.hero h1 .ln:nth-child(2)>span{animation-delay:.09s;color:var(--violet)}
+@keyframes rise{from{transform:translateY(104%)}to{transform:none}}
+.hero-low{align-items:end;row-gap:32px}
+.hero-copy{grid-column:1 / span 5;display:flex;flex-direction:column;gap:24px}
+.hero-copy p{font-size:var(--t-m);line-height:1.3;letter-spacing:-.015em;color:var(--ink);max-width:34ch}
+.ctas{display:flex;flex-wrap:wrap;gap:10px}
+.tagline{grid-column:6 / span 3;align-self:end;display:flex;flex-direction:column;gap:6px;color:var(--ink)}
+.tagline b{font-size:var(--t-m);font-weight:500;letter-spacing:-.02em;line-height:1.1}
+
+/* phone */
+.phone{grid-column:9 / span 4;justify-self:end;width:min(100%,340px);background:var(--night);border-radius:34px;padding:10px;box-shadow:0 40px 80px -30px rgba(68,38,217,.55)}
+.screen{background:#f4f3f7;border-radius:26px;overflow:hidden;display:flex;flex-direction:column;min-height:440px}
+.sbar{display:flex;justify-content:space-between;padding:12px 20px 6px;font-size:11px;font-weight:600;color:var(--ink)}
+.thread-head{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0 12px;border-bottom:1px solid var(--line)}
+.thread-head i{width:34px;height:34px;border-radius:50%;background:var(--ink);display:grid;place-items:center}
+.thread-head i svg{width:24px}
+.thread-head span{font-size:11px;color:var(--muted)}
+.msgs{flex:1;display:flex;flex-direction:column;gap:7px;padding:14px 12px 16px}
+.msg{max-width:84%;padding:9px 12px;border-radius:18px;font-size:12.5px;line-height:1.35;transform-origin:0 100%;animation:pop 400ms var(--ease) both}
+.msg.in{background:#fff;color:var(--ink);border-bottom-left-radius:6px;box-shadow:0 1px 0 var(--line)}
+.msg.out{transform-origin:100% 100%;align-self:flex-end;background:var(--violet);color:#fff;border-bottom-right-radius:6px}
+.msg b{font-weight:600}
+.msg small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.msg .pics{display:flex;gap:4px;margin-top:7px}
+.msg .pics span{width:38px;height:30px;border-radius:5px;background:repeating-linear-gradient(160deg,#5c7a52 0 5px,#6f8d63 5px 10px)}
+.msg.note{transform-origin:50% 50%;align-self:center;background:transparent;color:var(--muted);font-size:11px;padding:2px 0}
+.msg:nth-child(1){animation-delay:.6s}.msg:nth-child(2){animation-delay:1.5s}.msg:nth-child(3){animation-delay:2.4s}.msg:nth-child(4){animation-delay:3.1s}.msg:nth-child(5){animation-delay:4.2s}
+@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+/* trades ticker */
+.ticker{overflow:hidden;border-block:1px solid var(--line);background:var(--paper)}
+.ticker-in{display:flex;width:max-content;animation:tick 48s linear infinite}
+@media (hover:hover) and (pointer:fine){.ticker:hover .ticker-in{animation-play-state:paused}}
+.ticker-in span{padding:14px 28px;white-space:nowrap;font-size:13px;font-weight:500;color:var(--ink);display:flex;align-items:center;gap:28px}
+.ticker-in span::after{content:"//";color:var(--violet);font-weight:500}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ---------- problem ---------- */
+.prob{row-gap:48px}
+.prob .h2{grid-column:1 / span 8}
+.prob-text{grid-column:9 / span 4;align-self:end;display:flex;flex-direction:column;gap:14px;font-size:var(--t-m);line-height:1.35;letter-spacing:-.01em;color:var(--body)}
+.prob-text strong{color:var(--ink);font-weight:500}
+.serp-pair{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;gap:var(--g)}
+.serp{background:var(--card);border-radius:6px;box-shadow:inset 0 0 0 1px var(--line);padding:20px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.serp-top{display:flex;justify-content:space-between;align-items:center}
+.pill{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.04em;padding:4px 8px;border-radius:999px;background:var(--sunk);color:var(--muted)}
+.pill.on{background:var(--violet);color:#fff}
+.q{display:flex;align-items:center;gap:10px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line);padding:10px 14px;font-size:14px;color:var(--ink)}
+.q svg{flex:none}
+.res{display:flex;flex-direction:column;gap:3px;padding-top:4px}
+.res .url{font-size:12px;color:var(--muted)}
+.res .t{font-size:18px;color:#1a0dab;letter-spacing:-.01em}
+.res .d{font-size:13px;color:var(--body)}
+.res .stars{color:#b26a00;font-size:13px}
+.res.dim{opacity:.55}
+.res-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.res-actions span{font-size:12px;font-weight:500;padding:6px 12px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line);color:var(--ink)}
+.res-actions span.go{background:var(--ink);color:#fff;box-shadow:none}
+.verdict{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);font-size:var(--t-m);font-weight:500;letter-spacing:-.02em;color:var(--ink)}
+.verdict.bad{color:var(--muted)}
+
+/* ---------- pillars ---------- */
+.pillar{border-top:1px solid var(--line);padding-block:40px;row-gap:24px;align-items:start}
+.pillar:last-child{border-bottom:1px solid var(--line)}
+.sec-head + .pillar{border-top:0;padding-top:8px}
+.p-num{grid-column:1 / span 1;font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:10px}
+.p-title{grid-column:2 / span 5}
+.p-title h3{font-size:var(--t-l);font-weight:500;line-height:1;letter-spacing:-.035em;color:var(--ink);text-wrap:balance}
+.p-title p{margin-top:16px;max-width:42ch;color:var(--body)}
+.p-list{grid-column:8 / span 5;display:flex;flex-direction:column}
+.p-list .cap{padding-bottom:8px}
+.p-list li{list-style:none;display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-top:1px solid var(--line);color:var(--ink)}
+.p-list li span:last-child{color:var(--muted);text-align:right}
+.p-list ul{margin:0;padding:0;border-bottom:1px solid var(--line)}
+/* the customer pillar gets the band */
+.pillar.band{margin-inline:calc(var(--g) * -1);padding:56px var(--g);border-top:0;color:#fff;
+  background:radial-gradient(120% 140% at 85% 0%,#9b7bff 0%,var(--violet) 38%,var(--violet-deep) 70%,#1d1438 100%)}
+.pillar.band + .pillar{border-top:0}
+.pillar.band .p-num,.pillar.band .cap{color:#d9ceff}
+.pillar.band h3{color:#fff;font-size:clamp(2rem,4.4vw,4.25rem);line-height:.95}
+.pillar.band .p-title{grid-column:2 / span 6}
+.pillar.band .p-title p{color:#ece6ff}
+.pillar.band .p-list{grid-column:9 / span 4}
+.pillar.band li{border-color:rgba(255,255,255,.22);color:#fff}
+.pillar.band li span:last-child{color:#d9ceff}
+.pillar.band ul{border-color:rgba(255,255,255,.22)}
+.why{grid-column:2 / span 10;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.22);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--g)}
+.why div{display:flex;flex-direction:column;gap:4px}
+.why b{font-weight:500;font-size:17px;letter-spacing:-.01em}
+.why span{color:#d9ceff;font-size:13px}
+
+/* ---------- quality band ---------- */
+.qual{row-gap:40px;align-items:end}
+.qual .h2{grid-column:1 / span 7}
+.qual-text{grid-column:9 / span 4;display:flex;flex-direction:column;gap:14px}
+.qual-text p{font-size:var(--t-m);line-height:1.35;letter-spacing:-.01em}
+.compare{grid-column:1 / -1;display:grid;grid-template-columns:1.2fr repeat(3,minmax(0,1fr));border-top:1px solid var(--ink)}
+.compare>div{padding:14px 12px 14px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--body)}
+.compare .hd{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding-top:12px}
+.compare .us{color:var(--ink);font-weight:500;background:linear-gradient(90deg,rgba(106,75,255,.08),rgba(106,75,255,0));padding-left:12px;margin-left:-12px}
+.compare .hd.us{color:var(--violet)}
+.compare .row{color:var(--ink);font-weight:500}
+
+/* ---------- how ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--g)}
+.step{background:var(--card);border-radius:6px;box-shadow:inset 0 0 0 1px var(--line);padding:22px;min-height:340px;display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+.step-top{display:flex;justify-content:space-between;align-items:center}
+.step h3{font-size:var(--t-l);font-weight:500;line-height:1;letter-spacing:-.035em;color:var(--ink);margin-bottom:12px}
+.step p{max-width:34ch}
+.step.last{background:var(--ink);color:#cfcbd9;box-shadow:none}
+.step.last h3{color:#fff}
+.step.last .pill{background:var(--violet);color:#fff}
+
+/* ---------- math ---------- */
+.math{row-gap:40px}
+.math .h2{grid-column:1 / span 7}
+.math-intro{grid-column:9 / span 4;align-self:end;font-size:var(--t-m);line-height:1.35;letter-spacing:-.01em}
+.calc{grid-column:1 / -1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);row-gap:32px;background:var(--card);border-radius:6px;box-shadow:inset 0 0 0 1px var(--line);padding:var(--g)}
+.trades{grid-column:1 / span 5;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.trades .cap{width:100%;margin-bottom:4px}
+.trades button{padding:9px 14px;border-radius:999px;font-size:13px;font-weight:500;box-shadow:inset 0 0 0 1px var(--line);color:var(--ink);-webkit-tap-highlight-color:transparent;transition:transform 160ms var(--ease),background-color 150ms ease,color 150ms ease,box-shadow 150ms ease}
+.trades button:active{transform:scale(.96)}
+@media (hover:hover) and (pointer:fine){.trades button:hover{box-shadow:inset 0 0 0 1px var(--ink)}}
+.trades button[aria-pressed="true"]{background:var(--ink);color:#fff;box-shadow:none}
+.result{grid-column:7 / span 6;display:flex;flex-direction:column;gap:18px}
+.result .big{will-change:filter,opacity;font-size:clamp(2.75rem,6vw,5.5rem);font-weight:500;line-height:.9;letter-spacing:-.05em;color:var(--ink);font-variant-numeric:tabular-nums}
+.result .big small{display:block;font-size:var(--t-m);letter-spacing:-.015em;color:var(--muted);margin-top:10px;line-height:1.2}
+.rows div{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-top:1px solid var(--line)}
+.rows div:last-child{border-bottom:1px solid var(--line)}
+.rows span:last-child{color:var(--ink);font-weight:500;text-align:right;font-variant-numeric:tabular-nums}
+.fine{grid-column:1 / -1;font-size:12px;color:var(--muted)}
+
+/* ---------- story ---------- */
+.story{row-gap:40px}
+.story blockquote{grid-column:1 / span 8;margin:0;font-size:var(--t-l);font-weight:500;line-height:1.05;letter-spacing:-.035em;color:var(--ink);text-wrap:balance}
+.story blockquote span{color:var(--faint)}
+.story-body{grid-column:5 / span 6;display:flex;flex-direction:column;gap:16px;font-size:17px;line-height:1.55;color:var(--body)}
+.story-body p:first-child::first-line{color:var(--ink)}
+.sign{display:flex;align-items:center;gap:12px;margin-top:8px;color:var(--ink);--slash:var(--violet)}
+.sign .wm{width:150px}
+
+/* ---------- promises ---------- */
+.promises{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink)}
+.promise{padding:22px 20px 22px 0;display:flex;flex-direction:column;gap:10px;border-right:1px solid var(--line)}
+.promise + .promise{padding-left:20px}
+.promise:last-child{border-right:0}
+.promise b{font-size:var(--t-m);font-weight:500;letter-spacing:-.02em;color:var(--ink);line-height:1.1}
+.promise span{font-size:14px}
+
+/* ---------- faq ---------- */
+.faq{row-gap:32px}
+.faq .h2{grid-column:1 / span 4;align-self:start;position:sticky;top:96px}
+.faq-list{grid-column:6 / span 7}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color 150ms ease;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font-size:var(--t-m);font-weight:500;letter-spacing:-.02em;color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{flex:none;width:28px;height:28px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line);display:grid;place-items:center;font-style:normal;transition:transform 250ms var(--ease-io),scale 160ms var(--ease),background-color 150ms ease,color 150ms ease,box-shadow 150ms ease}
+.faq summary:active i{scale:.92}
+@media (hover:hover) and (pointer:fine){.faq summary:hover{color:var(--violet)}.faq summary:hover i{box-shadow:inset 0 0 0 1px var(--ink)}}
+.faq details[open] summary i{transform:rotate(45deg);background:var(--ink);color:#fff;box-shadow:none}
+.faq details p{padding:0 48px 22px 0;max-width:60ch;font-size:16px}
+.faq details[open] p{animation:reveal 240ms var(--ease) both}
+@keyframes reveal{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+/* ---------- final cta ---------- */
+.final{margin-top:128px;padding-block:96px var(--g);color:#fff;row-gap:48px;align-items:end;
+  background:linear-gradient(180deg,var(--paper) 0%,#c9b8ff 9%,#6a4bff 26%,#4426d9 52%,#1d1438 80%,var(--night) 100%)}
+.final h2{grid-column:1 / span 7;font-size:clamp(3rem,8vw,8.5rem);font-weight:500;line-height:.86;letter-spacing:-.055em;color:#fff;text-wrap:balance}
+.final-side{grid-column:1 / span 6;display:flex;flex-direction:column;gap:14px;color:#ddd3ff;font-size:var(--t-m);line-height:1.35}
+.form{grid-column:8 / span 5;grid-row:1 / span 2;align-self:end;background:var(--paper);color:var(--body);border-radius:8px;padding:var(--g);display:flex;flex-direction:column;gap:18px}
+.form h3{font-size:22px;font-weight:500;letter-spacing:-.025em;color:var(--ink)}
+.field{display:flex;flex-direction:column;gap:4px}
+.field input,.field select{width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;padding:6px 0 9px;font-size:16px;font-weight:500;color:var(--ink);border-radius:0;outline:none;transition:border-color .2s}
+.field input::placeholder{color:var(--faint)}
+.field input:focus,.field select:focus{border-color:var(--violet)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form .btn{width:100%;padding:15px 20px}
+.sent{display:none;border-radius:4px;background:var(--sunk);padding:10px 12px;font-size:13px}
+.form.done .sent{display:block;animation:reveal 240ms var(--ease) both}
+
+/* ---------- footer ---------- */
+footer{background:var(--night);color:#a39fb3;padding-block:72px var(--g)}
+.foot-cols{row-gap:28px;padding-bottom:64px}
+.foot-cols>div{grid-column:span 3;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.foot-cols .cap{color:#6f6b7b;margin-bottom:4px}
+.foot-cols a:hover{color:#fff}
+.foot-cols p{color:#ece8ff;font-size:var(--t-m);line-height:1.25;letter-spacing:-.015em;max-width:24ch}
+footer .wordmark{color:#ece8ff;--slash:var(--violet)}
+.foot-base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:18px;color:#6f6b7b}
+
+
+/* ---------- motion ---------- */
+/* Everything is visible without JS. The script adds html.js and reveals each block as it enters the viewport (the hero is never hidden). */
+.hero::before{content:"";position:absolute;inset:auto -15% -10% -15%;height:70%;pointer-events:none;
+  background:radial-gradient(ellipse 45% 50% at 50% 60%,rgba(150,110,255,.55),rgba(106,75,255,.18) 50%,transparent 72%);
+  filter:blur(20px);animation:drift 16s ease-in-out infinite alternate}
+.hero>*{position:relative;z-index:1}
+
+/* 3D 7A: WebGL canvas behind the hero type. Follows the cursor, drag to spin. Hidden until the scene has rendered once.
+   The wrapper sets no z-index so the canvas sits under the type while the finish toggle sits over it. */
+.hero>.mark-wrap{position:absolute;z-index:auto;left:46%;top:clamp(150px,22%,260px);width:clamp(320px,32vw,600px);aspect-ratio:1.15}
+.mark3d{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 900ms var(--ease);touch-action:pan-y;cursor:grab;-webkit-tap-highlight-color:transparent}
+.mark3d.ready{opacity:1}
+.mark3d.drag{cursor:grabbing}
+/* design-preview toggle between the two finishes; remove once one is picked */
+.finish{position:absolute;z-index:2;left:50%;bottom:-4px;transform:translateX(-50%);display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(255,255,255,.6);box-shadow:inset 0 0 0 1px var(--line);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.finish button{padding:5px 12px;border-radius:999px;font-size:10px;letter-spacing:.06em;color:var(--muted);transition:background-color 200ms var(--ease),color 200ms var(--ease)}
+.finish button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.mark3d canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
+.mark3d .shadow{position:absolute;left:22%;right:22%;bottom:6%;height:9%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(15,14,19,.32),rgba(15,14,19,.1) 60%,transparent);filter:blur(10px);transform-origin:50% 50%}
+@keyframes drift{from{transform:translate3d(-6%,0,0) scale(1)}to{transform:translate3d(6%,-4%,0) scale(1.12)}}
+
+html.js .rv{opacity:0;transform:translateY(28px);transition:opacity 700ms var(--ease),transform 900ms var(--ease);transition-delay:calc(var(--i,0) * 70ms)}
+html.js .rv.in{opacity:1;transform:none}
+html.js .h2.rv,html.js .final h2.rv,html.js .story blockquote.rv{opacity:1;transform:translateY(40px);clip-path:inset(0 0 100% 0);transition:clip-path 1000ms var(--ease-io),transform 1000ms var(--ease-io)}
+html.js .h2.rv.in,html.js .final h2.rv.in,html.js .story blockquote.rv.in{clip-path:inset(0 0 -10% 0);transform:none}
+html.js .sec-head.rv{opacity:1;transform:none;clip-path:inset(0 100% 0 0);transition:clip-path 900ms var(--ease-io)}
+html.js .sec-head.rv.in{clip-path:inset(0 0 0 0)}
+html.js .compare .us.rv{transform:translateX(-12px)}
+html.js .compare .us.rv.in{transform:none}
+
+/* phone thread */
+.msg.typing{display:flex;gap:4px;padding:12px 14px}
+.msg.typing span{width:6px;height:6px;border-radius:50%;background:var(--faint);animation:dot 1s ease-in-out infinite}
+.msg.typing span:nth-child(2){animation-delay:.15s}.msg.typing span:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+.msgs.live .msg{animation-delay:0s}
+.msgs{transition:opacity 400ms ease}
+.msgs.out{opacity:0}
+
+/* search: blinking caret while typing, results land after */
+.q .typed::after{content:"";display:inline-block;width:1px;height:1em;margin-left:2px;vertical-align:-2px;background:var(--ink);animation:caret 1s steps(1) infinite}
+.q.done .typed::after{display:none}
+@keyframes caret{50%{opacity:0}}
+html.js .serp .land{opacity:0;transform:translateY(10px);transition:opacity 500ms var(--ease),transform 600ms var(--ease);transition-delay:calc(var(--i,0) * 160ms)}
+html.js .serp.found .land{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .nav{display:none}
+  .hero-copy{grid-column:1 / span 7}
+  .tagline{display:none}
+  .phone{grid-column:8 / span 5}
+  .hero>.mark-wrap{left:auto;right:-2vw;top:96px;width:40vw}
+  .finish{display:none}
+  .prob .h2,.qual .h2,.math .h2{grid-column:1 / -1}
+  .prob-text,.qual-text,.math-intro{grid-column:1 / span 8}
+  .p-title,.pillar.band .p-title{grid-column:2 / span 11}
+  .p-list,.pillar.band .p-list{grid-column:2 / span 11}
+  .trades{grid-column:1 / -1}.result{grid-column:1 / -1}
+  .story blockquote{grid-column:1 / -1}.story-body{grid-column:2 / span 10}
+  .promises{grid-template-columns:1fr 1fr}
+  .promise:nth-child(2){border-right:0}
+  .promise:nth-child(n+3){border-top:1px solid var(--line)}
+  .promise:nth-child(3){padding-left:0}
+  .faq .h2{grid-column:1 / -1;position:static}.faq-list{grid-column:1 / -1}
+  .final h2,.final-side,.form{grid-column:1 / -1;grid-row:auto}
+  .foot-cols>div{grid-column:span 6}
+  .wm-d{display:none}.wm-t{display:block}
+  .brand .wm-d{display:block}.brand .wm-t{display:none}
+}
+@media (max-width:760px){
+  :root{--g:16px}
+  .g12{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .sec{padding-top:96px}
+  .top .btn span.long{display:none}
+  .brand .wm{width:110px}
+  .meta>div{grid-column:span 2}
+  .meta>div:nth-child(n+3){display:none}
+  .hero{padding-top:104px}
+  .hero>.mark-wrap{right:-14vw;top:120px;width:66vw}
+  .hero-copy,.phone{grid-column:1 / -1}
+  .phone{justify-self:center}
+  .prob-text,.qual-text,.math-intro,.p-title,.p-list,.pillar.band .p-title,.pillar.band .p-list,.story-body{grid-column:1 / -1}
+  .p-num{grid-column:1 / -1;padding-top:0}
+  .serp-pair,.steps{grid-template-columns:1fr}
+  .step{min-height:0}
+  .why{grid-column:1 / -1;grid-template-columns:1fr}
+  .compare{grid-template-columns:1fr 1fr 1fr 1fr;font-size:12px}
+  .compare>div{font-size:12px;padding-right:6px}
+  .compare .hd{font-size:9px}
+  .promises{grid-template-columns:1fr}
+  .promise,.promise + .promise{padding-left:0;border-right:0}
+  .promise + .promise{border-top:1px solid var(--line)}
+  .two{grid-template-columns:1fr}
+  .foot-cols>div{grid-column:1 / -1}
+  .wm-t{display:none}.wm-m{display:block}
+  .brand .wm-d{display:block}.brand .wm-m{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .hero h1 .ln>span,.ticker-in,.hero::before,.msg.typing span{animation:none}
+  .msg,.faq details[open] p,.form.done .sent{animation-name:fade}
+  .btn:active,.trades button:active{transform:none}
+  .faq summary:active i{scale:none}
+  .btn svg,.faq summary i{transition-property:background-color,color,box-shadow}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><g id="i7a"><path d="M35.3068 47.3903C33.8403 43.2813 35.7125 40.0267 40.0753 40.0244L57.5865 40.0152L65.9864 40.016C66.729 40.0158 67.7462 39.9964 68.7127 40.0006C69.6131 40.0045 70.2058 41.0275 69.8143 41.8383C69.1245 43.2544 68.4678 44.686 67.8448 46.1322C67.5545 46.7985 67.3019 47.4893 66.9983 48.1462L58.1554 67.4406C57.123 69.7265 56.0223 72.0021 55.0728 74.3204C54.6993 75.2322 54.2996 76.1669 53.8323 77.0348C53.6728 77.3589 53.4599 77.855 53.2339 78.3561C52.7621 79.4022 51.7515 79.9744 50.6039 79.9757L47.5781 79.9772C47.0173 79.9772 44.8585 79.9981 42.8281 79.987C40.3714 79.9736 39.4187 78.4037 40.4575 76.1773L42.6914 71.3648L48.4631 58.7C49.465 56.5098 50.2741 54.2554 51.3873 52.1011C51.9835 50.9477 51.0243 49.5058 49.726 49.5049L41.921 49.4993L38.374 49.4948C37.1673 49.4928 35.9622 48.745 35.4294 47.6624C35.3722 47.5461 35.3287 47.4518 35.3068 47.3903Z"/><path d="M60.2294 42.1759C60.8463 40.8604 61.9846 39.9976 63.4374 40.0126C63.4666 40.0129 63.4958 40.0132 63.5249 40.0135C66.2064 40.0435 68.9017 39.9989 71.5901 40C73.6895 40.0009 75.4857 41.1533 76.4229 43.0319C77.589 45.3671 78.5511 47.8579 79.6266 50.2144L89.9478 72.6745C90.2435 73.3341 90.835 74.8035 91.1039 75.4599C92.2267 78.2094 91.2251 80.0019 88.2552 79.9882C85.6774 79.9763 82.8836 79.9256 82.2072 79.977C80.4547 80.1098 78.9752 78.9477 78.2878 77.3301C78.1908 77.1018 78.0918 76.8761 77.9888 76.6553L72.844 65.5617C72.4436 64.676 72.152 63.7346 71.7183 62.8548C71.1864 61.7754 70.7211 60.663 70.1845 59.5845C69.8056 58.8454 69.4243 58.0101 69.0538 57.1696C68.702 56.3711 67.3902 56.3702 67.0957 57.1915C66.5149 58.8109 65.7289 60.2572 65.0292 61.8083L59.7721 73.4372C59.3432 74.3722 58.9031 75.2843 58.4931 76.2294C57.4972 78.5254 55.1701 80.016 52.6676 79.9876C51.4364 79.9736 50.2085 79.9545 49.0855 79.9682C47.9536 79.9821 46.1639 80.0176 44.6787 79.9836C43.8715 79.965 43.3565 79.1001 43.6961 78.3676L45.1196 75.3057L48.9987 66.7248C49.3065 66.0331 49.6339 65.3405 49.9549 64.6533C53.4424 57.1867 56.7303 49.6387 60.2294 42.1759Z"/></g><g id="wm-seven"><path d="M22.968 53.64C16.008 53.64 10.464 52.152 6.336 49.176C2.256 46.152 0.144 41.832 0 36.216H12.816C13.344 41.112 16.704 43.56 22.896 43.56C25.2 43.56 27.144 43.128 28.728 42.264C30.36 41.352 31.176 39.984 31.176 38.16C31.176 36.912 30.672 35.88 29.664 35.064C28.656 34.2 27.624 33.6 26.568 33.264C25.56 32.928 23.616 32.4 20.736 31.68C20.592 31.632 20.496 31.608 20.448 31.608C20.4 31.56 20.328 31.536 20.232 31.536C20.136 31.488 20.04 31.464 19.944 31.464C17.736 30.936 15.912 30.48 14.472 30.096C13.08 29.664 11.472 29.04 9.648 28.224C7.872 27.36 6.456 26.424 5.4 25.416C4.344 24.408 3.432 23.088 2.664 21.456C1.944 19.776 1.584 17.904 1.584 15.84C1.584 10.56 3.456 6.6 7.2 3.96C10.992 1.32 15.936 0 22.032 0C27.888 0 32.664 1.344 36.36 4.032C40.104 6.72 42.096 10.656 42.336 15.84H29.88C29.64 13.872 28.8 12.36 27.36 11.304C25.92 10.2 24 9.648 21.6 9.648C19.392 9.648 17.592 10.104 16.2 11.016C14.856 11.88 14.184 13.032 14.184 14.472C14.184 16.104 15 17.304 16.632 18.072C18.264 18.792 21.336 19.656 25.848 20.664C28.68 21.336 31.008 22.008 32.832 22.68C34.656 23.304 36.504 24.216 38.376 25.416C40.296 26.616 41.712 28.176 42.624 30.096C43.584 31.968 44.064 34.224 44.064 36.864C44.064 42.096 42.072 46.2 38.088 49.176C34.152 52.152 29.112 53.64 22.968 53.64Z" style="fill:currentColor"/><path d="M49.2761 52.416V0.936001H88.3001V11.448H62.0201V20.664H84.5561V30.6H62.0201V41.616H88.7321V52.416H49.2761Z" style="fill:currentColor"/><path d="M107.807 52.416L90.8151 0.936001H104.063L112.127 27.936L114.503 37.008H114.647C115.511 33.504 116.303 30.48 117.023 27.936L125.015 0.936001H137.903L120.983 52.416H107.807Z" style="fill:currentColor"/><path d="M141.385 52.416V0.936001H180.41V11.448H154.13V20.664H176.665V30.6H154.13V41.616H180.842V52.416H141.385Z" style="fill:currentColor"/><path d="M186.596 52.416V0.936001H199.412L214.676 26.784L218.204 33.336H218.348C218.252 29.208 218.204 26.544 218.204 25.344V0.936001H230.66V52.416H217.844L202.724 26.928L199.052 20.016H198.908C199.004 24.432 199.052 27.24 199.052 28.44V52.416H186.596Z" style="fill:currentColor"/><path d="M234 52L253.455 0H263.656L244.201 52H234Z" style="fill:var(--slash,currentColor)"/><path d="M256.344 52L275.799 0H286L266.545 52H256.344Z" style="fill:var(--slash,currentColor)"/><path d="M278 52.8403L296.417 1.01476H309.46L327.949 52.8403H314.62L311.61 43.4899H293.694L290.756 52.8403H278ZM296.632 34.2846H308.672L304.802 21.745L302.795 14.4242H302.652C301.84 17.5168 301.147 19.957 300.574 21.745L296.632 34.2846Z" style="fill:currentColor"/><path d="M351.551 54C344.098 54 338.007 51.4872 333.277 46.4617C328.595 41.3879 326.254 34.9369 326.254 27.1087C326.254 19.2805 328.571 12.8054 333.205 7.68322C337.839 2.56107 343.931 0 351.479 0C357.308 0 362.181 1.52215 366.098 4.56644C370.542 7.94899 373.098 12.7087 373.766 18.8456H361.082C360.748 16.4779 359.72 14.5208 358.001 12.9745C356.281 11.4282 354.083 10.655 351.408 10.655C347.394 10.655 344.337 12.1772 342.235 15.2215C340.18 18.2174 339.153 22.1799 339.153 27.1087C339.153 31.9409 340.276 35.8792 342.521 38.9235C344.767 41.9678 347.753 43.4899 351.479 43.4899C354.25 43.4899 356.519 42.6926 358.287 41.098C360.103 39.5034 361.154 37.4255 361.44 34.8644H374.125C373.742 40.0832 371.688 44.5047 367.962 48.1289C363.949 52.043 358.478 54 351.551 54Z" style="fill:currentColor"/><path d="M378.65 52.8403V1.01476H403.159C408.414 1.01476 412.714 2.34362 416.058 5.00134C419.402 7.61074 421.075 11.2591 421.075 15.9463C421.075 22.2282 418.113 26.4081 412.188 28.4859V28.7034C416.488 30.153 418.972 33.3181 419.641 38.1987C419.928 39.8899 420.119 41.9919 420.215 44.5047C420.358 46.9691 420.525 48.8295 420.716 50.0859C420.907 51.294 421.266 51.9946 421.791 52.1879V52.8403H409.465C409.083 52.5987 408.772 51.898 408.534 50.7383C408.342 49.5785 408.175 47.9356 408.032 45.8094C407.889 43.6832 407.721 42.0161 407.53 40.8081C406.861 35.8792 404.019 33.4148 399.002 33.4148H391.334V52.8403H378.65ZM391.334 23.9195H400.866C403.35 23.9195 405.237 23.3638 406.527 22.2523C407.817 21.1409 408.462 19.5946 408.462 17.6134C408.462 15.6805 407.841 14.1342 406.599 12.9745C405.357 11.7664 403.541 11.1624 401.152 11.1624H391.334V23.9195Z" style="fill:currentColor"/><path d="M426.729 52.8403V1.01476H465.57V11.5973H439.413V20.8752H461.844V30.8779H439.413V41.9678H466V52.8403H426.729Z" style="fill:currentColor"/></g><g id="wm-sevn"><path d="M22.968 53.64C16.008 53.64 10.464 52.152 6.336 49.176C2.256 46.152 0.144 41.832 0 36.216H12.816C13.344 41.112 16.704 43.56 22.896 43.56C25.2 43.56 27.144 43.128 28.728 42.264C30.36 41.352 31.176 39.984 31.176 38.16C31.176 36.912 30.672 35.88 29.664 35.064C28.656 34.2 27.624 33.6 26.568 33.264C25.56 32.928 23.616 32.4 20.736 31.68C20.592 31.632 20.496 31.608 20.448 31.608C20.4 31.56 20.328 31.536 20.232 31.536C20.136 31.488 20.04 31.464 19.944 31.464C17.736 30.936 15.912 30.48 14.472 30.096C13.08 29.664 11.472 29.04 9.648 28.224C7.872 27.36 6.456 26.424 5.4 25.416C4.344 24.408 3.432 23.088 2.664 21.456C1.944 19.776 1.584 17.904 1.584 15.84C1.584 10.56 3.456 6.6 7.2 3.96C10.992 1.32 15.936 0 22.032 0C27.888 0 32.664 1.344 36.36 4.032C40.104 6.72 42.096 10.656 42.336 15.84H29.88C29.64 13.872 28.8 12.36 27.36 11.304C25.92 10.2 24 9.648 21.6 9.648C19.392 9.648 17.592 10.104 16.2 11.016C14.856 11.88 14.184 13.032 14.184 14.472C14.184 16.104 15 17.304 16.632 18.072C18.264 18.792 21.336 19.656 25.848 20.664C28.68 21.336 31.008 22.008 32.832 22.68C34.656 23.304 36.504 24.216 38.376 25.416C40.296 26.616 41.712 28.176 42.624 30.096C43.584 31.968 44.064 34.224 44.064 36.864C44.064 42.096 42.072 46.2 38.088 49.176C34.152 52.152 29.112 53.64 22.968 53.64Z" style="fill:currentColor"/><path d="M49.2761 52.416V0.936001H88.3001V11.448H62.0201V20.664H84.5561V30.6H62.0201V41.616H88.7321V52.416H49.2761Z" style="fill:currentColor"/><path d="M107.807 52.416L90.8151 0.936001H104.063L112.127 27.936L114.503 37.008H114.647C115.511 33.504 116.303 30.48 117.023 27.936L125.015 0.936001H137.903L120.983 52.416H107.807Z" style="fill:currentColor"/><path d="M186.596 52.416V0.936001H199.412L214.676 26.784L218.204 33.336H218.348C218.252 29.208 218.204 26.544 218.204 25.344V0.936001H230.66V52.416H217.844L202.724 26.928L199.052 20.016H198.908C199.004 24.432 199.052 27.24 199.052 28.44V52.416H186.596Z" transform="translate(-45.21 0)" style="fill:currentColor"/><path d="M234 52L253.455 0H263.656L244.201 52H234Z" transform="translate(-45.21 0)" style="fill:var(--slash,currentColor)"/><path d="M256.344 52L275.799 0H286L266.545 52H256.344Z" transform="translate(-45.21 0)" style="fill:var(--slash,currentColor)"/><path d="M278 52.8403L296.417 1.01476H309.46L327.949 52.8403H314.62L311.61 43.4899H293.694L290.756 52.8403H278ZM296.632 34.2846H308.672L304.802 21.745L302.795 14.4242H302.652C301.84 17.5168 301.147 19.957 300.574 21.745L296.632 34.2846Z" transform="translate(-45.21 0)" style="fill:currentColor"/><path d="M351.551 54C344.098 54 338.007 51.4872 333.277 46.4617C328.595 41.3879 326.254 34.9369 326.254 27.1087C326.254 19.2805 328.571 12.8054 333.205 7.68322C337.839 2.56107 343.931 0 351.479 0C357.308 0 362.181 1.52215 366.098 4.56644C370.542 7.94899 373.098 12.7087 373.766 18.8456H361.082C360.748 16.4779 359.72 14.5208 358.001 12.9745C356.281 11.4282 354.083 10.655 351.408 10.655C347.394 10.655 344.337 12.1772 342.235 15.2215C340.18 18.2174 339.153 22.1799 339.153 27.1087C339.153 31.9409 340.276 35.8792 342.521 38.9235C344.767 41.9678 347.753 43.4899 351.479 43.4899C354.25 43.4899 356.519 42.6926 358.287 41.098C360.103 39.5034 361.154 37.4255 361.44 34.8644H374.125C373.742 40.0832 371.688 44.5047 367.962 48.1289C363.949 52.043 358.478 54 351.551 54Z" transform="translate(-45.21 0)" style="fill:currentColor"/><path d="M378.65 52.8403V1.01476H403.159C408.414 1.01476 412.714 2.34362 416.058 5.00134C419.402 7.61074 421.075 11.2591 421.075 15.9463C421.075 22.2282 418.113 26.4081 412.188 28.4859V28.7034C416.488 30.153 418.972 33.3181 419.641 38.1987C419.928 39.8899 420.119 41.9919 420.215 44.5047C420.358 46.9691 420.525 48.8295 420.716 50.0859C420.907 51.294 421.266 51.9946 421.791 52.1879V52.8403H409.465C409.083 52.5987 408.772 51.898 408.534 50.7383C408.342 49.5785 408.175 47.9356 408.032 45.8094C407.889 43.6832 407.721 42.0161 407.53 40.8081C406.861 35.8792 404.019 33.4148 399.002 33.4148H391.334V52.8403H378.65ZM391.334 23.9195H400.866C403.35 23.9195 405.237 23.3638 406.527 22.2523C407.817 21.1409 408.462 19.5946 408.462 17.6134C408.462 15.6805 407.841 14.1342 406.599 12.9745C405.357 11.7664 403.541 11.1624 401.152 11.1624H391.334V23.9195Z" transform="translate(-45.21 0)" style="fill:currentColor"/><path d="M426.729 52.8403V1.01476H465.57V11.5973H439.413V20.8752H461.844V30.8779H439.413V41.9678H466V52.8403H426.729Z" transform="translate(-45.21 0)" style="fill:currentColor"/></g><g id="wm-svn"><path d="M22.968 53.64C16.008 53.64 10.464 52.152 6.336 49.176C2.256 46.152 0.144 41.832 0 36.216H12.816C13.344 41.112 16.704 43.56 22.896 43.56C25.2 43.56 27.144 43.128 28.728 42.264C30.36 41.352 31.176 39.984 31.176 38.16C31.176 36.912 30.672 35.88 29.664 35.064C28.656 34.2 27.624 33.6 26.568 33.264C25.56 32.928 23.616 32.4 20.736 31.68C20.592 31.632 20.496 31.608 20.448 31.608C20.4 31.56 20.328 31.536 20.232 31.536C20.136 31.488 20.04 31.464 19.944 31.464C17.736 30.936 15.912 30.48 14.472 30.096C13.08 29.664 11.472 29.04 9.648 28.224C7.872 27.36 6.456 26.424 5.4 25.416C4.344 24.408 3.432 23.088 2.664 21.456C1.944 19.776 1.584 17.904 1.584 15.84C1.584 10.56 3.456 6.6 7.2 3.96C10.992 1.32 15.936 0 22.032 0C27.888 0 32.664 1.344 36.36 4.032C40.104 6.72 42.096 10.656 42.336 15.84H29.88C29.64 13.872 28.8 12.36 27.36 11.304C25.92 10.2 24 9.648 21.6 9.648C19.392 9.648 17.592 10.104 16.2 11.016C14.856 11.88 14.184 13.032 14.184 14.472C14.184 16.104 15 17.304 16.632 18.072C18.264 18.792 21.336 19.656 25.848 20.664C28.68 21.336 31.008 22.008 32.832 22.68C34.656 23.304 36.504 24.216 38.376 25.416C40.296 26.616 41.712 28.176 42.624 30.096C43.584 31.968 44.064 34.224 44.064 36.864C44.064 42.096 42.072 46.2 38.088 49.176C34.152 52.152 29.112 53.64 22.968 53.64Z" style="fill:currentColor"/><path d="M107.807 52.416L90.8151 0.936001H104.063L112.127 27.936L114.503 37.008H114.647C115.511 33.504 116.303 30.48 117.023 27.936L125.015 0.936001H137.903L120.983 52.416H107.807Z" transform="translate(-43.5 0)" style="fill:currentColor"/><path d="M186.596 52.416V0.936001H199.412L214.676 26.784L218.204 33.336H218.348C218.252 29.208 218.204 26.544 218.204 25.344V0.936001H230.66V52.416H217.844L202.724 26.928L199.052 20.016H198.908C199.004 24.432 199.052 27.24 199.052 28.44V52.416H186.596Z" transform="translate(-88.7 0)" style="fill:currentColor"/><path d="M234 52L253.455 0H263.656L244.201 52H234Z" transform="translate(-88.7 0)" style="fill:var(--slash,currentColor)"/><path d="M256.344 52L275.799 0H286L266.545 52H256.344Z" transform="translate(-88.7 0)" style="fill:var(--slash,currentColor)"/><path d="M278 52.8403L296.417 1.01476H309.46L327.949 52.8403H314.62L311.61 43.4899H293.694L290.756 52.8403H278ZM296.632 34.2846H308.672L304.802 21.745L302.795 14.4242H302.652C301.84 17.5168 301.147 19.957 300.574 21.745L296.632 34.2846Z" transform="translate(-88.7 0)" style="fill:currentColor"/><path d="M351.551 54C344.098 54 338.007 51.4872 333.277 46.4617C328.595 41.3879 326.254 34.9369 326.254 27.1087C326.254 19.2805 328.571 12.8054 333.205 7.68322C337.839 2.56107 343.931 0 351.479 0C357.308 0 362.181 1.52215 366.098 4.56644C370.542 7.94899 373.098 12.7087 373.766 18.8456H361.082C360.748 16.4779 359.72 14.5208 358.001 12.9745C356.281 11.4282 354.083 10.655 351.408 10.655C347.394 10.655 344.337 12.1772 342.235 15.2215C340.18 18.2174 339.153 22.1799 339.153 27.1087C339.153 31.9409 340.276 35.8792 342.521 38.9235C344.767 41.9678 347.753 43.4899 351.479 43.4899C354.25 43.4899 356.519 42.6926 358.287 41.098C360.103 39.5034 361.154 37.4255 361.44 34.8644H374.125C373.742 40.0832 371.688 44.5047 367.962 48.1289C363.949 52.043 358.478 54 351.551 54Z" transform="translate(-88.7 0)" style="fill:currentColor"/><path d="M378.65 52.8403V1.01476H403.159C408.414 1.01476 412.714 2.34362 416.058 5.00134C419.402 7.61074 421.075 11.2591 421.075 15.9463C421.075 22.2282 418.113 26.4081 412.188 28.4859V28.7034C416.488 30.153 418.972 33.3181 419.641 38.1987C419.928 39.8899 420.119 41.9919 420.215 44.5047C420.358 46.9691 420.525 48.8295 420.716 50.0859C420.907 51.294 421.266 51.9946 421.791 52.1879V52.8403H409.465C409.083 52.5987 408.772 51.898 408.534 50.7383C408.342 49.5785 408.175 47.9356 408.032 45.8094C407.889 43.6832 407.721 42.0161 407.53 40.8081C406.861 35.8792 404.019 33.4148 399.002 33.4148H391.334V52.8403H378.65ZM391.334 23.9195H400.866C403.35 23.9195 405.237 23.3638 406.527 22.2523C407.817 21.1409 408.462 19.5946 408.462 17.6134C408.462 15.6805 407.841 14.1342 406.599 12.9745C405.357 11.7664 403.541 11.1624 401.152 11.1624H391.334V23.9195Z" transform="translate(-88.7 0)" style="fill:currentColor"/><path d="M426.729 52.8403V1.01476H465.57V11.5973H439.413V20.8752H461.844V30.8779H439.413V41.9678H466V52.8403H426.729Z" transform="translate(-88.7 0)" style="fill:currentColor"/></g></defs></svg>
+
+<!-- ============ header ============ -->
+<header class="top">
+  <a class="brand" href="#top" aria-label="seven//acre, back to top">
+    <svg class="ic" viewBox="0 0 122 120" aria-hidden="true"><rect width="122" height="120" rx="26" fill="#0f0e13"/><use href="#i7a" fill="#f5f4f8"/></svg>
+    <svg class="wm wm-d" viewBox="0 0 466 54" aria-hidden="true"><use href="#wm-seven"/></svg>
+  </a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#what">What you get</a>
+    <a href="#how">How it works</a>
+    <a href="#math">The math</a>
+    <a href="#story">Who we are</a>
+    <a href="#faq">Questions</a>
+  </nav>
+  <a class="btn vio" href="#start"><span>See your site<span class="long"> free</span></span>
+    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 5h13M9 1l4 4-4 4"/></svg></a>
+</header>
+
+<main id="top">
+
+  <!-- ============ hero ============ -->
+  <section class="hero wrap">
+    <div class="mark-wrap">
+      <div class="mark3d" id="mark3d" aria-hidden="true"><div class="shadow"></div></div>
+      <div class="finish cap" role="group" aria-label="Mark finish (design preview)"><button type="button" data-finish="chrome" aria-pressed="true">Chrome</button><button type="button" data-finish="glass" aria-pressed="false">Glass</button></div>
+    </div>
+    <div class="g12 meta cap">
+      <div><span class="mut">What we do</span><span>Websites, booking, customer list</span></div>
+      <div><span class="mut">Built for</span><span>Local service businesses</span></div>
+      <div><span class="mut">Set up</span><span>Done for you, live in 24 hours</span></div>
+      <div><span class="mut">Run it from</span><span>Your phone</span></div>
+    </div>
+
+    <h1><span class="ln"><span>Run like a real company.</span></span><span class="ln"><span>Stay the hometown hero.</span></span></h1>
+
+    <div class="g12 hero-low">
+      <div class="hero-copy">
+        <p>A professional website, online booking and a system that remembers every customer. We build it for you and it's live in 24 hours. Big-company tools, without the big-company price or hassle.</p>
+        <div class="ctas">
+          <a class="btn ink" href="#start">See your site, already built
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 5h13M9 1l4 4-4 4"/></svg></a>
+          <a class="btn ghost" href="#how">How it works</a>
+        </div>
+      </div>
+      <div class="tagline"><span class="cap mut">Our promise</span><b>Big-company tools.<br>Small-company way.</b></div>
+
+      <figure class="phone" aria-label="Example text thread: a new booking request arrives and the owner approves it by replying Y">
+        <div class="screen">
+          <div class="sbar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+          <div class="thread-head"><i><svg viewBox="0 0 122 120" aria-hidden="true"><use href="#i7a" fill="#f5f4f8"/></svg></i><span>seven//acre</span></div>
+          <div class="msgs">
+            <div class="msg in"><b>New booking request</b><br>Sarah M. · 14 Maple Ct<br>Weekly mow + edging, Sat 9:00 AM<div class="pics"><span></span><span></span><span></span></div><small>Reply Y to approve, or N to offer another day.</small></div>
+            <div class="msg out">Y</div>
+            <div class="msg in">Booked. Sarah has her confirmation, and she'll get a reminder Friday.</div>
+            <div class="msg note">Monday 7:02 AM</div>
+            <div class="msg in"><b>Last week:</b> 6 booking requests, 4 booked, 0 missed. Nice work.</div>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true"><div class="ticker-in">
+    <span>Lawn care</span><span>Landscaping</span><span>Handyman</span><span>HVAC</span><span>Plumbing</span><span>Electrical</span><span>Masonry &amp; concrete</span><span>Appliance repair</span><span>Pressure washing</span><span>Cleaning</span><span>Painting</span><span>Fencing</span>
+    <span>Lawn care</span><span>Landscaping</span><span>Handyman</span><span>HVAC</span><span>Plumbing</span><span>Electrical</span><span>Masonry &amp; concrete</span><span>Appliance repair</span><span>Pressure washing</span><span>Cleaning</span><span>Painting</span><span>Fencing</span>
+  </div></div>
+
+  <div class="wrap">
+
+    <!-- ============ problem ============ -->
+    <section class="sec" aria-labelledby="prob-h">
+      <div class="sec-head cap mut"><span>01 / The problem</span><span>The 30 seconds after a referral</span></div>
+      <div class="g12 prob">
+        <h2 class="h2" id="prob-h">Someone just Googled your name. <em>What did they find?</em></h2>
+        <div class="prob-text">
+          <p><strong>You've earned the reviews.</strong> A neighbour tags you in the town group. Someone Googles your name.</p>
+          <p>They find a Facebook page and a phone number you can't answer from under a sink. So they call the next guy. You never even know it happened.</p>
+        </div>
+        <div class="serp-pair">
+          <figure class="serp" aria-label="Search result today: only a Facebook page">
+            <div class="serp-top"><span class="pill">Today</span><span class="cap mut">Demo</span></div>
+            <div class="q"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#6f6b7b" stroke-width="1.4"><circle cx="6" cy="6" r="4.5"/><path d="M9.5 9.5L13 13"/></svg>ricks lawn care brandon</div>
+            <div class="res"><span class="url">facebook.com › rickslawncare</span><span class="t">Rick's Lawn Care | Facebook</span><span class="d">Last post 7 weeks ago · "Got openings this week, message me"</span></div>
+            <div class="res dim"><span class="url">greenpro-lawn.com</span><span class="t">GreenPro Lawn · Book Online Today</span><span class="d">Instant quotes. Book in 2 minutes.</span></div>
+            <p class="verdict bad">So they book GreenPro.</p>
+          </figure>
+          <figure class="serp" aria-label="Search result with seven//acre: a real site with reviews and a booking button">
+            <div class="serp-top"><span class="pill on">With seven//acre</span><span class="cap mut">Demo</span></div>
+            <div class="q"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#6f6b7b" stroke-width="1.4"><circle cx="6" cy="6" r="4.5"/><path d="M9.5 9.5L13 13"/></svg>ricks lawn care brandon</div>
+            <div class="res"><span class="url">rickslawncare.com</span><span class="t">Rick's Lawn Care · Lawn mowing in Brandon, FL</span><span class="stars">★★★★★ <span class="mut">4.9 · 126 reviews</span></span><span class="d">Family-owned since 2014. Weekly mowing, edging and cleanups.</span>
+              <div class="res-actions"><span class="go">Book now</span><span>Get a quote</span><span>Call</span></div></div>
+            <p class="verdict">So they book you.</p>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ pillars ============ -->
+    <section class="sec" id="what" aria-labelledby="what-h">
+      <div class="sec-head cap mut"><span id="what-h">02 / What you get</span><span>Three things the big guys have</span></div>
+
+      <div class="g12 pillar">
+        <span class="p-num">P/01</span>
+        <div class="p-title">
+          <h3>Look like the real company you already are.</h3>
+          <p>Your work is already professional. Now your business looks it too. A website with your name, your reviews and photos of your actual work. Something you're proud to send people to.</p>
+        </div>
+        <div class="p-list"><span class="cap mut">What we set up</span><ul>
+          <li><span>Your website</span><span>Your name, your look</span></li>
+          <li><span>Your reviews, front and centre</span><span>Pulled from Google + Facebook</span></li>
+          <li><span>Photos of your real jobs</span><span>Not stock</span></li>
+          <li><span>Your own domain</span><span>You own it. Always</span></li>
+        </ul></div>
+      </div>
+
+      <div class="g12 pillar band">
+        <span class="p-num">P/02</span>
+        <div class="p-title">
+          <h3>When you're our customer, so is everyone who calls you.</h3>
+          <p>You care about every customer. So do we. We're obsessed with how the people who call you get treated: a quick answer, an easy way to book, and nobody left hanging while you're on a job.</p>
+        </div>
+        <div class="p-list"><span class="cap">What your customers get</span><ul>
+          <li><span>Book online, day or night</span><span>Photos + details up front</span></li>
+          <li><span>An instant reply</span><span>Even when you're busy</span></li>
+          <li><span>Confirmations + reminders</span><span>By text</span></li>
+          <li><span>Every job remembered</span><span>No more "sorry, I forgot"</span></li>
+        </ul></div>
+        <div class="why">
+          <div><b>Agencies care about your ad spend.</b><span>We care about the person booking the job.</span></div>
+          <div><b>Software cares about your login.</b><span>We care that your customer got an answer.</span></div>
+          <div><b>You care about your reputation.</b><span>So we protect it at every step.</span></div>
+        </div>
+      </div>
+
+      <div class="g12 pillar">
+        <span class="p-num">P/03</span>
+        <div class="p-title">
+          <h3>Simple. Actually simple.</h3>
+          <p>You shouldn't need a laptop, a tutorial or a free Sunday to run your business. We build it, run it and fix it. If you can answer a text, you can run this.</p>
+        </div>
+        <div class="p-list"><span class="cap mut">What you have to do</span><ul>
+          <li><span>Learn new software</span><span>Nothing</span></li>
+          <li><span>Set anything up</span><span>Nothing</span></li>
+          <li><span>Approve a booking</span><span>Reply Y</span></li>
+          <li><span>Block a day off</span><span>Text us</span></li>
+        </ul></div>
+      </div>
+    </section>
+
+    <!-- ============ affordable, not cheap ============ -->
+    <section class="sec" id="quality" aria-labelledby="qual-h">
+      <div class="sec-head cap mut"><span>03 / Affordable, not cheap</span><span>We believe in both</span></div>
+      <div class="g12 qual">
+        <h2 class="h2" id="qual-h">Priced for the hometown hero. <em>Built to big-company standards.</em></h2>
+        <div class="qual-text">
+          <p>Most people hear "affordable" and think "cheap." We get it. Usually they're right.</p>
+          <p class="mut">Our price is low because we cut the overhead, not the quality. No account managers, no 40-page proposals, no paying for an office downtown. Every site gets the same build, care and support.</p>
+        </div>
+        <div class="compare" role="table" aria-label="How seven//acre compares">
+          <div class="hd" role="columnheader"></div><div class="hd" role="columnheader">Agency</div><div class="hd" role="columnheader">DIY builder</div><div class="hd us" role="columnheader">seven//acre</div>
+          <div class="row" role="rowheader">Upfront cost</div><div>$3K–$10K</div><div>Low</div><div class="us">Low</div>
+          <div class="row" role="rowheader">Your time</div><div>Weeks of calls</div><div>Your weekends</div><div class="us">Zero</div>
+          <div class="row" role="rowheader">Looks professional</div><div>Yes</div><div>If you're a designer</div><div class="us">Yes</div>
+          <div class="row" role="rowheader">Booking + customer list</div><div>Extra</div><div>Set it up yourself</div><div class="us">Included</div>
+          <div class="row" role="rowheader">Live in</div><div>4–8 weeks</div><div>"Someday"</div><div class="us">24 hours</div>
+          <div class="row" role="rowheader">Someone to text</div><div>An account manager</div><div>A help article</div><div class="us">A real person</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ how ============ -->
+    <section class="sec" id="how" aria-labelledby="how-h">
+      <div class="sec-head cap mut"><span id="how-h">04 / How it works</span><span>3 steps · about a day</span></div>
+      <div class="steps">
+        <article class="step"><div class="step-top"><span class="cap mut">STEP/01</span><span class="pill">You lift nothing</span></div>
+          <div><h3>We build it</h3><p>With your name, your reviews and your photos. You'll see it before you decide anything.</p></div></article>
+        <article class="step"><div class="step-top"><span class="cap mut">STEP/02</span><span class="pill">On your phone</span></div>
+          <div><h3>You check it</h3><p>Look it over from the truck. Text us changes. Show your partner. Say yes when it feels like you.</p></div></article>
+        <article class="step last"><div class="step-top"><span class="cap" style="color:#8d899b">STEP/03</span><span class="pill">24 hours</span></div>
+          <div><h3>You're live</h3><p>Customers start booking. Each request lands on your phone, and you approve it with one text.</p></div></article>
+      </div>
+    </section>
+
+    <!-- ============ math ============ -->
+    <section class="sec" id="math" aria-labelledby="math-h">
+      <div class="sec-head cap mut"><span>05 / The math</span><span>Pick your trade</span></div>
+      <div class="g12 math">
+        <h2 class="h2" id="math-h">One extra job a month <em>pays for it.</em></h2>
+        <p class="math-intro">A website shouldn't feel like a cost. It should feel like a tool that earns its keep. Here's what one more job a month is worth.</p>
+        <div class="calc">
+          <div class="trades" role="group" aria-label="Choose your trade">
+            <span class="cap mut">Your trade</span>
+          </div>
+          <div class="result" aria-live="polite">
+            <p class="big" id="calc-big">$1,800–$7,200<small id="calc-sub">a year, from one extra handyman job a month</small></p>
+            <div class="rows">
+              <div><span>Typical job</span><span id="calc-ticket">$150–$600</span></div>
+              <div><span>Extra jobs</span><span id="calc-jobs">1 a month</span></div>
+              <div><span>What you'd do to get them</span><span>Answer a text</span></div>
+            </div>
+          </div>
+          <p class="fine">Ticket ranges are industry estimates for owner-operators, not guarantees. Your numbers will vary.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ story ============ -->
+    <section class="sec" id="story" aria-labelledby="story-h">
+      <div class="sec-head cap mut"><span id="story-h">06 / Who we are</span><span>10+ years in marketing</span></div>
+      <div class="g12 story">
+        <blockquote>"Most marketing for local businesses is overcomplicated and overpriced. <span>And it leaves good businesses without a clear path."</span></blockquote>
+        <div class="story-body">
+          <p>We've spent more than ten years in marketing and customer acquisition. Long enough to see how the game works for local businesses: big promises, big invoices, and software nobody has time to learn.</p>
+          <p>Meanwhile, the best businesses we know are the small ones. The owner who shows up on time, does it right, and remembers your dog's name. They've earned their reputation the hard way. What they haven't had is the tools to match.</p>
+          <p>So that's what we do. We give local service businesses the systems the big companies use to look professional, take care of customers and book new work. We set it up, we keep it running, and we keep it simple.</p>
+          <p>We're for the hometown heroes. We're building it the way it should have been all along.</p>
+          <div class="sign"><svg class="wm" viewBox="0 0 466 54" aria-label="seven//acre" role="img"><use href="#wm-seven"/></svg></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ promises ============ -->
+    <section class="sec" aria-labelledby="prom-h">
+      <div class="sec-head cap mut"><span id="prom-h">07 / Our word</span><span>No fine print</span></div>
+      <div class="promises">
+        <div class="promise"><span class="cap mut">01</span><b>Live in 24 hours</b><span>Not 6 weeks. Tomorrow.</span></div>
+        <div class="promise"><span class="cap mut">02</span><b>No long contracts</b><span>Stay because it works, not because you're stuck.</span></div>
+        <div class="promise"><span class="cap mut">03</span><b>You own your domain</b><span>Your name is yours. Always.</span></div>
+        <div class="promise"><span class="cap mut">04</span><b>A real person you can text</b><span>Not a ticket. Not a chatbot.</span></div>
+      </div>
+    </section>
+
+    <!-- ============ faq ============ -->
+    <section class="sec" id="faq" aria-labelledby="faq-h">
+      <div class="sec-head cap mut"><span>08 / Fair questions</span><span>We've heard them all</span></div>
+      <div class="g12 faq">
+        <h2 class="h2" id="faq-h">Fair questions.</h2>
+        <div class="faq-list">
+          <details open><summary>I'm busy enough from word of mouth.<i aria-hidden="true">+</i></summary>
+            <p>You're busy because you're good. But you're only catching the people who can find you. When someone hears your name and Googles it, what do they see? This is about better work, not just more of it.</p></details>
+          <details><summary>Isn't affordable just another word for cheap?<i aria-hidden="true">+</i></summary>
+            <p>Not here. We keep the price low by cutting overhead, not corners. Same build, same care, same support for every customer. If it wouldn't make you proud, it doesn't go live.</p></details>
+          <details><summary>I'm not a tech guy.<i aria-hidden="true">+</i></summary>
+            <p>Good. You don't have to be. That's our job. We build it, run it and fix it. You get a text when a job books.</p></details>
+          <details><summary>I've been burned by marketing companies before.<i aria-hidden="true">+</i></summary>
+            <p>A lot of good owners have. That's why there's no long contract, you own your domain, and you can text a real person any time. And you see your site before you decide anything.</p></details>
+          <details><summary>Facebook works fine for me.<i aria-hidden="true">+</i></summary>
+            <p>Keep it. Your Facebook fans are great. Your site is where they go to book you, any time of day.</p></details>
+          <details><summary>I don't want strangers booking without talking to me.<i aria-hidden="true">+</i></summary>
+            <p>You approve every booking. You set your service area and the days you work. You stay in charge.</p></details>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ final cta ============ -->
+  <section class="g12 final wrap" id="start" aria-labelledby="start-h">
+    <h2 id="start-h">Want to see yours? We'll build it first.</h2>
+    <div class="final-side">
+      <p>Tell us who you are. We'll put together a preview with your name, your reviews and your work, and text you the link.</p>
+      <p>No call. No Zoom. No pressure.</p>
+    </div>
+    <form class="form" id="form">
+      <h3>Build my preview</h3>
+      <label class="field"><span class="cap mut">Business name</span><input name="biz" placeholder="Rick's Lawn Care" required></label>
+      <div class="two">
+        <label class="field"><span class="cap mut">Town</span><input name="town" placeholder="Brandon, FL" required></label>
+        <label class="field"><span class="cap mut">What you do</span>
+          <select name="trade"><option>Lawn care</option><option>Landscaping</option><option>Handyman</option><option>HVAC</option><option>Plumbing</option><option>Electrical</option><option>Masonry &amp; concrete</option><option>Appliance repair</option><option>Cleaning</option><option>Something else</option></select></label>
+      </div>
+      <label class="field"><span class="cap mut">Your mobile</span><input name="phone" type="tel" placeholder="(813) 555-0100" autocomplete="tel" required></label>
+      <button class="btn vio" type="submit">Text me my preview
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 5h13M9 1l4 4-4 4"/></svg></button>
+      <p class="sent" role="status">Mockup only: this form isn't connected yet, so nothing was sent.</p>
+    </form>
+  </section>
+
+  <!-- ============ footer ============ -->
+  <footer class="wrap">
+    <div class="g12 foot-cols">
+      <div><span class="cap">seven//acre</span><p>Big-company tools. Small-company way.</p></div>
+      <div><span class="cap">What you get</span><a href="#what">Your website</a><a href="#what">Online booking</a><a href="#what">Customer list</a></div>
+      <div><span class="cap">About</span><a href="#story">Who we are</a><a href="#how">How it works</a><a href="#faq">Questions</a></div>
+      <div><span class="cap">Get started</span><a href="#start">See your site</a><span>Text first. We'll call if you want.</span></div>
+    </div>
+    <div class="wordmark">
+      <svg class="wm wm-d" viewBox="0 0 466 54" role="img" aria-label="seven//acre"><use href="#wm-seven"/></svg>
+      <svg class="wm wm-t" viewBox="0 0 420.79 54" role="img" aria-label="seven//acre"><use href="#wm-sevn"/></svg>
+      <svg class="wm wm-m" viewBox="0 0 377.3 54" role="img" aria-label="seven//acre"><use href="#wm-svn"/></svg>
+    </div>
+    <div class="foot-base cap"><span>© 2026 Seven Acre Digital</span><span>For the hometown heroes</span></div>
+  </footer>
+</main>
+
+<script>
+(() => {
+  // the math: one extra job a month, by trade (ICP section 3 estimates)
+  const T = [
+    ['Lawn care',        40, 75,  'one new weekly mowing customer', 'a visit', 30, 'a season, from'],
+    ['Handyman',        150, 600, 'one extra handyman job a month', 'a job', 12, 'a year, from'],
+    ['Appliance repair',150, 400, 'one extra repair a month', 'a job', 12, 'a year, from'],
+    ['Electrical',      250, 2000,'one extra electrical job a month', 'a job', 12, 'a year, from'],
+    ['Plumbing',        250, 1500,'one extra plumbing job a month', 'a job', 12, 'a year, from'],
+    ['HVAC',            300, 8000,'one extra HVAC job a month', 'a job', 12, 'a year, from'],
+    ['Masonry',        2000, 25000,'one extra masonry job a month', 'a job', 12, 'a year, from'],
+  ];
+  const fmt = n => '$' + n.toLocaleString('en-US');
+  const wrap = document.querySelector('.trades');
+  const big = document.getElementById('calc-big'), sub = document.getElementById('calc-sub');
+  const ticket = document.getElementById('calc-ticket'), jobs = document.getElementById('calc-jobs');
+  const set = i => {
+    const [name, lo, hi, what, unit, n, lead] = T[i];
+    big.firstChild.nodeValue = `${fmt(lo * n)}–${fmt(hi * n)}`;
+    sub.textContent = `${lead} ${what}`;
+    ticket.textContent = `${fmt(lo)}–${fmt(hi)} ${unit}`;
+    jobs.textContent = n === 30 ? '1 customer, ~30 weekly visits' : '1 a month';
+    wrap.querySelectorAll('button').forEach((b, j) => b.setAttribute('aria-pressed', i === j));
+  };
+  // blur bridges the old and new figures so the swap reads as one change, not two
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  const swap = i => {
+    set(i);
+    if (!big.animate) return;
+    big.animate(still.matches
+      ? [{opacity:.4},{opacity:1}]
+      : [{opacity:.35, filter:'blur(6px)', transform:'translateY(4px)'},{opacity:1, filter:'blur(0)', transform:'none'}],
+      {duration:220, easing:'cubic-bezier(.23,1,.32,1)'});
+  };
+  T.forEach((t, i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t[0];
+    b.addEventListener('click', () => { if (b.getAttribute('aria-pressed') !== 'true') swap(i); }); wrap.appendChild(b); });
+  set(1);
+
+
+  // ---------- motion ----------
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const io = (el, fn, opts = {}) => {
+    if (!('IntersectionObserver' in window)) return fn();
+    const o = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fn(); if (!opts.repeat) o.disconnect(); } else if (opts.leave) opts.leave(); }),
+      {threshold: opts.t ?? .2, rootMargin: '0px 0px -8% 0px'});
+    o.observe(el);
+  };
+
+  if (!calm) {
+    document.documentElement.classList.add('js');
+    // scroll reveals, staggered inside each group
+    const groups = [
+      ['.sec-head'], ['.h2'], ['.prob-text'], ['.qual-text'], ['.math-intro'], ['.final h2'], ['.final-side'], ['.form'],
+      ['.story blockquote'], ['.story-body > *'], ['.p-title'], ['.p-list li'], ['.why > div'], ['.step'],
+      ['.promise'], ['.faq details'], ['.calc'], ['.compare > div'],
+    ];
+    const pending = [];
+    groups.forEach(([sel]) => {
+      const els = [...document.querySelectorAll(sel)];
+      els.forEach((el, k) => {
+        let i = k;
+        if (sel === '.compare > div') i = Math.floor(k / 4);          // one beat per table row
+        else if (el.parentElement) i = [...el.parentElement.children].filter(c => c.matches(sel)).indexOf(el);
+        el.classList.add('rv'); el.style.setProperty('--i', Math.min(i, 8));
+        // a fully clipped element has no visible box, so measure its container instead
+        pending.push([el, el.matches('.sec-head, .h2, .final h2, .story blockquote') ? el.parentElement : el]);
+      });
+    });
+    // reveal anything whose top has come within 90% of the viewport; cheap enough to run on every scroll frame
+    let queued = false;
+    const check = () => { queued = false; const vh = innerHeight || document.documentElement.clientHeight;
+      for (let k = pending.length - 1; k >= 0; k--) { const [el, w] = pending[k], r = w.getBoundingClientRect();
+        if (r.top < vh * .9 && r.bottom > 0) { el.classList.add('in'); pending.splice(k, 1); } } };
+    const later = () => { if (!queued) { queued = true; requestAnimationFrame(check); } };
+    addEventListener('scroll', later, {passive: true}); addEventListener('resize', later);
+    if ('IntersectionObserver' in window) { const o = new IntersectionObserver(later); pending.forEach(([, w]) => o.observe(w)); }
+    setTimeout(check, 120);
+
+    // phone: replay the booking conversation while it's on screen
+    const box = document.querySelector('.msgs');
+    const script = [...box.children].map(m => m.outerHTML);
+    let run = 0;
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+    const play = async () => {
+      const me = ++run;
+      while (me === run) {
+        box.classList.add('out'); await wait(400); if (me !== run) return;
+        box.innerHTML = ''; box.classList.remove('out'); box.classList.add('live');
+        for (const html of script) {
+          await wait(500); if (me !== run) return;
+          const incoming = html.includes('msg in');
+          if (incoming) {
+            const dots = document.createElement('div'); dots.className = 'msg in typing';
+            dots.innerHTML = '<span></span><span></span><span></span>';
+            box.appendChild(dots); await wait(1100); if (me !== run) return; dots.remove();
+          }
+          box.insertAdjacentHTML('beforeend', html);
+        }
+        await wait(5000);
+      }
+    };
+    io(document.querySelector('.phone'), play, {repeat: true, t: .3, leave: () => { run++; }});
+
+    // search panels: type the query, then the results land
+    document.querySelectorAll('.serp').forEach(s => {
+      const q = s.querySelector('.q'), node = [...q.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
+      const text = node.textContent; node.textContent = '';
+      const typed = document.createElement('span'); typed.className = 'typed'; q.appendChild(typed);
+      [...s.querySelectorAll('.res, .verdict')].forEach((el, i) => { el.classList.add('land'); el.style.setProperty('--i', i); });
+      io(s, async () => {
+        await wait(s.matches(':last-child') ? 500 : 0);
+        for (const ch of text) { typed.textContent += ch; await wait(55); }
+        q.classList.add('done'); await wait(250); s.classList.add('found');
+      }, {t: .4});
+    });
+
+    // the math: count up to the first figure
+    io(document.querySelector('.calc'), () => {
+      const m = big.firstChild.nodeValue.match(/\$([\d,]+)–\$([\d,]+)/); if (!m) return;
+      const lo = +m[1].replace(/,/g, ''), hi = +m[2].replace(/,/g, ''), t0 = performance.now(), D = 1100;
+      const step = now => { const p = Math.min(1, (now - t0) / D), e = 1 - Math.pow(1 - p, 4);
+        big.firstChild.nodeValue = `${fmt(Math.round(lo * e / 10) * 10)}–${fmt(Math.round(hi * e / 10) * 10)}`;
+        if (p < 1) requestAnimationFrame(step); else big.firstChild.nodeValue = `${fmt(lo)}–${fmt(hi)}`; };
+      requestAnimationFrame(step);
+    }, {t: .4});
+  }
+
+  // preview form (mockup)
+  const form = document.getElementById('form');
+  form.addEventListener('submit', e => { e.preventDefault(); form.classList.add('done'); });
+})();
+</script>
+
+<!-- chrome 7A: three.js from the CDN. If WebGL or the import fails, the hero simply stays as it was. -->
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { SVGLoader } from 'three/addons/loaders/SVGLoader.js';
+import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
+
+const host = document.getElementById('mark3d');
+const shadow = host.querySelector('.shadow');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// The 7A union, straight from Union.svg (57 x 40).
+const D = 'M36.7766 0C38.8758 0.00103671 40.6715 1.15377 41.6086 3.03223C42.7747 5.36742 43.7373 7.85843 44.8127 10.2148L55.134 32.6748C55.4298 33.3345 56.0214 34.8037 56.2903 35.46C57.4129 38.2092 56.4112 40.0018 53.4417 39.9883C50.8638 39.9764 48.0692 39.9252 47.3928 39.9766C45.6405 40.1092 44.1612 38.9476 43.4739 37.3301C43.3769 37.1018 43.278 36.876 43.175 36.6553L38.0305 25.5615C37.6301 24.6758 37.3382 23.7343 36.9045 22.8545C36.3727 21.7751 35.9069 20.6625 35.3704 19.584C34.9916 18.8451 34.6098 18.0102 34.2395 17.1699C33.8876 16.3715 32.576 16.3701 32.2815 17.1914C31.7007 18.8108 30.9148 20.2574 30.2151 21.8086L24.9583 33.4375C24.5294 34.3724 24.089 35.2844 23.679 36.2295C22.683 38.5254 20.3562 40.0157 17.8538 39.9873C17.2351 39.9803 16.6171 39.9716 16.0129 39.9668C15.9393 39.9717 15.8652 39.9755 15.7903 39.9756L13.5432 39.9766C12.5354 39.9906 11.2661 40.0058 10.134 39.9863C9.46191 39.9881 8.72976 39.9912 8.01392 39.9873C5.55749 39.9737 4.60526 38.4039 5.6438 36.1777L7.8772 31.3652L13.6497 18.7002C14.6515 16.51 15.4603 14.2557 16.5735 12.1016C17.1696 10.9482 16.2106 9.50598 14.9124 9.50488L3.55981 9.49512C2.35329 9.49303 1.14821 8.74465 0.615479 7.66211C0.558333 7.54598 0.51437 7.45204 0.492432 7.39062C-0.974023 3.28181 0.898502 0.026943 5.26099 0.0244141L28.4719 0.015625C28.522 0.0140149 28.5724 0.0121721 28.6233 0.0126953C28.6525 0.0129974 28.682 0.0133463 28.7112 0.0136719C28.8902 0.0156697 29.0692 0.0142553 29.2483 0.015625H31.1721C31.9147 0.0153948 32.9322 -0.00323775 33.8987 0.000976562C33.9508 0.00120409 34.0021 0.00489454 34.052 0.0117188C34.9603 0.00630759 35.8691 -0.000380652 36.7766 0Z';
+
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+} catch (err) { host.remove(); throw err; }
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+host.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(26, 1, 0.1, 100);
+camera.position.set(0, 0, 14);
+
+// ---- studio environment: what the chrome reflects ----
+// Neutral product-photo studio: light grey room, a big soft key behind the camera for silver faces,
+// black flags so the bevels pick up dark bands, thin strips for crisp rim highlights. No colour cast.
+function studio() {
+  const env = new THREE.Scene();
+  env.add(new THREE.Mesh(new THREE.SphereGeometry(30, 48, 24), new THREE.ShaderMaterial({
+    side: THREE.BackSide,
+    vertexShader: 'varying vec3 p; void main(){ p = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
+    fragmentShader: `varying vec3 p; void main(){
+      float g = mix(0.18, 0.95, smoothstep(-0.9, 0.8, p.y));
+      gl_FragColor = vec4(vec3(g), 1.0); }`
+  })));
+  const card = (w, h, k, pos) => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color(k, k, k), side: THREE.DoubleSide }));
+    m.position.set(...pos); m.lookAt(0, 0, 0); env.add(m);
+  };
+  card(16, 11, 1.5, [-2, 3, 16]);     // big soft key behind the camera: the bright silver face
+  card(24, 1.2, 6, [0, 11, 5]);       // overhead strip: top rim highlight
+  card(1.2, 20, 5, [-12, 2, 7]);      // left strip
+  card(0.8, 20, 4, [11, 0, 9]);       // right strip
+  card(7, 22, 0.0, [-13, 0, -1]);     // black flag, left
+  card(7, 22, 0.0, [13, -1, 1]);      // black flag, right
+  card(26, 7, 0.02, [0, -12, 6]);     // black floor flag: dark lower bevels
+  card(10, 3, 0.03, [6, 7, 13]);      // small dark card: a soft dark band across the face
+  card(22, 2.2, 0.0, [0, 8, 9]);      // black flag, high front: dark line in the top bevels
+  card(2.5, 14, 0.0, [-7, -2, 12]);   // black flag, low left front: dark line in the left bevels
+  const pm = new THREE.PMREMGenerator(renderer);
+  const tex = pm.fromScene(env, 0.015).texture;
+  pm.dispose();
+  return tex;
+}
+scene.environment = studio();
+
+// ---- geometry: extrude the path, then smooth the walls so curves read as polished metal ----
+const shapes = SVGLoader.createShapes(new SVGLoader().parse(`<svg xmlns="http://www.w3.org/2000/svg"><path d="${D}"/></svg>`).paths[0]);
+let geo = new THREE.ExtrudeGeometry(shapes, {
+  depth: 5, curveSegments: 40,
+  bevelEnabled: true, bevelThickness: 3.4, bevelSize: 2.4, bevelOffset: -0.4, bevelSegments: 16
+});
+geo.deleteAttribute('uv');
+geo = mergeVertices(geo, 1e-3);
+geo.computeVertexNormals();
+geo.center();
+
+// Two finishes. Chrome: polished silver. Glass: clear, thick, refracting what sits behind it.
+const finishes = {
+  chrome: new THREE.MeshPhysicalMaterial({
+    color: 0xf4f4f6, metalness: 1, roughness: 0.09,
+    clearcoat: 1, clearcoatRoughness: 0.04, envMapIntensity: 1.25
+  }),
+  glass: new THREE.MeshPhysicalMaterial({
+    color: 0xffffff, metalness: 0, roughness: 0.02,
+    transmission: 1, thickness: 16, ior: 1.6,
+    specularIntensity: 1, clearcoat: 1, clearcoatRoughness: 0, envMapIntensity: 2
+  })
+};
+
+const mesh = new THREE.Mesh(geo, finishes.chrome);
+mesh.scale.set(0.1, -0.1, 0.1);   // SVG is y-down; flip into three's y-up
+const rig = new THREE.Group();     // rig takes the tilt and spin; the mesh stays a fixed child
+rig.add(mesh);
+scene.add(rig);
+
+// Glass needs something behind it to bend, but the canvas is transparent over the page.
+// This backdrop (soft page-coloured gradient with a couple of darker bands) is drawn only into
+// three's transmission pass, so the glass refracts it while the visible canvas stays clear.
+const backdrop = new THREE.Mesh(new THREE.PlaneGeometry(40, 30), new THREE.ShaderMaterial({
+  uniforms: { on: { value: 0 } },
+  vertexShader: 'varying vec2 v; void main(){ v = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
+  fragmentShader: `uniform float on; varying vec2 v; void main(){
+    if (on < 0.5) discard;
+    // a studio sweep: white above, grey below, with soft dark bands the glass bends into its edges
+    vec3 c = mix(vec3(0.62,0.61,0.66), vec3(1.0), smoothstep(0.3, 0.6, v.y));
+    c *= 1.0 - 0.75 * exp(-pow((v.y - 0.49) * 28.0, 2.0));
+    c *= 1.0 - 0.45 * exp(-pow((v.x - 0.55) * 22.0, 2.0));
+    gl_FragColor = vec4(c, 1.0); }`
+}));
+backdrop.position.z = -8;
+backdrop.visible = false;
+backdrop.onBeforeRender = r => { backdrop.material.uniforms.on.value = r.getRenderTarget() ? 1 : 0; };
+scene.add(backdrop);
+
+let shadowK = 1;
+function setFinish(name) {
+  if (!finishes[name]) return;
+  mesh.material = finishes[name];
+  backdrop.visible = name === 'glass';
+  shadowK = name === "glass" ? .45 : 1;
+  document.querySelectorAll('.finish button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.finish === name)));
+}
+setFinish(new URLSearchParams(location.search).get('finish') === 'glass' ? 'glass' : 'chrome');
+document.querySelectorAll('.finish button').forEach(b => b.addEventListener('click', () => setFinish(b.dataset.finish)));
+
+// ---- size: keep the mark (about 6 units wide) in frame at any aspect, with room to rotate ----
+function fit() {
+  const { width: w, height: h } = host.getBoundingClientRect();
+  if (!w || !h) return;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  const half = Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
+  camera.position.z = Math.max(3.1 / half, 3.8 / (half * camera.aspect));
+  camera.updateProjectionMatrix();
+}
+new ResizeObserver(fit).observe(host);
+fit();
+
+// ---- interaction ----
+// px/py: pointer in -1..1 relative to the mark's centre, measured across the whole viewport.
+const st = { px: 0, py: 0, tx: 0, ty: 0, spin: 0, vel: 0, hover: 0, hoverT: 0, lastMove: -1e9 };
+let dragging = false, lastX = 0, lastT = 0;
+
+addEventListener('pointermove', e => {
+  const r = host.getBoundingClientRect();
+  st.px = THREE.MathUtils.clamp((e.clientX - (r.left + r.width / 2)) / (innerWidth * 0.5), -1, 1);
+  st.py = THREE.MathUtils.clamp((e.clientY - (r.top + r.height / 2)) / (innerHeight * 0.5), -1, 1);
+  st.lastMove = performance.now();
+  if (dragging) {
+    const now = performance.now(), d = (e.clientX - lastX) * 0.012;
+    st.spin += d;
+    st.vel = d / Math.max(1, now - lastT) * 16;   // radians per 60fps frame
+    lastX = e.clientX; lastT = now;
+  }
+}, { passive: true });
+
+host.addEventListener('pointerenter', () => st.hoverT = 1);
+host.addEventListener('pointerleave', () => { if (!dragging) st.hoverT = 0; });
+host.addEventListener('pointerdown', e => {
+  dragging = true; lastX = e.clientX; lastT = performance.now(); st.vel = 0;
+  host.classList.add('drag'); host.setPointerCapture(e.pointerId);
+});
+const release = () => {
+  if (!dragging) return;
+  dragging = false; host.classList.remove('drag');
+  if (performance.now() - lastT > 80) st.vel = 0;   // held still before letting go: no fling
+  st.hoverT = host.matches(':hover') ? 1 : 0;
+};
+host.addEventListener('pointerup', release);
+host.addEventListener('pointercancel', release);
+
+// ---- loop ----
+const clock = new THREE.Clock();
+const TAU = Math.PI * 2;
+const easeOut = x => 1 - Math.pow(1 - x, 4);
+let t = 0, intro = reduce ? 1 : 0, running = true, shown = false;
+
+function frame() {
+  if (!running) return;
+  const dt = Math.min(clock.getDelta(), 1 / 20);
+  t += dt;
+  const k = 1 - Math.exp(-dt * 6);   // frame-rate independent smoothing
+
+  // idle sway when the pointer hasn't moved for a while (and on touch screens)
+  const idle = !reduce && performance.now() - st.lastMove > 2500;
+  st.tx += ((idle ? Math.sin(t * 0.45) * 0.55 : st.px) - st.tx) * k;
+  st.ty += ((idle ? Math.sin(t * 0.32 + 1) * 0.35 : st.py) - st.ty) * k;
+
+  // spin: momentum after a drag, then settle on the nearest full turn so the mark faces front at rest
+  if (!dragging) {
+    if (Math.abs(st.vel) > 0.002) { st.spin += st.vel * dt * 60; st.vel *= Math.pow(0.94, dt * 60); }
+    else { st.vel = 0; st.spin += (Math.round(st.spin / TAU) * TAU - st.spin) * (1 - Math.exp(-dt * 4)); }
+  }
+
+  // intro: a three-quarter turn up into place
+  if (intro < 1) intro = Math.min(1, intro + dt / 1.6);
+  const e = easeOut(intro);
+
+  st.hover += (st.hoverT - st.hover) * k;
+  const float = reduce ? 0 : Math.sin(t * 1.1) * 0.12;
+
+  // rests at a three-quarter angle (like a product shot) so the thickness always shows
+  rig.rotation.y = -0.32 + st.tx * 0.6 + st.spin - (1 - e) * TAU * 0.75;
+  rig.rotation.x = 0.16 + st.ty * 0.38 + (1 - e) * 0.6;
+  rig.rotation.z = reduce ? 0 : Math.sin(t * 0.6) * 0.025;
+  rig.position.y = float - (1 - e) * 1.2;
+  rig.scale.setScalar((0.7 + 0.3 * e) * (1 + st.hover * 0.04));
+
+  // contact shadow follows the float: smaller and lighter as the mark rises
+  shadow.style.transform = `translateX(${st.tx * -4}%) scale(${(1 - float * 0.6) * (0.6 + 0.4 * e)})`;
+  shadow.style.opacity = String((0.75 - float * 1.5) * e * shadowK);
+
+  renderer.render(scene, camera);
+  if (!shown) { shown = true; host.classList.add('ready'); }
+  requestAnimationFrame(frame);
+}
+
+// Only render while the hero is on screen and the tab is visible.
+let onScreen = true;
+const go = () => {
+  const want = onScreen && !document.hidden;
+  if (want && !running) { running = true; clock.getDelta(); requestAnimationFrame(frame); }
+  else if (!want) running = false;
+};
+new IntersectionObserver(([en]) => { onScreen = en.isIntersecting; go(); }).observe(host);
+document.addEventListener('visibilitychange', go);
+requestAnimationFrame(frame);
+</script>

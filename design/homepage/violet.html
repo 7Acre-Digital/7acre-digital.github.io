@@ -1,0 +1,343 @@
+<title>7AD Violet Studies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: Swiss 12-column grid (24px margins + gutters) with visible 4-up column rules; frames sit on a lilac-grey board.
+   One deliberate light world with a single dark footer study; every colour is set explicitly. */
+:root{
+  color-scheme:light;
+  --board:#e6e4ec;     /* page the studies sit on */
+  --paper:#f5f4f8;     /* off-white site ground, cool and faintly violet */
+  --ink:#0f0e13;       /* text + logo */
+  --muted:#6f6b7b;     /* secondary text */
+  --line:rgba(15,14,19,.11);
+  --violet:#6a4bff;    /* the accent */
+  --violet-deep:#4426d9;
+  --lilac:#e4d9ff;
+  --orchid:#c47dff;    /* gradient end */
+  --night:#121019;     /* dark footer */
+  --haas:"Neue Haas Grotesk Display Pro","NeueHaasGroteskDisp Pro","Neue Haas Grotesk Display","Neue Haas Grotesk Text Pro","Neue Haas Grotesk","Helvetica Neue",Helvetica,"Inter Tight",Arial,sans-serif;
+  --m:24px;            /* frame margin + gutter */
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--board);color:var(--ink);font-family:var(--haas);font-size:14px;line-height:1.4;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:1px solid var(--violet);outline-offset:3px}
+main{padding-inline:16px;padding-block:24px 64px;display:flex;flex-direction:column;gap:16px}
+
+.cap{font-size:11px;line-height:1.3;text-transform:uppercase;letter-spacing:.02em;font-weight:500}
+.mut{color:var(--muted)}
+.g12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--m)}
+.wm{display:block;width:100%;height:auto}
+.wm-t,.wm-m{display:none}
+.icon{display:block;height:auto}
+
+/* sheet header + study labels */
+.sheet{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;padding:8px 0 24px}
+.sheet h1{font-size:clamp(2.5rem,6vw,5.25rem);font-weight:500;line-height:.86;letter-spacing:-.05em}
+.sheet p{max-width:44ch;color:var(--muted)}
+.label{display:flex;justify-content:space-between;gap:16px;padding-top:32px;color:var(--muted)}
+.label b{font-weight:500;color:var(--ink)}
+
+.frame{position:relative;overflow:hidden;border-radius:4px;background:var(--paper);padding:var(--m)}
+.guides{position:absolute;inset:0 var(--m);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--m);pointer-events:none}
+.guides i{border-left:1px solid var(--line)}
+.guides i:last-child{border-right:1px solid var(--line)}
+.frame>*:not(.guides):not(.glow){position:relative}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:4px;padding:10px 14px;font-size:13px;font-weight:500;transition:background .25s,transform .25s}
+.btn svg{transition:transform .3s cubic-bezier(.215,.61,.355,1)}
+.btn:hover svg{transform:translateX(3px)}
+.btn.ink{background:var(--ink);color:var(--paper)}
+.btn.ink:hover{background:#000}
+.btn.vio{background:var(--violet);color:#fff;border-radius:999px;padding:11px 18px}
+.btn.vio:hover{background:var(--violet-deep)}
+
+/* ============ H/01 Field ============ */
+.h1{min-height:clamp(620px,86vh,820px);display:flex;flex-direction:column;justify-content:space-between;gap:48px;
+  background:linear-gradient(180deg,var(--paper) 0%,var(--paper) 22%,#efe8ff 48%,#dcc6ff 74%,var(--orchid) 100%)}
+.paren{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--m);padding-left:8px}
+.paren a{font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:.01em;display:flex;align-items:center;gap:10px}
+.paren a:hover{color:var(--violet)}
+.h1 .wm,.f1 .wm{color:var(--ink);--slash:var(--violet)}
+.brand .wm{color:var(--ink);--slash:var(--violet)}
+.h1-mid{row-gap:24px;align-items:end;padding-left:8px}
+.h1-mid h2{grid-column:1 / span 6;font-size:clamp(2rem,3.7vw,3.5rem);font-weight:500;line-height:1;letter-spacing:-.035em;text-wrap:balance}
+.h1-mid h2 span{color:var(--violet)}
+.h1-mid .list{grid-column:7 / span 3;display:flex;flex-direction:column;gap:4px}
+.h1-mid .avail{grid-column:10 / span 3;display:flex;flex-direction:column;gap:4px}
+
+/* ============ H/02 Glow ============ */
+.h2{min-height:clamp(720px,96vh,920px);display:flex;flex-direction:column;gap:0;padding-bottom:0;
+  background:linear-gradient(180deg,var(--paper) 0%,var(--paper) 30%,#e9e1ff 46%,#9d83ff 62%,#4c2fe0 74%,#1d1438 86%,var(--night) 100%)}
+.glow{position:absolute;inset:auto -10% 6% -10%;height:60%;background:radial-gradient(ellipse 50% 45% at 50% 55%,rgba(150,110,255,.85),rgba(106,75,255,.35) 45%,transparent 70%);filter:blur(10px);animation:drift 14s ease-in-out infinite alternate;pointer-events:none}
+@keyframes drift{from{transform:translateX(-4%) scaleY(1)}to{transform:translateX(4%) scaleY(1.08)}}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .wm{width:148px}
+.pills{display:flex;gap:2px;background:rgba(15,14,19,.05);border-radius:6px;padding:3px}
+.pills a{font-size:12px;color:var(--muted);padding:6px 11px;border-radius:4px;transition:background .2s,color .2s}
+.pills a:hover{background:var(--paper);color:var(--ink)}
+.ghost{margin-top:56px;opacity:.9;color:#ddd2ff;--slash:#c9b8ff}
+.h2-copy{margin-top:-6%;row-gap:24px;align-items:end}
+.h2-copy h2{grid-column:1 / span 6;font-size:clamp(1.9rem,3.2vw,3rem);font-weight:500;line-height:1;letter-spacing:-.03em;text-wrap:balance}
+.h2-copy h2 span{color:var(--violet)}
+.h2-copy .side{grid-column:8 / span 4;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.h2-copy .side p{font-size:15px;color:var(--muted);max-width:34ch}
+.h2-dark{margin-top:auto;padding-block:120px 72px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;color:#ece8ff}
+.h2-dark p{font-size:clamp(1.15rem,1.7vw,1.5rem);font-weight:500;letter-spacing:-.015em;line-height:1.15;max-width:30ch}
+.h2-dark .btn.ink{background:#0b0a10;color:#ece8ff;border:1px solid rgba(236,232,255,.18)}
+
+/* ============ H/03 Plots ============ */
+.h3{display:flex;flex-direction:column;gap:36px;padding-bottom:36px}
+.h3 .bar{padding-bottom:16px;border-bottom:1px solid var(--line)}
+.plots{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:clamp(34px,4.6vw,64px);margin-inline:auto;width:min(100%,920px)}
+.plots i{border:1px solid rgba(255,255,255,.55);margin:-.5px}
+.plots .r1{grid-row:1;grid-column:1 / -1;background:linear-gradient(#f5f4f8,#ece4ff);border-color:var(--line)}
+.plots .r2{grid-row:2;grid-column:2 / 12;background:linear-gradient(#e3d6ff,#cdb6ff)}
+.plots .r3{grid-row:3;grid-column:3 / 11;background:linear-gradient(#c3a8ff,#a888ff)}
+.plots .r4{grid-row:4;grid-column:4 / 10;background:linear-gradient(#9a7aff,#8460ff)}
+.plots .r5{grid-row:5;grid-column:5 / 9;background:linear-gradient(#7a56ff,#6a4bff)}
+.plots .r6{grid-row:6;grid-column:6 / 8;background:linear-gradient(#6243ff,#5536f0)}
+.plots .tick{position:absolute;font-size:10px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.plots .mark{position:absolute;left:50%;top:44%;width:28%;transform:translate(-50%,-50%);color:var(--paper);filter:drop-shadow(0 18px 30px rgba(52,22,190,.45))}
+.h3-row{align-items:start;row-gap:24px}
+.h3-row .l{grid-column:2 / span 4;display:flex;flex-direction:column;gap:10px}
+.h3-row .l h2{font-size:clamp(1.6rem,2.3vw,2.1rem);font-weight:500;line-height:1.05;letter-spacing:-.025em}
+.h3-row .c{grid-column:6 / span 2;display:flex;justify-content:center;padding-top:22px}
+.h3-row .r{grid-column:9 / span 3;display:flex;flex-direction:column;gap:10px}
+.h3-row .r h3{font-size:clamp(1.3rem,1.8vw,1.65rem);font-weight:500;letter-spacing:-.02em}
+.h3-row p{color:var(--muted);font-size:14px;max-width:36ch}
+.more{font-size:13px;font-weight:500;display:inline-flex;gap:6px}
+.more:hover{color:var(--violet)}
+.dots{display:flex;justify-content:center;gap:14px}
+.dots i{width:6px;height:6px;background:var(--line)}
+.dots i:first-child{background:var(--ink)}
+
+/* ============ F/01 Field footer ============ */
+.f1{display:flex;flex-direction:column;gap:96px;padding-bottom:16px;
+  background:linear-gradient(180deg,var(--paper) 0%,#f3eeff 30%,#e2cfff 62%,var(--orchid) 100%)}
+.f1-body{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--m);row-gap:56px;padding-left:8px}
+.f1-body .touch{grid-column:1 / span 2;display:flex;flex-direction:column;gap:12px}
+.f1-body .touch p{font-size:clamp(1.2rem,1.7vw,1.6rem);font-weight:500;line-height:1.12;letter-spacing:-.02em;max-width:30ch}
+.f1-body .col{display:flex;flex-direction:column;gap:3px}
+.f1-body .col a{font-size:13px;text-transform:uppercase}
+.f1-body .col a:hover{color:var(--violet-deep)}
+
+/* ============ F/02 Night ============ */
+.f2{background:var(--night);color:#ece8ff;display:flex;flex-direction:column;gap:72px}
+.f2 .guides i{border-color:rgba(236,232,255,.08)}
+.f2::before{content:"";position:absolute;inset:-40% -20% auto -20%;height:90%;background:radial-gradient(ellipse 45% 50% at 30% 50%,rgba(106,75,255,.55),transparent 70%);pointer-events:none}
+.f2-top{row-gap:32px;align-items:end}
+.f2-top h2{grid-column:1 / span 7;font-size:clamp(3rem,8.4vw,8.5rem);font-weight:500;line-height:.84;letter-spacing:-.055em}
+.f2-top h2 span{color:#a993ff}
+.f2-form{grid-column:9 / span 4;display:flex;flex-direction:column;gap:10px}
+.f2-field{display:flex;gap:6px;background:rgba(236,232,255,.06);border:1px solid rgba(236,232,255,.14);border-radius:999px;padding:5px}
+.f2-field input{flex:1;min-width:0;background:transparent;border:0;outline:none;padding:0 12px;font-size:14px;color:#ece8ff}
+.f2-field input::placeholder{color:rgba(236,232,255,.45)}
+.f2-cols{row-gap:28px;border-top:1px solid rgba(236,232,255,.12);padding-top:18px}
+.f2-cols>div{grid-column:span 3;display:flex;flex-direction:column;gap:4px;font-size:13px}
+.f2-cols .mut{color:rgba(236,232,255,.5)}
+.f2-cols a:hover{color:#a993ff}
+.f2-base{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.f2-base .brand .wm{width:200px;color:#ece8ff;--slash:#a993ff}
+
+/* ============ F/03 Plot footer ============ */
+.f3{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--m);row-gap:32px}
+.f3-block{grid-column:1 / span 4;aspect-ratio:122/120;max-width:100%;background:var(--violet);border-radius:2px;position:relative;overflow:hidden}
+.f3-block svg{position:absolute;width:132%;left:2%;top:18%;color:var(--paper)}
+.f3-right{grid-column:6 / span 7;display:flex;flex-direction:column;justify-content:space-between;gap:40px;min-width:0}
+.f3-right .wm{width:min(100%,360px);color:var(--ink);--slash:var(--violet)}
+.rows{border-top:1px solid var(--ink)}
+.rows div{display:grid;grid-template-columns:7rem 1fr 1fr 1fr;gap:var(--m);padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+.rows div span:first-child{color:var(--muted)}
+.rows a:hover{color:var(--violet)}
+.f3-base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* ============ responsive ============ */
+@media (max-width:1023px){
+  .wm-d{display:none}.wm-t{display:block}
+  .h1-mid h2,.h2-copy h2{grid-column:1 / -1}
+  .h1-mid .list{grid-column:1 / span 6}.h1-mid .avail{grid-column:7 / span 6}
+  .h2-copy .side{grid-column:1 / -1}
+  .pills{display:none}
+  .h3-row .l{grid-column:1 / span 6}.h3-row .r{grid-column:7 / span 6}.h3-row .c{grid-column:1 / -1;order:3;justify-content:flex-start;padding-top:0}
+  .f2-top h2,.f2-form{grid-column:1 / -1}
+  .f2-cols>div{grid-column:span 6}
+  .f3-block{grid-column:1 / span 5}.f3-right{grid-column:6 / span 7}
+}
+@media (max-width:767px){
+  :root{--m:16px}
+  .wm-t{display:none}.wm-m{display:block}
+  .guides{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .guides i:nth-child(n+3){display:none}
+  .guides i:nth-child(2){border-right:1px solid var(--line)}
+  .paren{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:8px}
+  .h1-mid .list,.h1-mid .avail{grid-column:1 / -1}
+  .h3-row .l,.h3-row .r{grid-column:1 / -1}
+  .f1-body{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .f1-body .touch{grid-column:1 / -1}
+  .f3-block,.f3-right{grid-column:1 / -1}
+  .f3-block{width:60%}
+  .rows div{grid-template-columns:1fr 1fr}
+  .rows div span:first-child{grid-column:1 / -1}
+  .brand .wm{width:120px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+<!-- brand/icon + brand/wordmark, outlined -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><g id="i7a"><path d="M35.3068 47.3903C33.8403 43.2813 35.7125 40.0267 40.0753 40.0244L57.5865 40.0152L65.9864 40.016C66.729 40.0158 67.7462 39.9964 68.7127 40.0006C69.6131 40.0045 70.2058 41.0275 69.8143 41.8383C69.1245 43.2544 68.4678 44.686 67.8448 46.1322C67.5545 46.7985 67.3019 47.4893 66.9983 48.1462L58.1554 67.4406C57.123 69.7265 56.0223 72.0021 55.0728 74.3204C54.6993 75.2322 54.2996 76.1669 53.8323 77.0348C53.6728 77.3589 53.4599 77.855 53.2339 78.3561C52.7621 79.4022 51.7515 79.9744 50.6039 79.9757L47.5781 79.9772C47.0173 79.9772 44.8585 79.9981 42.8281 79.987C40.3714 79.9736 39.4187 78.4037 40.4575 76.1773L42.6914 71.3648L48.4631 58.7C49.465 56.5098 50.2741 54.2554 51.3873 52.1011C51.9835 50.9477 51.0243 49.5058 49.726 49.5049L41.921 49.4993L38.374 49.4948C37.1673 49.4928 35.9622 48.745 35.4294 47.6624C35.3722 47.5461 35.3287 47.4518 35.3068 47.3903Z"/><path d="M60.2294 42.1759C60.8463 40.8604 61.9846 39.9976 63.4374 40.0126C63.4666 40.0129 63.4958 40.0132 63.5249 40.0135C66.2064 40.0435 68.9017 39.9989 71.5901 40C73.6895 40.0009 75.4857 41.1533 76.4229 43.0319C77.589 45.3671 78.5511 47.8579 79.6266 50.2144L89.9478 72.6745C90.2435 73.3341 90.835 74.8035 91.1039 75.4599C92.2267 78.2094 91.2251 80.0019 88.2552 79.9882C85.6774 79.9763 82.8836 79.9256 82.2072 79.977C80.4547 80.1098 78.9752 78.9477 78.2878 77.3301C78.1908 77.1018 78.0918 76.8761 77.9888 76.6553L72.844 65.5617C72.4436 64.676 72.152 63.7346 71.7183 62.8548C71.1864 61.7754 70.7211 60.663 70.1845 59.5845C69.8056 58.8454 69.4243 58.0101 69.0538 57.1696C68.702 56.3711 67.3902 56.3702 67.0957 57.1915C66.5149 58.8109 65.7289 60.2572 65.0292 61.8083L59.7721 73.4372C59.3432 74.3722 58.9031 75.2843 58.4931 76.2294C57.4972 78.5254 55.1701 80.016 52.6676 79.9876C51.4364 79.9736 50.2085 79.9545 49.0855 79.9682C47.9536 79.9821 46.1639 80.0176 44.6787 79.9836C43.8715 79.965 43.3565 79.1001 43.6961 78.3676L45.1196 75.3057L48.9987 66.7248C49.3065 66.0331 49.6339 65.3405 49.9549 64.6533C53.4424 57.1867 56.7303 49.6387 60.2294 42.1759Z"/></g><g id="wm-seven"><path d="M22.968 53.64C16.008 53.64 10.464 52.152 6.336 49.176C2.256 46.152 0.144 41.832 0 36.216H12.816C13.344 41.112 16.704 43.56 22.896 43.56C25.2 43.56 27.144 43.128 28.728 42.264C30.36 41.352 31.176 39.984 31.176 38.16C31.176 36.912 30.672 35.88 29.664 35.064C28.656 34.2 27.624 33.6 26.568 33.264C25.56 32.928 23.616 32.4 20.736 31.68C20.592 31.632 20.496 31.608 20.448 31.608C20.4 31.56 20.328 31.536 20.232 31.536C20.136 31.488 20.04 31.464 19.944 31.464C17.736 30.936 15.912 30.48 14.472 30.096C13.08 29.664 11.472 29.04 9.648 28.224C7.872 27.36 6.456 26.424 5.4 25.416C4.344 24.408 3.432 23.088 2.664 21.456C1.944 19.776 1.584 17.904 1.584 15.84C1.584 10.56 3.456 6.6 7.2 3.96C10.992 1.32 15.936 0 22.032 0C27.888 0 32.664 1.344 36.36 4.032C40.104 6.72 42.096 10.656 42.336 15.84H29.88C29.64 13.872 28.8 12.36 27.36 11.304C25.92 10.2 24 9.648 21.6 9.648C19.392 9.648 17.592 10.104 16.2 11.016C14.856 11.88 14.184 13.032 14.184 14.472C14.184 16.104 15 17.304 16.632 18.072C18.264 18.792 21.336 19.656 25.848 20.664C28.68 21.336 31.008 22.008 32.832 22.68C34.656 23.304 36.504 24.216 38.376 25.416C40.296 26.616 41.712 28.176 42.624 30.096C43.584 31.968 44.064 34.224 44.064 36.864C44.064 42.096 42.072 46.2 38.088 49.176C34.152 52.152 29.112 53.64 22.968 53.64Z" style="fill:currentColor"/><path d="M49.2761 52.416V0.936001H88.3001V11.448H62.0201V20.664H84.5561V30.6H62.0201V41.616H88.7321V52.416H49.2761Z" style="fill:currentColor"/><path d="M107.807 52.416L90.8151 0.936001H104.063L112.127 27.936L114.503 37.008H114.647C115.511 33.504 116.303 30.48 117.023 27.936L125.015 0.936001H137.903L120.983 52.416H107.807Z" style="fill:currentColor"/><path d="M141.385 52.416V0.936001H180.41V11.448H154.13V20.664H176.665V30.6H154.13V41.616H180.842V52.416H141.385Z" style="fill:currentColor"/><path d="M186.596 52.416V0.936001H199.412L214.676 26.784L218.204 33.336H218.348C218.252 29.208 218.204 26.544 218.204 25.344V0.936001H230.66V52.416H217.844L202.724 26.928L199.052 20.016H198.908C199.004 24.432 199.052 27.24 199.052 28.44V52.416H186.596Z" style="fill:currentColor"/><path d="M234 52L253.455 0H263.656L244.201 52H234Z" style="fill:var(--slash,currentColor)"/><path d="M256.344 52L275.799 0H286L266.545 52H256.344Z" style="fill:var(--slash,currentColor)"/><path d="M278 52.8403L296.417 1.01476H309.46L327.949 52.8403H314.62L311.61 43.4899H293.694L290.756 52.8403H278ZM296.632 34.2846H308.672L304.802 21.745L302.795 14.4242H302.652C301.84 17.5168 301.147 19.957 300.574 21.745L296.632 34.2846Z" style="fill:currentColor"/><path d="M351.551 54C344.098 54 338.007 51.4872 333.277 46.4617C328.595 41.3879 326.254 34.9369 326.254 27.1087C326.254 19.2805 328.571 12.8054 333.205 7.68322C337.839 2.56107 343.931 0 351.479 0C357.308 0 362.181 1.52215 366.098 4.56644C370.542 7.94899 373.098 12.7087 373.766 18.8456H361.082C360.748 16.4779 359.72 14.5208 358.001 12.9745C356.281 11.4282 354.083 10.655 351.408 10.655C347.394 10.655 344.337 12.1772 342.235 15.2215C340.18 18.2174 339.153 22.1799 339.153 27.1087C339.153 31.9409 340.276 35.8792 342.521 38.9235C344.767 41.9678 347.753 43.4899 351.479 43.4899C354.25 43.4899 356.519 42.6926 358.287 41.098C360.103 39.5034 361.154 37.4255 361.44 34.8644H374.125C373.742 40.0832 371.688 44.5047 367.962 48.1289C363.949 52.043 358.478 54 351.551 54Z" style="fill:currentColor"/><path d="M378.65 52.8403V1.01476H403.159C408.414 1.01476 412.714 2.34362 416.058 5.00134C419.402 7.61074 421.075 11.2591 421.075 15.9463C421.075 22.2282 418.113 26.4081 412.188 28.4859V28.7034C416.488 30.153 418.972 33.3181 419.641 38.1987C419.928 39.8899 420.119 41.9919 420.215 44.5047C420.358 46.9691 420.525 48.8295 420.716 50.0859C420.907 51.294 421.266 51.9946 421.791 52.1879V52.8403H409.465C409.083 52.5987 408.772 51.898 408.534 50.7383C408.342 49.5785 408.175 47.9356 408.032 45.8094C407.889 43.6832 407.721 42.0161 407.53 40.8081C406.861 35.8792 404.019 33.4148 399.002 33.4148H391.334V52.8403H378.65ZM391.334 23.9195H400.866C403.35 23.9195 405.237 23.3638 406.527 22.2523C407.817 21.1409 408.462 19.5946 408.462 17.6134C408.462 15.6805 407.841 14.1342 406.599 12.9745C405.357 11.7664 403.541 11.1624 401.152 11.1624H391.334V23.9195Z" style="fill:currentColor"/><path d="M426.729 52.8403V1.01476H465.57V11.5973H439.413V20.8752H461.844V30.8779H439.413V41.9678H466V52.8403H426.729Z" style="fill:currentColor"/></g><g id="wm-sevn"><path d="M22.968 53.64C16.008 53.64 10.464 52.152 6.336 49.176C2.256 46.152 0.144 41.832 0 36.216H12.816C13.344 41.112 16.704 43.56 22.896 43.56C25.2 43.56 27.144 43.128 28.728 42.264C30.36 41.352 31.176 39.984 31.176 38.16C31.176 36.912 30.672 35.88 29.664 35.064C28.656 34.2 27.624 33.6 26.568 33.264C25.56 32.928 23.616 32.4 20.736 31.68C20.592 31.632 20.496 31.608 20.448 31.608C20.4 31.56 20.328 31.536 20.232 31.536C20.136 31.488 20.04 31.464 19.944 31.464C17.736 30.936 15.912 30.48 14.472 30.096C13.08 29.664 11.472 29.04 9.648 28.224C7.872 27.36 6.456 26.424 5.4 25.416C4.344 24.408 3.432 23.088 2.664 21.456C1.944 19.776 1.584 17.904 1.584 15.84C1.584 10.56 3.456 6.6 7.2 3.96C10.992 1.32 15.936 0 22.032 0C27.888 0 32.664 1.344 36.36 4.032C40.104 6.72 42.096 10.656 42.336 15.84H29.88C29.64 13.872 28.8 12.36 27.36 11.304C25.92 10.2 24 9.648 21.6 9.648C19.392 9.648 17.592 10.104 16.2 11.016C14.856 11.88 14.184 13.032 14.184 14.472C14.184 16.104 15 17.304 16.632 18.072C18.264 18.792 21.336 19.656 25.848 20.664C28.68 21.336 31.008 22.008 32.832 22.68C34.656 23.304 36.504 24.216 38.376 25.416C40.296 26.616 41.712 28.176 42.624 30.096C43.584 31.968 44.064 34.224 44.064 36.864C44.064 42.096 42.072 46.2 38.088 49.176C34.152 52.152 29.112 53.64 22.968 53.64Z" style="fill:currentColor"/><path d="M49.2761 52.416V0.936001H88.3001V11.448H62.0201V20.664H84.5561V30.6H62.0201V41.616H88.7321V52.416H49.2761Z" style="fill:currentColor"/><path d="M107.807 52.416L90.8151 0.936001H104.063L112.127 27.936L114.503 37.008H114.647C115.511 33.504 116.303 30.48 117.023 27.936L125.015 0.936001H137.903L120.983 52.416H107.807Z" style="fill:currentColor"/><path d="M186.596 52.416V0.936001H199.412L214.676 26.784L218.204 33.336H218.348C218.252 29.208 218.204 26.544 218.204 25.344V0.936001H230.66V52.416H217.844L202.724 26.928L199.052 20.016H198.908C199.004 24.432 199.052 27.24 199.052 28.44V52.416H186.596Z" transform="translate(-45.21 0)" style="fill:currentColor"/><path d="M234 52L253.455 0H263.656L244.201 52H234Z" transform="translate(-45.21 0)" style="fill:var(--slash,currentColor)"/><path d="M256.344 52L275.799 0H286L266.545 52H256.344Z" transform="translate(-45.21 0)" style="fill:var(--slash,currentColor)"/><path d="M278 52.8403L296.417 1.01476H309.46L327.949 52.8403H314.62L311.61 43.4899H293.694L290.756 52.8403H278ZM296.632 34.2846H308.672L304.802 21.745L302.795 14.4242H302.652C301.84 17.5168 301.147 19.957 300.574 21.745L296.632 34.2846Z" transform="translate(-45.21 0)" style="fill:currentColor"/><path d="M351.551 54C344.098 54 338.007 51.4872 333.277 46.4617C328.595 41.3879 326.254 34.9369 326.254 27.1087C326.254 19.2805 328.571 12.8054 333.205 7.68322C337.839 2.56107 343.931 0 351.479 0C357.308 0 362.181 1.52215 366.098 4.56644C370.542 7.94899 373.098 12.7087 373.766 18.8456H361.082C360.748 16.4779 359.72 14.5208 358.001 12.9745C356.281 11.4282 354.083 10.655 351.408 10.655C347.394 10.655 344.337 12.1772 342.235 15.2215C340.18 18.2174 339.153 22.1799 339.153 27.1087C339.153 31.9409 340.276 35.8792 342.521 38.9235C344.767 41.9678 347.753 43.4899 351.479 43.4899C354.25 43.4899 356.519 42.6926 358.287 41.098C360.103 39.5034 361.154 37.4255 361.44 34.8644H374.125C373.742 40.0832 371.688 44.5047 367.962 48.1289C363.949 52.043 358.478 54 351.551 54Z" transform="translate(-45.21 0)" style="fill:currentColor"/><path d="M378.65 52.8403V1.01476H403.159C408.414 1.01476 412.714 2.34362 416.058 5.00134C419.402 7.61074 421.075 11.2591 421.075 15.9463C421.075 22.2282 418.113 26.4081 412.188 28.4859V28.7034C416.488 30.153 418.972 33.3181 419.641 38.1987C419.928 39.8899 420.119 41.9919 420.215 44.5047C420.358 46.9691 420.525 48.8295 420.716 50.0859C420.907 51.294 421.266 51.9946 421.791 52.1879V52.8403H409.465C409.083 52.5987 408.772 51.898 408.534 50.7383C408.342 49.5785 408.175 47.9356 408.032 45.8094C407.889 43.6832 407.721 42.0161 407.53 40.8081C406.861 35.8792 404.019 33.4148 399.002 33.4148H391.334V52.8403H378.65ZM391.334 23.9195H400.866C403.35 23.9195 405.237 23.3638 406.527 22.2523C407.817 21.1409 408.462 19.5946 408.462 17.6134C408.462 15.6805 407.841 14.1342 406.599 12.9745C405.357 11.7664 403.541 11.1624 401.152 11.1624H391.334V23.9195Z" transform="translate(-45.21 0)" style="fill:currentColor"/><path d="M426.729 52.8403V1.01476H465.57V11.5973H439.413V20.8752H461.844V30.8779H439.413V41.9678H466V52.8403H426.729Z" transform="translate(-45.21 0)" style="fill:currentColor"/></g><g id="wm-svn"><path d="M22.968 53.64C16.008 53.64 10.464 52.152 6.336 49.176C2.256 46.152 0.144 41.832 0 36.216H12.816C13.344 41.112 16.704 43.56 22.896 43.56C25.2 43.56 27.144 43.128 28.728 42.264C30.36 41.352 31.176 39.984 31.176 38.16C31.176 36.912 30.672 35.88 29.664 35.064C28.656 34.2 27.624 33.6 26.568 33.264C25.56 32.928 23.616 32.4 20.736 31.68C20.592 31.632 20.496 31.608 20.448 31.608C20.4 31.56 20.328 31.536 20.232 31.536C20.136 31.488 20.04 31.464 19.944 31.464C17.736 30.936 15.912 30.48 14.472 30.096C13.08 29.664 11.472 29.04 9.648 28.224C7.872 27.36 6.456 26.424 5.4 25.416C4.344 24.408 3.432 23.088 2.664 21.456C1.944 19.776 1.584 17.904 1.584 15.84C1.584 10.56 3.456 6.6 7.2 3.96C10.992 1.32 15.936 0 22.032 0C27.888 0 32.664 1.344 36.36 4.032C40.104 6.72 42.096 10.656 42.336 15.84H29.88C29.64 13.872 28.8 12.36 27.36 11.304C25.92 10.2 24 9.648 21.6 9.648C19.392 9.648 17.592 10.104 16.2 11.016C14.856 11.88 14.184 13.032 14.184 14.472C14.184 16.104 15 17.304 16.632 18.072C18.264 18.792 21.336 19.656 25.848 20.664C28.68 21.336 31.008 22.008 32.832 22.68C34.656 23.304 36.504 24.216 38.376 25.416C40.296 26.616 41.712 28.176 42.624 30.096C43.584 31.968 44.064 34.224 44.064 36.864C44.064 42.096 42.072 46.2 38.088 49.176C34.152 52.152 29.112 53.64 22.968 53.64Z" style="fill:currentColor"/><path d="M107.807 52.416L90.8151 0.936001H104.063L112.127 27.936L114.503 37.008H114.647C115.511 33.504 116.303 30.48 117.023 27.936L125.015 0.936001H137.903L120.983 52.416H107.807Z" transform="translate(-43.5 0)" style="fill:currentColor"/><path d="M186.596 52.416V0.936001H199.412L214.676 26.784L218.204 33.336H218.348C218.252 29.208 218.204 26.544 218.204 25.344V0.936001H230.66V52.416H217.844L202.724 26.928L199.052 20.016H198.908C199.004 24.432 199.052 27.24 199.052 28.44V52.416H186.596Z" transform="translate(-88.7 0)" style="fill:currentColor"/><path d="M234 52L253.455 0H263.656L244.201 52H234Z" transform="translate(-88.7 0)" style="fill:var(--slash,currentColor)"/><path d="M256.344 52L275.799 0H286L266.545 52H256.344Z" transform="translate(-88.7 0)" style="fill:var(--slash,currentColor)"/><path d="M278 52.8403L296.417 1.01476H309.46L327.949 52.8403H314.62L311.61 43.4899H293.694L290.756 52.8403H278ZM296.632 34.2846H308.672L304.802 21.745L302.795 14.4242H302.652C301.84 17.5168 301.147 19.957 300.574 21.745L296.632 34.2846Z" transform="translate(-88.7 0)" style="fill:currentColor"/><path d="M351.551 54C344.098 54 338.007 51.4872 333.277 46.4617C328.595 41.3879 326.254 34.9369 326.254 27.1087C326.254 19.2805 328.571 12.8054 333.205 7.68322C337.839 2.56107 343.931 0 351.479 0C357.308 0 362.181 1.52215 366.098 4.56644C370.542 7.94899 373.098 12.7087 373.766 18.8456H361.082C360.748 16.4779 359.72 14.5208 358.001 12.9745C356.281 11.4282 354.083 10.655 351.408 10.655C347.394 10.655 344.337 12.1772 342.235 15.2215C340.18 18.2174 339.153 22.1799 339.153 27.1087C339.153 31.9409 340.276 35.8792 342.521 38.9235C344.767 41.9678 347.753 43.4899 351.479 43.4899C354.25 43.4899 356.519 42.6926 358.287 41.098C360.103 39.5034 361.154 37.4255 361.44 34.8644H374.125C373.742 40.0832 371.688 44.5047 367.962 48.1289C363.949 52.043 358.478 54 351.551 54Z" transform="translate(-88.7 0)" style="fill:currentColor"/><path d="M378.65 52.8403V1.01476H403.159C408.414 1.01476 412.714 2.34362 416.058 5.00134C419.402 7.61074 421.075 11.2591 421.075 15.9463C421.075 22.2282 418.113 26.4081 412.188 28.4859V28.7034C416.488 30.153 418.972 33.3181 419.641 38.1987C419.928 39.8899 420.119 41.9919 420.215 44.5047C420.358 46.9691 420.525 48.8295 420.716 50.0859C420.907 51.294 421.266 51.9946 421.791 52.1879V52.8403H409.465C409.083 52.5987 408.772 51.898 408.534 50.7383C408.342 49.5785 408.175 47.9356 408.032 45.8094C407.889 43.6832 407.721 42.0161 407.53 40.8081C406.861 35.8792 404.019 33.4148 399.002 33.4148H391.334V52.8403H378.65ZM391.334 23.9195H400.866C403.35 23.9195 405.237 23.3638 406.527 22.2523C407.817 21.1409 408.462 19.5946 408.462 17.6134C408.462 15.6805 407.841 14.1342 406.599 12.9745C405.357 11.7664 403.541 11.1624 401.152 11.1624H391.334V23.9195Z" transform="translate(-88.7 0)" style="fill:currentColor"/><path d="M426.729 52.8403V1.01476H465.57V11.5973H439.413V20.8752H461.844V30.8779H439.413V41.9678H466V52.8403H426.729Z" transform="translate(-88.7 0)" style="fill:currentColor"/></g></defs></svg>
+
+<main>
+  <header class="sheet">
+    <h1>Seven Acre<br>Violet studies</h1>
+    <p class="cap">Three heroes and three footers. Swiss 12-column grid, off-white ground, one violet. Set in Neue Haas Grotesk where installed, Inter Tight as the web stand-in.</p>
+  </header>
+
+  <!-- ===================== H/01 ===================== -->
+  <div class="label cap"><b>H/01 — Field</b><span>4-up column rules · gradient rises from the grass line</span></div>
+  <section class="frame h1" aria-label="Hero study one">
+    <div class="guides" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <nav class="paren" aria-label="Study nav">
+      <a href="#"><svg class="icon" viewBox="0 0 122 120" width="22" aria-hidden="true"><rect width="122" height="120" fill="var(--ink)"/><use href="#i7a" fill="var(--paper)"/></svg>(Index)</a>
+      <a href="#">(Services)</a><a href="#">(Process)</a><a href="#">(Start a build)</a>
+    </nav>
+    <div class="g12 h1-mid">
+      <h2>Websites that quote, book and confirm the job <span>while you're on the mower.</span></h2>
+      <div class="list"><span class="cap mut">What we build</span><span class="cap">Websites</span><span class="cap">Online booking</span><span class="cap">Automation</span></div>
+      <div class="avail"><span class="cap mut">For</span><span class="cap">Lawn care &amp; landscaping crews</span><span class="cap mut" style="margin-top:10px">Next availability</span><span class="cap" data-avail>—</span></div>
+    </div>
+    <div>
+      <svg class="wm wm-d" viewBox="0 0 466 54" role="img" aria-label="Seven Acre"><use href="#wm-seven"/></svg>
+      <svg class="wm wm-t" viewBox="0 0 420.79 54" role="img" aria-label="Seven Acre"><use href="#wm-sevn"/></svg>
+      <svg class="wm wm-m" viewBox="0 0 377.3 54" role="img" aria-label="Seven Acre"><use href="#wm-svn"/></svg>
+    </div>
+  </section>
+
+  <!-- ===================== H/02 ===================== -->
+  <div class="label cap"><b>H/02 — Glow</b><span>Ghost wordmark · violet light falls into a night band</span></div>
+  <section class="frame h2" aria-label="Hero study two">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="bar">
+      <a class="brand" href="#"><svg class="icon" viewBox="0 0 122 120" width="30" aria-hidden="true"><rect width="122" height="120" fill="var(--ink)"/><use href="#i7a" fill="var(--paper)"/></svg>
+        <svg class="wm" viewBox="0 0 466 54" role="img" aria-label="Seven Acre"><use href="#wm-seven"/></svg></a>
+      <nav class="pills" aria-label="Study nav"><a href="#">Services</a><a href="#">Process</a><a href="#">Pricing</a><a href="#">Work</a></nav>
+      <a class="btn ink" href="#">Book a call</a>
+    </div>
+    <div class="ghost" aria-hidden="true">
+      <svg class="wm wm-d" viewBox="0 0 466 54"><use href="#wm-seven"/></svg>
+      <svg class="wm wm-t" viewBox="0 0 420.79 54"><use href="#wm-sevn"/></svg>
+      <svg class="wm wm-m" viewBox="0 0 377.3 54"><use href="#wm-svn"/></svg>
+    </div>
+    <div class="g12 h2-copy">
+      <h2>Websites, booking and automation <span>for lawn crews,</span> in one system.</h2>
+      <div class="side">
+        <p>A homeowner enters an address, sees a price from the lot size, and books a start date. You get the alert.</p>
+        <a class="btn vio" href="#">Start a build <svg width="12" height="9" viewBox="0 0 12 9" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M0 4.5h11M7.5 1l3.5 3.5L7.5 8"/></svg></a>
+      </div>
+    </div>
+    <div class="h2-dark">
+      <p>Seven Acre is the front office for your crew. Quotes, bookings and reminders, handled.</p>
+      <a class="btn ink" href="#">See how a booking works</a>
+    </div>
+  </section>
+
+  <!-- ===================== H/03 ===================== -->
+  <div class="label cap"><b>H/03 — Plots</b><span>Stepped parcels on the 12-col grid · mark at the centre</span></div>
+  <section class="frame h3" aria-label="Hero study three">
+    <div class="bar">
+      <a class="brand" href="#"><svg class="icon" viewBox="0 0 122 120" width="28" aria-hidden="true"><rect width="122" height="120" fill="var(--ink)"/><use href="#i7a" fill="var(--paper)"/></svg>
+        <svg class="wm" viewBox="0 0 466 54" role="img" aria-label="Seven Acre"><use href="#wm-seven"/></svg></a>
+      <nav class="pills" aria-label="Study nav"><a href="#">Services</a><a href="#">Process</a><a href="#">Pricing</a><a href="#">Work</a></nav>
+      <a class="btn ink" href="#">Start a build <svg width="12" height="9" viewBox="0 0 12 9" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M0 4.5h11M7.5 1l3.5 3.5L7.5 8"/></svg></a>
+    </div>
+    <div class="plots" aria-hidden="true">
+      <i class="r1"></i><i class="r2"></i><i class="r3"></i><i class="r4"></i><i class="r5"></i><i class="r6"></i>
+      <span class="tick" style="left:0;top:-18px">Lot 01 · 0.25 AC</span>
+      <span class="tick" style="right:0;top:-18px">Lot 07 · 7 AC</span>
+      <svg class="mark" viewBox="30 36 66 48"><use href="#i7a" fill="currentColor"/></svg>
+    </div>
+    <div class="g12 h3-row">
+      <div class="l"><h2>Websites that book the job.</h2><p>For lawn care and landscaping companies that want the phone to stop being the only way in.</p></div>
+      <div class="c"><a class="btn ink" href="#">Start a build <svg width="12" height="9" viewBox="0 0 12 9" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M0 4.5h11M7.5 1l3.5 3.5L7.5 8"/></svg></a></div>
+      <div class="r"><h3>Instant pricing</h3><p>Price per visit from the lot size, before anyone picks up the phone.</p><a class="more" href="#">See how it works →</a></div>
+    </div>
+    <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  </section>
+
+  <!-- ===================== F/01 ===================== -->
+  <div class="label cap"><b>F/01 — Field footer</b><span>Pairs with H/01 · wordmark rests on the gradient</span></div>
+  <footer class="frame f1" aria-label="Footer study one">
+    <div class="guides" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <nav class="paren" aria-label="Study nav"><a href="#">(Index)</a><a href="#">(Services)</a><a href="#">(Process)</a><a href="#">(Start a build)</a></nav>
+    <div class="f1-body">
+      <div class="touch"><span class="cap">Get in touch</span><p>For a new build, a question about pricing, or a second opinion on the site you have now.</p><a class="cap" href="#">(Start an enquiry)</a></div>
+      <div></div><div></div>
+      <div class="col"><span class="cap mut">Navigation</span><a href="#">(Index)</a><a href="#">(Services)</a><a href="#">(Process)</a><a href="#">(Pricing)</a></div>
+      <div class="col"><span class="cap mut">Services</span><a href="#">(Websites)</a><a href="#">(Online booking)</a><a href="#">(Automation)</a><a href="#">(Lead tracking)</a></div>
+      <div></div>
+      <div class="col"><span class="cap">© 2026 Seven Acre Digital</span><span class="cap">Web + automation studio</span></div>
+    </div>
+    <div>
+      <svg class="wm wm-d" viewBox="0 0 466 54" role="img" aria-label="Seven Acre"><use href="#wm-seven"/></svg>
+      <svg class="wm wm-t" viewBox="0 0 420.79 54" role="img" aria-label="Seven Acre"><use href="#wm-sevn"/></svg>
+      <svg class="wm wm-m" viewBox="0 0 377.3 54" role="img" aria-label="Seven Acre"><use href="#wm-svn"/></svg>
+    </div>
+  </footer>
+
+  <!-- ===================== F/02 ===================== -->
+  <div class="label cap"><b>F/02 — Night</b><span>Closes H/02 · enquiry inline</span></div>
+  <footer class="frame f2" aria-label="Footer study two">
+    <div class="guides" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div class="g12 f2-top">
+      <h2>Start a<br><span>build.</span></h2>
+      <form class="f2-form" id="f2form">
+        <label class="cap" for="f2-phone" style="color:rgba(236,232,255,.55)">Leave your mobile and we'll text you back</label>
+        <div class="f2-field"><input id="f2-phone" type="tel" placeholder="(813) 555-0100" autocomplete="tel"><button class="btn vio" type="submit">Send</button></div>
+        <span class="cap" id="f2msg" style="color:rgba(236,232,255,.55)" hidden>Study only. Nothing was sent.</span>
+      </form>
+    </div>
+    <div class="g12 f2-cols">
+      <div><span class="mut">Services</span><a href="#">Websites</a><a href="#">Online booking</a><a href="#">Automation</a></div>
+      <div><span class="mut">Studio</span><a href="#">Process</a><a href="#">Pricing</a><a href="#">Work</a></div>
+      <div><span class="mut">Built for</span><span>Lawn care</span><span>Landscaping</span><span>Home services</span></div>
+      <div><span class="mut">Next availability</span><span data-avail>—</span></div>
+    </div>
+    <div class="f2-base">
+      <a class="brand" href="#"><svg class="icon" viewBox="0 0 122 120" width="40" aria-hidden="true"><rect width="122" height="120" fill="#ece8ff"/><use href="#i7a" fill="var(--night)"/></svg>
+        <svg class="wm" viewBox="0 0 466 54" role="img" aria-label="Seven Acre"><use href="#wm-seven"/></svg></a>
+      <span class="cap" style="color:rgba(236,232,255,.5)">© 2026 Seven Acre Digital</span>
+    </div>
+  </footer>
+
+  <!-- ===================== F/03 ===================== -->
+  <div class="label cap"><b>F/03 — Plot</b><span>Pairs with H/03 · the icon cropped as a violet parcel</span></div>
+  <footer class="frame f3" aria-label="Footer study three">
+    <div class="f3-block" aria-hidden="true"><svg viewBox="30 36 66 48"><use href="#i7a" fill="currentColor"/></svg></div>
+    <div class="f3-right">
+      <svg class="wm" viewBox="0 0 466 54" role="img" aria-label="Seven Acre"><use href="#wm-seven"/></svg>
+      <div class="rows">
+        <div><span>Services</span><a href="#">Websites</a><a href="#">Online booking</a><a href="#">Automation</a></div>
+        <div><span>Studio</span><a href="#">Process</a><a href="#">Pricing</a><a href="#">Start a build</a></div>
+        <div><span>Availability</span><span data-avail>—</span><span>Lawn &amp; landscape</span><span>Booking-ready builds</span></div>
+      </div>
+      <div class="f3-base cap mut"><span>© 2026 Seven Acre Digital</span><a href="#">Back to top ↑</a></div>
+    </div>
+  </footer>
+</main>
+
+<script>
+(() => {
+  const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const d = new Date(); d.setDate(d.getDate() + 10);
+  while (d.getDay() === 0 || d.getDay() === 6) d.setDate(d.getDate() + 1);
+  document.querySelectorAll('[data-avail]').forEach(el => el.textContent = `${d.getDate()} ${MON[d.getMonth()]} ${d.getFullYear()}`);
+  document.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
+  document.getElementById('f2form').addEventListener('submit', e => { e.preventDefault(); document.getElementById('f2msg').hidden = false; });
+})();
+</script>

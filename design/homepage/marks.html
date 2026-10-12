@@ -1,0 +1,131 @@
+<title>7AD Contained Marks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: specimen sheet, 2-up tiles on the site's 16px grid; one light world like the site. */
+:root{
+  color-scheme:light;
+  --nd-200:#f2f2f4;--nd-300:#ececec;--nd-400:#eaeaee;--nd-500:#e2e2e7;--nd-650:#a4aaaa;
+  --nd-700:#737d7d;--nd-800:#494d4d;--nd-1000:#1e1e1e;--nd-1100:#121212;--stone:#d9d9db;
+  --display:"Inter Tight","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --g:16px;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--nd-200);color:var(--nd-1000);font-family:var(--display);-webkit-font-smoothing:antialiased}
+main{padding:24px var(--g) 64px;display:flex;flex-direction:column;gap:var(--g)}
+.mono{font-family:var(--mono);font-size:10px;line-height:1.5;text-transform:uppercase;letter-spacing:.025em}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--g);padding-bottom:24px;flex-wrap:wrap}
+header h1{margin:0;font-size:clamp(2.5rem,6vw,5.5rem);font-weight:700;line-height:.84;letter-spacing:-.05em;text-transform:uppercase}
+header h1 i{font-style:normal;color:var(--nd-650);letter-spacing:-.1em;margin-right:.04em}
+header p{margin:0;color:var(--nd-700);max-width:38ch;text-align:right}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--g)}
+figure{margin:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+.tile{aspect-ratio:1/1;max-width:100%;border-radius:4px;display:grid;place-items:center;overflow:hidden}
+.tile.wide{aspect-ratio:2.4/1}
+.dark{background:var(--nd-1100)}.light{background:#f9f9fa}.stone{background:var(--stone)}
+figcaption{display:flex;justify-content:space-between;gap:var(--g);color:var(--nd-700)}
+figcaption b{font-weight:500;color:var(--nd-1000)}
+.full{grid-column:1 / -1}
+.sizes{display:flex;align-items:flex-end;gap:32px;flex-wrap:wrap;justify-content:center;padding:24px}
+.sizes div{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--nd-700)}
+svg{display:block;max-width:100%;height:auto}
+@media (max-width:700px){.grid{grid-template-columns:1fr}.tile.wide{aspect-ratio:1.6/1}header p{text-align:left}}
+</style>
+
+<!-- the 7A monogram, traced from seven-acre-stacked.svg -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="m7a" viewBox="191 -129 174 95">
+    <polygon points="191,-129 282.2,-129 239.45,-34 207.15,-34 239.64,-106.2 201.26,-106.2"/>
+    <polygon points="247.05,-34 289.8,-129 322.1,-129 364.85,-34 332.55,-34 305.95,-93.09 279.35,-34"/>
+  </symbol>
+</svg>
+
+<main>
+  <header>
+    <h1>SEVN<i>//</i>ACRE<br>Marks</h1>
+    <p class="mono">Containers for the 7A monogram. Four directions, one mark. The angled stroke reads as an arrow, so each container gives it a frame to push against.</p>
+  </header>
+
+  <div class="grid">
+    <!-- MK/01 Block -->
+    <figure>
+      <div class="tile dark">
+        <svg viewBox="0 0 240 330" width="300" role="img" aria-label="Block mark: dark 7A cut out of a light square, with Seven Acre Digital set in mono below">
+          <rect width="240" height="240" fill="#ececec"/>
+          <use href="#m7a" x="34" y="78" width="172" height="94" fill="#121212"/>
+          <circle cx="216" cy="216" r="6.5" fill="none" stroke="#121212" stroke-width="1.1"/>
+          <text x="216" y="219" text-anchor="middle" font-family="Geist Mono, monospace" font-size="8" fill="#121212">R</text>
+          <text x="0" y="284" font-family="Geist Mono, monospace" font-size="27" fill="#ececec">Seven Acre</text>
+          <text x="0" y="318" font-family="Geist Mono, monospace" font-size="27" fill="#ececec">Digital</text>
+        </svg>
+      </div>
+      <figcaption class="mono"><b>MK/01 — Block</b><span>Primary · app icon · social</span></figcaption>
+    </figure>
+
+    <!-- MK/02 Plate -->
+    <figure>
+      <div class="tile light">
+        <svg viewBox="0 0 200 250" width="250" role="img" aria-label="Plate mark: tall dark rectangle with the 7A at top and SEVN//ACRE set bold at the bottom">
+          <rect width="200" height="250" fill="#121212"/>
+          <use href="#m7a" x="20" y="28" width="150" height="82" fill="#ececec"/>
+          <circle cx="183" cy="17" r="5.5" fill="none" stroke="#ececec" stroke-width="1"/>
+          <text x="183" y="19.6" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7" fill="#ececec">R</text>
+          <text x="20" y="199" font-family="Geist Mono, monospace" font-size="8" letter-spacing=".3" fill="#737d7d">DIGITAL</text>
+          <text x="18" y="228" font-family="Inter Tight, Helvetica, sans-serif" font-weight="700" font-size="29" letter-spacing="-1.6" fill="#ececec">SEVN<tspan fill="#737d7d" letter-spacing="-3">//</tspan><tspan dx="1">ACRE</tspan></text>
+        </svg>
+      </div>
+      <figcaption class="mono"><b>MK/02 — Plate</b><span>Signage · proposals · invoices</span></figcaption>
+    </figure>
+
+    <!-- MK/03 Badge -->
+    <figure class="full">
+      <div class="tile wide stone">
+        <svg viewBox="0 0 760 190" width="900" role="img" aria-label="Badge mark: black pill with 7AD in large type, a ruled info block with a lawn-stripe icon, and the 7A in a light circle">
+          <rect width="760" height="190" rx="95" fill="#121212"/>
+          <text x="66" y="142" font-family="Inter Tight, Helvetica, sans-serif" font-weight="700" font-size="138" letter-spacing="-8" fill="#ececec">7AD</text>
+          <g stroke="#ececec" stroke-width="3"><line x1="334" y1="36" x2="574" y2="36"/><line x1="334" y1="154" x2="574" y2="154"/></g>
+          <!-- lot icon: a plot mowed in stripes -->
+          <g fill="none" stroke="#ececec" stroke-width="2.5">
+            <rect x="338" y="62" width="104" height="66"/>
+            <path d="M338 78.5h104M338 95h104M338 111.5h104"/>
+          </g>
+          <rect x="384" y="70" width="34" height="22" fill="#ececec"/>
+          <g font-family="Geist Mono, monospace" font-size="13" letter-spacing=".4" fill="#ececec">
+            <text x="460" y="76">SEVEN ACRE</text><text x="460" y="99">DIGITAL</text><text x="460" y="122" fill="#a4aaaa">WEB+AUTO</text>
+          </g>
+          <circle cx="664" cy="95" r="64" fill="#ececec"/>
+          <use href="#m7a" x="618" y="70" width="92" height="50" fill="#121212"/>
+        </svg>
+      </div>
+      <figcaption class="mono"><b>MK/03 — Badge</b><span>Stickers · trucks · merch · email footer</span></figcaption>
+    </figure>
+
+    <!-- MK/04 Crop -->
+    <figure>
+      <div class="tile dark">
+        <svg viewBox="0 0 300 260" width="300" role="img" aria-label="Crop mark: the 7A oversized inside a light square so its legs run off the bottom and right edges, with a TM outside the box">
+          <defs><clipPath id="sq"><rect x="0" y="20" width="240" height="240"/></clipPath></defs>
+          <rect x="0" y="20" width="240" height="240" fill="#ececec"/>
+          <use href="#m7a" x="34" y="96" width="280" height="153" fill="#121212" clip-path="url(#sq)"/>
+          <text x="254" y="38" font-family="Inter Tight, Helvetica, sans-serif" font-weight="700" font-size="15" fill="#ececec">TM</text>
+        </svg>
+      </div>
+      <figcaption class="mono"><b>MK/04 — Crop</b><span>Hero graphic · loader · large format</span></figcaption>
+    </figure>
+
+    <!-- small sizes -->
+    <figure>
+      <div class="tile light">
+        <div class="sizes">
+          <div><svg viewBox="0 0 240 240" width="128" height="128" aria-hidden="true"><rect width="240" height="240" fill="#121212"/><use href="#m7a" x="34" y="78" width="172" height="94" fill="#ececec"/></svg><span class="mono">128</span></div>
+          <div><svg viewBox="0 0 240 240" width="64" height="64" aria-hidden="true"><rect width="240" height="240" fill="#121212"/><use href="#m7a" x="34" y="78" width="172" height="94" fill="#ececec"/></svg><span class="mono">64</span></div>
+          <div><svg viewBox="0 0 240 240" width="32" height="32" aria-hidden="true"><rect width="240" height="240" fill="#121212"/><use href="#m7a" x="26" y="74" width="188" height="103" fill="#ececec"/></svg><span class="mono">32</span></div>
+          <div><svg viewBox="0 0 240 240" width="16" height="16" aria-hidden="true"><rect width="240" height="240" fill="#121212"/><use href="#m7a" x="18" y="70" width="204" height="112" fill="#ececec"/></svg><span class="mono">16</span></div>
+        </div>
+      </div>
+      <figcaption class="mono"><b>MK/01 at size</b><span>Favicon down to 16px</span></figcaption>
+    </figure>
+  </div>
+</main>

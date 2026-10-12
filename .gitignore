@@ -1,0 +1,17 @@
+# Secrets
+.env
+.env.*
+.dev.vars
+
+# Dependencies and local tooling
+node_modules/
+.wrangler/
+.DS_Store
+Thumbs.db
+
+# Generated client sites (rebuild with the pipeline scripts)
+pipeline/sites/
+
+# Real prospect data stays off GitHub; sample-* files are fine
+pipeline/data/*
+!pipeline/data/sample-*
