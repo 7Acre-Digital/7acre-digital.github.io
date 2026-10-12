@@ -1,0 +1,12 @@
+# Sign-up form backend: POST https://api.7acredigital.com/signup → new Business in Fibery.
+# Deploy: npx wrangler deploy        Secret (once): npx wrangler secret put FIBERY_TOKEN
+name = "signup"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+workers_dev = false
+account_id = "de8adb8926d375173f6c7f394e2cf1ea"  # the account that owns the 7acredigital.com zone
+
+routes = [{ pattern = "api.7acredigital.com", custom_domain = true }]
+
+[observability]
+enabled = true

@@ -1,0 +1,102 @@
+[
+  {
+    "id": "sample-greenridge-001",
+    "name": "Green Ridge Lawn Care",
+    "category": "Landscaper",
+    "phone": "(813) 555-0142",
+    "phoneIntl": "+1 813-555-0142",
+    "address": "Tampa, FL 33611, USA",
+    "city": "Tampa",
+    "state": "FL",
+    "rating": 4.9,
+    "reviewCount": 41,
+    "websiteStatus": "social",
+    "socialUrl": "https://www.facebook.com/",
+    "mapsUrl": "https://maps.google.com/",
+    "hours": [
+      "Monday: 7:00 AM – 6:00 PM",
+      "Tuesday: 7:00 AM – 6:00 PM",
+      "Wednesday: 7:00 AM – 6:00 PM",
+      "Thursday: 7:00 AM – 6:00 PM",
+      "Friday: 7:00 AM – 6:00 PM",
+      "Saturday: 8:00 AM – 2:00 PM",
+      "Sunday: Closed"
+    ],
+    "reviews": [
+      {
+        "author": "Dana M.",
+        "rating": 5,
+        "text": "They've been mowing our yard every week since spring and it has never looked better. Always on time, always clean edges, and they text before they come. Can't recommend enough.",
+        "when": "2 months ago"
+      },
+      {
+        "author": "Luis R.",
+        "rating": 5,
+        "text": "Called them for a big fall cleanup after a storm. They hauled away everything, including a fallen limb, and the price was exactly what they quoted.",
+        "when": "3 weeks ago"
+      },
+      {
+        "author": "Karen T.",
+        "rating": 5,
+        "text": "Friendly, honest and reliable. Our hedges finally look like hedges again. The whole crew is great.",
+        "when": "5 months ago"
+      }
+    ],
+    "qualified": true,
+    "status": "new",
+    "owner": "Marcus Reed",
+    "email": ""
+  },
+  {
+    "id": "sample-oakline-002",
+    "name": "Oakline Landscaping",
+    "category": "Landscaper",
+    "phone": "(727) 555-0187",
+    "phoneIntl": "+1 727-555-0187",
+    "address": "St. Petersburg, FL 33704, USA",
+    "city": "St. Petersburg",
+    "state": "FL",
+    "rating": 4.7,
+    "reviewCount": 18,
+    "websiteStatus": "none",
+    "socialUrl": "",
+    "mapsUrl": "https://maps.google.com/",
+    "hours": [],
+    "reviews": [
+      {
+        "author": "Mike P.",
+        "rating": 5,
+        "text": "Put in new mulch beds and sod in our front yard. Took two days and it completely changed how the house looks from the street.",
+        "when": "1 month ago"
+      },
+      {
+        "author": "Sarah W.",
+        "rating": 4,
+        "text": "Good weekly service at a fair price. Communication is quick and they fixed a missed spot the same day I mentioned it.",
+        "when": "4 months ago"
+      }
+    ],
+    "qualified": true,
+    "status": "new",
+    "style": "classy"
+  },
+  {
+    "id": "sample-brothers-003",
+    "name": "Two Brothers Lawn Service",
+    "category": "Lawn care service",
+    "phone": "(813) 555-0119",
+    "phoneIntl": "+1 813-555-0119",
+    "address": "Brandon, FL 33511, USA",
+    "city": "Brandon",
+    "state": "FL",
+    "rating": 4.8,
+    "reviewCount": 26,
+    "websiteStatus": "none",
+    "socialUrl": "",
+    "mapsUrl": "",
+    "hours": [],
+    "reviews": [],
+    "qualified": true,
+    "status": "new"
+  }
+]

@@ -1,0 +1,34 @@
+{
+  "agencyName": "Your Agency",
+  "agencyPhone": "(555) 000-0000",
+  "siteDomain": "7acredigital.com",
+  "outreachText": "Hey {first}, you using anything like this? {url}",
+  "outreachTextNoName": "Hey, is this {business}? You using anything like this? {url}",
+  "demoEndpoint": "",
+  "trackEndpoint": "",
+  "formEndpoint": "",
+  "lotLookupEndpoint": "",
+  "pricing": {
+    "residential": { "weekly": 35, "biweekly": 45, "monthly": 50 },
+    "large": { "weekly": 75, "biweekly": 90, "monthly": 110 },
+    "perAcre": 40
+  },
+  "offer": {
+    "websiteAnchor": 1500,
+    "website": 499,
+    "splitCount": 2,
+    "splitAmount": 299,
+    "automationAnchor": 399,
+    "automationSetup": 97,
+    "automationMonthly": 29,
+    "checkoutUrl": ""
+  },
+  "minRating": 4.0,
+  "minReviews": 15,
+  "queries": [
+    "lawn care service",
+    "lawn mowing service",
+    "landscaping company",
+    "landscaper"
+  ]
+}

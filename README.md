@@ -1,13 +1,36 @@
-# 7Acre Digital
+# seven//acre
 
-Static one-page site for 7Acre Digital (based in Dallas-Fort Worth, TX · serving clients nationwide), served by GitHub Pages from `main` / root.
+Source of truth for seven//acre (7Acre Digital): the marketing site, the brand files, the client site templates, and the pipeline that turns a CRM record into a live site.
 
-## Contact email
-Currently dennis@7acredigital.com. To change it, edit `assets/config.js` line 2 (`const CONTACT_EMAIL = "..."`), which fills every email link and the quote form, and also update the two static `mailto:` fallbacks in `index.html` (contact section + footer) so the address stays visible without JavaScript.
+> **This repo is public** (GitHub Pages on a free plan needs that). Never commit API keys, prospect lists, CRM exports or internal strategy docs. `.gitignore` blocks the usual suspects.
 
-## Rebrand (name, logo, palette)
-1. Edit `brand.json`: `name`, the `palette` hex values (keys match the `--<key>` CSS variables), `roles` (theme color + og-image background), and the logo/favicon file paths.
-2. Run `python3 rebrand.py --og-logo-png path/to/new-lockup.png` (the flag is optional and regenerates the social share image).
-3. `git commit -am "Rebrand" && git push`
+## Layout
 
-Colors live only in the palette block at the top of `assets/styles.css`. Current brand: Estate Italic logo; Estate Green #1F4532, Fairway #285640, Gold #C9A24A, Light Gold #D8B566, Ink #0F1F18, Cream #F4EEDF. For WCAG AA, text and buttons use green/fairway/ink; gold is an accent only on light backgrounds (never small text on cream/white). If the logo's aspect ratio changes, update the `width`/`height` attributes on the two logo `<img>` tags in `index.html`. Logos are always loaded from `assets/logo.svg` (light background), `assets/logo-on-dark.svg` (footer), `assets/favicon.svg`, `assets/favicon-32.png`, and `assets/icon-512.png`.
+| Folder | What's in it | Where it shows up |
+|---|---|---|
+| [`site/`](site/) | The live seven//acre homepage, plus the internal CRM app (`crm/`) and call tracker (`assets/` holds the tracker's logo files) | https://7acredigital.com (GitHub Pages, deployed by [`.github/workflows/pages.yml`](.github/workflows/pages.yml)) |
+| [`brand/`](brand/) | Logo files from Figma (icon, responsive wordmark), colours, type | — |
+| [`templates/`](templates/) | Client site templates, one folder each | `<business>.7acredigital.com` |
+| [`workers/`](workers/) | Cloudflare Workers, e.g. the sign-up form backend (`api.7acredigital.com`) | Deployed with `npx wrangler deploy` |
+| [`pipeline/`](pipeline/) | Scripts: find leads, build sites from a list or from Fibery | Run locally with Node 20+ |
+
+## How a client site gets built
+
+1. A business in Fibery (`Sales/Business`) moves to **Ready for build**.
+2. The pipeline fills a template from the record (name, phone, services, Google rating and reviews).
+3. The site is served at `https://<business-slug>.7acredigital.com`.
+4. A `Sales/Site` record with the URL is linked back to the business, and the business moves to **Site built**.
+
+Today steps 2–4 run with `node pipeline/build-from-fibery.mjs`. Next up: a Cloudflare Worker that does this automatically on the Fibery state change and serves the wildcard subdomain (it will live in `workers/`).
+
+## Common tasks
+
+```bash
+# Preview the client template with sample businesses
+node pipeline/build-sites.mjs pipeline/data/sample-leads.json
+
+# Build everything that's "Ready for build" in Fibery (needs FIBERY_TOKEN)
+node pipeline/build-from-fibery.mjs --dry-run
+```
+
+Edits to `site/` go live on push to `main`. Everything else is not deployed by this repo.
