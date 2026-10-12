@@ -318,15 +318,11 @@ footer .wordmark{color:#ece8ff;--slash:var(--violet)}
 .hero>*{position:relative;z-index:1}
 
 /* 3D 7A: WebGL canvas behind the hero type. Follows the cursor, drag to spin. Hidden until the scene has rendered once.
-   The wrapper sets no z-index so the canvas sits under the type while the finish toggle sits over it. */
+   The wrapper sets no z-index so the canvas sits under the type. */
 .hero>.mark-wrap{position:absolute;z-index:auto;left:46%;top:clamp(150px,22%,260px);width:clamp(320px,32vw,600px);aspect-ratio:1.15}
 .mark3d{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 900ms var(--ease);touch-action:pan-y;cursor:grab;-webkit-tap-highlight-color:transparent}
 .mark3d.ready{opacity:1}
 .mark3d.drag{cursor:grabbing}
-/* design-preview toggle between the two finishes; remove once one is picked */
-.finish{position:absolute;z-index:2;left:50%;bottom:-4px;transform:translateX(-50%);display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(255,255,255,.6);box-shadow:inset 0 0 0 1px var(--line);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-.finish button{padding:5px 12px;border-radius:999px;font-size:10px;letter-spacing:.06em;color:var(--muted);transition:background-color 200ms var(--ease),color 200ms var(--ease)}
-.finish button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 .mark3d canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
 .mark3d .shadow{position:absolute;left:22%;right:22%;bottom:6%;height:9%;border-radius:50%;pointer-events:none;
   background:radial-gradient(closest-side,rgba(15,14,19,.32),rgba(15,14,19,.1) 60%,transparent);filter:blur(10px);transform-origin:50% 50%}
@@ -368,7 +364,6 @@ html.js .serp.found .land{opacity:1;transform:none}
   .tagline{display:none}
   .demo-text{grid-column:1 / span 7}
   .hero>.mark-wrap{left:auto;right:-2vw;top:96px;width:40vw}
-  .finish{display:none}
   .prob .h2,.qual .h2,.math .h2{grid-column:1 / -1}
   .prob-text,.qual-text,.math-intro{grid-column:1 / span 8}
   .p-title,.pillar.band .p-title{grid-column:2 / span 11}
@@ -451,7 +446,6 @@ html.js .serp.found .land{opacity:1;transform:none}
   <section class="hero wrap">
     <div class="mark-wrap">
       <div class="mark3d" id="mark3d" aria-hidden="true"><div class="shadow"></div></div>
-      <div class="finish cap" role="group" aria-label="Mark finish (design preview)"><button type="button" data-finish="chrome" aria-pressed="true">Chrome</button><button type="button" data-finish="glass" aria-pressed="false">Glass</button></div>
     </div>
     <div class="g12 meta cap">
       <div><span class="mut">What you get</span><span>Website, online booking, reminders</span></div>
@@ -694,7 +688,7 @@ html.js .serp.found .land{opacity:1;transform:none}
 })();
 </script>
 
-<!-- chrome 7A: three.js from the CDN. If WebGL or the import fails, the hero simply stays as it was. -->
+<!-- glass 7A: three.js from the CDN. If WebGL or the import fails, the hero simply stays as it was. -->
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script type="module">
 import * as THREE from 'three';
@@ -722,8 +716,8 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(26, 1, 0.1, 100);
 camera.position.set(0, 0, 14);
 
-// ---- studio environment: what the chrome reflects ----
-// Neutral product-photo studio: light grey room, a big soft key behind the camera for silver faces,
+// ---- studio environment: what the glass reflects ----
+// Neutral product-photo studio: light grey room, a big soft key behind the camera for bright faces,
 // black flags so the bevels pick up dark bands, thin strips for crisp rim highlights. No colour cast.
 function studio() {
   const env = new THREE.Scene();
@@ -738,7 +732,7 @@ function studio() {
     const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color(k, k, k), side: THREE.DoubleSide }));
     m.position.set(...pos); m.lookAt(0, 0, 0); env.add(m);
   };
-  card(16, 11, 1.5, [-2, 3, 16]);     // big soft key behind the camera: the bright silver face
+  card(16, 11, 1.5, [-2, 3, 16]);     // big soft key behind the camera: the bright face
   card(24, 1.2, 6, [0, 11, 5]);       // overhead strip: top rim highlight
   card(1.2, 20, 5, [-12, 2, 7]);      // left strip
   card(0.8, 20, 4, [11, 0, 9]);       // right strip
@@ -755,7 +749,7 @@ function studio() {
 }
 scene.environment = studio();
 
-// ---- geometry: extrude the path, then smooth the walls so curves read as polished metal ----
+// ---- geometry: extrude the path, then smooth the walls so curves read as polished glass ----
 const shapes = SVGLoader.createShapes(new SVGLoader().parse(`<svg xmlns="http://www.w3.org/2000/svg"><path d="${D}"/></svg>`).paths[0]);
 let geo = new THREE.ExtrudeGeometry(shapes, {
   depth: 5, curveSegments: 40,
@@ -766,20 +760,14 @@ geo = mergeVertices(geo, 1e-3);
 geo.computeVertexNormals();
 geo.center();
 
-// Two finishes. Chrome: polished silver. Glass: clear, thick, refracting what sits behind it.
-const finishes = {
-  chrome: new THREE.MeshPhysicalMaterial({
-    color: 0xf4f4f6, metalness: 1, roughness: 0.09,
-    clearcoat: 1, clearcoatRoughness: 0.04, envMapIntensity: 1.25
-  }),
-  glass: new THREE.MeshPhysicalMaterial({
-    color: 0xffffff, metalness: 0, roughness: 0.02,
-    transmission: 1, thickness: 16, ior: 1.6,
-    specularIntensity: 1, clearcoat: 1, clearcoatRoughness: 0, envMapIntensity: 2
-  })
-};
+// Clear, thick glass, refracting what sits behind it.
+const glass = new THREE.MeshPhysicalMaterial({
+  color: 0xffffff, metalness: 0, roughness: 0.02,
+  transmission: 1, thickness: 16, ior: 1.6,
+  specularIntensity: 1, clearcoat: 1, clearcoatRoughness: 0, envMapIntensity: 2
+});
 
-const mesh = new THREE.Mesh(geo, finishes.chrome);
+const mesh = new THREE.Mesh(geo, glass);
 mesh.scale.set(0.1, -0.1, 0.1);   // SVG is y-down; flip into three's y-up
 const rig = new THREE.Group();     // rig takes the tilt and spin; the mesh stays a fixed child
 rig.add(mesh);
@@ -800,20 +788,10 @@ const backdrop = new THREE.Mesh(new THREE.PlaneGeometry(40, 30), new THREE.Shade
     gl_FragColor = vec4(c, 1.0); }`
 }));
 backdrop.position.z = -8;
-backdrop.visible = false;
 backdrop.onBeforeRender = r => { backdrop.material.uniforms.on.value = r.getRenderTarget() ? 1 : 0; };
 scene.add(backdrop);
 
-let shadowK = 1;
-function setFinish(name) {
-  if (!finishes[name]) return;
-  mesh.material = finishes[name];
-  backdrop.visible = name === 'glass';
-  shadowK = name === "glass" ? .45 : 1;
-  document.querySelectorAll('.finish button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.finish === name)));
-}
-setFinish(new URLSearchParams(location.search).get('finish') === 'glass' ? 'glass' : 'chrome');
-document.querySelectorAll('.finish button').forEach(b => b.addEventListener('click', () => setFinish(b.dataset.finish)));
+const shadowK = 0.45;   // glass casts a lighter shadow
 
 // ---- size: keep the mark (about 6 units wide) in frame at any aspect, with room to rotate ----
 function fit() {
